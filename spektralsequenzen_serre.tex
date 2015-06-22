@@ -1,8 +1,17 @@
 \documentclass[11pt, a4paper, german]{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[german]{babel}
+\usepackage[ngerman]{babel}
 \usepackage{BA_Titelseite}
+%\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{tikz}
+\usepackage{enumitem} % bessere Aufzählungen
+\usepackage{mathtools} % \coloneqq
+\usetikzlibrary{cd}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{xfrac}
 
 \author{Tim Baumann}
 \geburtsdatum{15. Juni 1994}
@@ -15,13 +24,366 @@
 \title{Spektralsequenzen und der Satz von Serre}
 \ausarbeitungstyp{Bachelorarbeit Mathematik}
 
+\theoremstyle{definition}
+%\newtheorem*{nota}{Notation}
+\newtheorem*{bsp}{Beispiel}
+%\newtheorem*{satz}{Satz}
+\newtheorem*{lem}{Lemma}
+\newtheorem*{defn}{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{bem}{Bemerkung}
+
+\newcommand{\TODO}[1]{\red{#1}} % TODO-Markierungen
+
+% Zahlbereiche
+%\newcommand{\R}{\mathbb{R}} % Reelle Zahlen
+\newcommand{\N}{\mathbb{N}} % Natürliche Zahlen
+%\newcommand{\Z}{\mathbb{Z}} % Ganze Zahlen
+%\newcommand{\C}{\mathbb{C}} % Komplexe Zahlen
+%\newcommand{\Q}{\mathbb{Q}} % Rationale Zahlen
+
+% Schöne Fürall- und Existenzquantoren
+%\newcommand{\fa}[1]{\forall \, {#1} \,:\,}
+%\newcommand{\ex}[1]{\exists \, {#1} \,:\,}
+
+\DeclareMathOperator{\id}{id} % Identität
+\newcommand{\pt}{\mathrm{pt}}
+\newcommand{\blank}{\text{--}} % Platzhalter
+\newcommand{\ntimes}{\!\times\!} % schmaleres (narrower) \times
+\newcommand{\const}[1]{\text{konst } #1} % konstante Funktion mit Wert #1
+
+% Abkürzungen
+\newcommand{\ES}{Es sei} % Prof. Hanke schreibt das immer, mag das anscheinend lieber als ein bloßes "Sei"
+\newcommand{\ESn}{Es seien} % Prof. Hanke schreibt das immer, mag das anscheinend lieber als ein bloßes "Sei"
+\newcommand{\zB}{z.\,B.}
+\renewcommand{\dh}{d.\,h.} % das heißt
+
+% Intervalle
+\newcommand{\cinterval}[2]{\left[ #1, #2 \right]} % closed interval
+\newcommand{\I}{I} % Kompaktes Einheitsinterval [0,1]
+%\newcommand{\I}{\cinterval{0}{1}} % Kompaktes Einheitsinterval [0,1] (alternativ)
+
+% Schöne Mengen { #1 | #2 } (benötigt mathtools)
+% siehe http://tex.stackexchange.com/questions/13634/define-pretty-sets-in-latex-esp-how-to-do-the-condition-separator
+\DeclarePairedDelimiterX\Set[2]{\lbrace}{\rbrace}%
+ { #1 \,\delimsize|\, #2 }
+
+% http://tex.stackexchange.com/questions/117732/tikz-and-babel-error
+% Es ist schierer Wahnsinn, welche Hacks LaTeX benötigt!
+\tikzset{
+  every picture/.prefix style={
+    execute at begin picture=\shorthandoff{"}
+  }
+}
+
+% Zentrierte kommutative Diagramme
+\newenvironment{centertikzcd}
+  {\begin{center}\begin{tikzcd}}
+  {\end{tikzcd}\end{center}}
 
 \begin{document}
 
 \maketitle
 
-\clearpage
+\section{Spektralsequenzen}
+
+\subsection{Faserungen}
+
+\begin{defn}
+  Eine \emph{Serre-Faserung} ist eine stetige Abbildung $p : E \to B$, welche die \emph{Homotopieliftungseigenschaft} (HLE) für die Scheiben $D^n$ besitzt, \dh{}
+  für alle $n \geq 0$ und für alle stetigen Abbildungen $H$, $H_0$ wie unten, sodass das äußere Quadrat kommutiert, gibt es eine stetige Abbildung $\tilde{H}$, sodass die beiden Dreiecke kommutieren:
+  \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
+    D^n \arrow[r, "H_0"] \arrow[d, hook, "i_0", swap] &
+    E \arrow[d, "p"] \\
+    D^n \times \I \arrow[r, "H"] \arrow[ur, "\exists\, \tilde{H}", dashed] &
+    B
+  \end{centertikzcd}
+  Dabei ist $i_0$ die Inklusion von $D^n$ in $D^n \times \I$ als $D^n \times \{ 0 \}$. \\
+  Eindeutigkeit von $\tilde{H}$ wird nicht gefordert.
+\end{defn}
+
+\begin{lem}
+  \ES{} $p : E \to B$ eine stetige Abbildung. Dann sind äquivalent:
+  \begin{enumerate}[label=\alph*)]
+    \item $p$ ist eine Serre-Faserung
+    \item $p$ besitzt die \emph{relative Homotopieliftungseigenschaft} für CW-Paare, \dh{} für alle CW-Paare $(X, A)$ und für alle $H_0$ und $H$ wie unten, sodass das äußere Quadrat kommutiert, gibt eine stetige Abbildung $\tilde{H}$, sodass die beiden Dreiecke kommutieren:
+    \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
+      X \!\times\! \{ 0 \} \cup A \!\times\! \I \arrow[r, "H_0"] \arrow[d, hook, swap] &
+      E \arrow[d, "p"] \\
+      X \times \I \arrow[r, "H"] \arrow[ur, "\exists\, \tilde{H}", dashed] &
+      B
+    \end{centertikzcd}
+  \end{enumerate}
+\end{lem}
+
+% vgl. Diskussion im Hatcher auf Seite 376
+\begin{proof}
+  "`b) $\implies$ a)"' \enspace Folgt sofort mit $(X, A) \coloneqq (D^n, \emptyset)$. \\[2pt]
+  "`a) $\implies$ b)"' \enspace Wir behandeln zunächst den Fall $(X, A) = (D^n, S^{n-1})$, $n \in \N$. Dann ist $(D^n \times \I, D^n \times \{ 0 \} \cup S^{n-1} \cup \I) \approx (D^n)$ homöomorph als Raumpaar.
+  Somit ist die relative Homotopieliftungseigenschaft in diesem Fall gleichbedeutend zur Homotopieliftungseigenschaft für die Scheibe $D^n$. \\
+  \ES{} nun $(X, A)$ ein beliebiges Raumpaar.
+  % TODO: Ausführlicher?
+  Dann kann man induktiv die Homotopie $H$ auf die $i$-Zellen $e^i_\alpha$ von $X \setminus A$ fortsetzen.
+  Dabei ist die Homotopie auf $S^{n-1} = \partial D^n$ durch die Komposition der bisher konstruierten Homotopie mit der anheftenden Abbildung $\phi_\alpha : S^{n-1} \to X^{n-1}$ vorgegeben.
+  Man erhält die Fortsetzung durch Anwenden des zuerst bewiesenen Falls.
+\end{proof}
+
+% TODO: Dieses Lemma wird eigentlich gar nicht gebraucht. Lösche es!
+\iffalse
+\begin{lem}
+  \ES{} $p : E \to B$ eine Serre-Faserung, $X$ ein kontrahierbarer CW-Komplex, $g : X \to B$ stetig.
+  Angenommen, es gibt ein $e_0 \in p^{-1}(g(X))$.
+  Dann gibt es einen Lift $\tilde{g} : X \to E$ mit $g = p \circ \tilde{g}$.
+\end{lem}
+
+\begin{proof}
+  Sei $x_0 \in X$ mit $e_0 \in p^{-1}(g(x_0))$.
+  Sei $H : X \times I \to X$ eine Kontraktion mit $H_0 \equiv x_0$ und $H_1 = \id_X$.
+  Sei $\hat{g}$ der Lift in folgendem HLE-Diagramm:
+  \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
+    X \arrow[rr, "\const{e_0}"] \arrow[d, hook, swap] &&
+    E \arrow[d, "p"] \\
+    X \times \I \arrow[r, "H"] \arrow[urr, "\exists\, \hat{g}", dashed] & X \arrow[r, "g"] &
+    B
+  \end{centertikzcd}
+  Dann ist $\tilde{g} \coloneqq \hat{g}(\blank, 1)$ der gesuchte Lift von $g$.
+\end{proof}
+\fi
+
+% Lemma 4.5 in http://www.math.washington.edu/~mitchell/Notes/serre.pdf
+\begin{lem}
+  \ESn{} $p : E \to B$ eine Serre-Faserung, $b_0 \in B$, $F \coloneqq p^{-1}(b_0)$ die Faser über $b_0$ und $f_0 \in F$.
+  Dann gibt es eine lange exakte Sequenz
+  \[ \ldots \to \pi_n(F, f_0) \xrightarrow{i_*} \pi_n(E, f_0) \xrightarrow{p_*} \pi_n(B, b_0) \xrightarrow{\partial} \pi_{n-1}(F, f_0) \to \ldots \to \pi_1(B, b_0) \]
+  von Homotopiegruppen.
+  Dabei ist $i : F \hookrightarrow E$ die Inklusion.
+\end{lem}
+
+\begin{proof}
+  Die gesuchte exakte Sequenz ist die lange exakte Homotopiesequenz
+  \[ \ldots \to \pi_n(F, f_0) \xrightarrow{i_*} \pi_n(E, f_0) \to \pi_n(E, F, f_0) \xrightarrow{\partial} \pi_{n-1}(F, f_0) \to \ldots \to \pi_1(E, F, f_0) \]
+  des Raumpaares $(E, F)$.
+  Es bleibt zu zeigen: $\pi_n(E, F, f_0) \cong \pi_n(B, b_0)$ als Gruppe für $n > 1$ und als punktierte Menge für $n = 1$.
+  Der Isomorphismus muss außerdem so gewählt werden, dass
+  \[ p_* = \left( \pi_n(E, f_0) \to \pi_n(E, F, f_0) \xrightarrow{\cong} \pi_n(B, b_0) \right). \]
+  Wir zeigen: $p_* : \pi_n(E, F, f_0) \to \pi_n(B, b_0)$ ist der gesuchte Isomorphismus (damit ist obige Gleichung erfüllt). \\[2pt]
+  \emph{Surjektivität}: Sei $[g : (I^{n+1}, \partial I^{n+1}, b_0) \to (B, \{ b_0 \}, b_0)] \in \pi_{n+1}(B, b_0)$, $n \geq 0$.
+  Sei $\tilde{g}$ der Lift im folgenden relativen HLE-Diagramm:
+  \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
+    U \arrow[r, "\const{f_0}"] \arrow[d, hook, swap] &
+    E \arrow[d, "p"] \\
+    I^n \times I \arrow[r, "g"] \arrow[ur, "\exists\, \tilde{g}", dashed] \arrow[r, "g"] &
+    B
+  \end{centertikzcd}
+  wobei $U \coloneqq I^n \!\times\! \{ 0 \} \cup (\partial I^n) \!\times\! I \subset I^{n+1}$.
+  Dann kann man $\tilde{g}$ als eine Abbildung $(I^{n+1}, \partial I^{n+1}, U) \to (E, F, \{ f_0 \})$ von Raumtripeln auffassen, welche ein Element von $\pi_{n+1}(E, F, f_0)$ repräsentiert.
+  Es gilt $p_*[\tilde{g}] = [p \circ \tilde{g}] = [g]$. \\[2pt]
+  \emph{Injektivität}: Seien $[h_0], [h_1] \in \pi_{n+1}(E, F, f_0)$ mit $p_*[h_0] = p_*[h_1]$.
+  Sei
+  \[ H : I \times I^{n+1}, \quad (t, x) \mapsto H_t(x) \]
+  eine Homotopie mit $H_0 = p \circ h_0$, $H_1 = p \circ h_1$, welche zu jedem Zeitpunkt $t \in \I$ eine Abbildung $H_t : (I^{n+1}, \partial I^{n+1}) \to (B, \{ b_0 \})$ von Raumpaaren ist.
+  Betrachte folgendes HLE-Diagramm:
+  \begin{centertikzcd}[row sep=1.2cm, column sep=1.8cm]
+    V \arrow[r, "h"] \arrow[d, hook, swap] &
+    E \arrow[d, "p"] \\
+    I^{n+1} \times I \arrow[r, "H"] \arrow[ur, "\exists\, \tilde{H}", dashed] &
+    B
+  \end{centertikzcd}
+  mit $V \coloneqq I^{n+1} \!\times\! \{ 0 \} \cup (\partial I^{n+1}) \!\times\! I \subset I^{n+2}$ und
+  \[
+    h|_{\{0\} \times I^{n+1}} \coloneqq h_0, \quad
+    h|_{\{1\} \times I^{n+1}} \coloneqq h_1, \quad
+    h|_{I \times U} \coloneqq \const{f_0}.
+  \]
+  Nun ist $\tilde{H}$ eine Homotopie von $h_0$ nach $h_1$, welche zu jedem Zeitpunkt $t$ eine Abbildung $\tilde{H}_t : (I^{n+1}, \partial I^{n+1}, U) \to (E, F, \{ b_0 \})$ von Raumtripeln ist.
+\end{proof}
+
+\begin{defn}
+  \ESn{} $p : E \to B$ und $g : X \to B$ stetig.
+  Der \emph{Pullback} von $p$ entlang $g$ ist die Abbildung $g^*(p) : g^*(E) \to X$, wobei $g^*(E) \coloneqq X \times_B E$ das Faserprodukt von $X$ und $E$ über $B$ vermöge $g$ und $p$ ist.
+\end{defn}
+
+\begin{bem}
+  Pullback ist funktoriell: $(g \circ f)^* = f^* \circ g^*$ und $\id^* = \id$.
+\end{bem}
+
+\begin{lem}
+  Pullbacks von Serre-Faserungen sind Serre-Faserungen.
+\end{lem}
+
+\begin{proof}
+  Sei $p : E \to B$ eine Serre-Faserung und $g : X \to B$ stetig.
+  Wir müssen die Existenz des Morphismus $\tilde{H}$ im folgenden Diagramm zeigen:
+  \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
+    D^n \arrow[r, "H_0"] \arrow[d, hook, "i_0", swap] &
+    g^*(E) \arrow[d, "g^*(p)"] \arrow[r, "h"] \arrow[dr, phantom, "\ulcorner", very near start] &
+    E \arrow[d, "p"] \\
+    D^n \times \I \arrow[r, "H"] \arrow[ur, dashed, "\tilde{H}"] &
+    X \arrow[r, "g"] &
+    B
+  \end{centertikzcd}
+  Aus der HLE von $p$ erhält wie folgt einen Morphismus $K$:
+  \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
+    D^n \arrow[r, "H_0"] \arrow[d, hook, "i_0", swap] &
+    X \times_B E \arrow[r, "h"] &
+    E \arrow[d, "p"] \\
+    D^n \times \I \arrow[r, "H"] \arrow[urr, "K", dashed] &
+    X \arrow[r, "g"] &
+    B
+  \end{centertikzcd}
+  Nun ist $D^n \times \I$ vermöge $H$ und $K$ ein Kegel über dem Diagramm $(X \xrightarrow{g} B \xleftarrow{p} E)$.
+  Die universelle Eigenschaft von $g^*(E)$ induziert einen Morphismus $\tilde{H} : D^n \times \I \to X \times_B E$ mit
+  $g^*(p) \circ \tilde{H} = H$ und $h \circ \tilde{H} = K$.
+  Aus der univ. Eigenschaft von $g^*(E)$ (Eindeutigkeit) folgt nun $\tilde{H} \circ i_0 = H_0$.
+  % weil: $h \circ H_0 = K \circ i_0 = h \circ \tilde{H} \circ i_0$
+\end{proof}
+
+\begin{defn}
+  Ein Morphismus $(g, \tilde{g}) : p' \to p$ von Serre-Faserungen $p' : E' \to B'$ und $p : E \to B$ ist ein kommutatives Quadrat der Form
+  \begin{centertikzcd}
+    E' \arrow[r, "\tilde{g}"] \arrow[d, "p'"] &
+    E \arrow[d, "p"] \\
+    B' \arrow[r, "g"] &
+    B
+  \end{centertikzcd}
+\end{defn}
+
+\begin{bsp}
+  Pullback einer Serre-Faserung $p$ entlang einer stetigen Abbildung $g$ induziert einen Morphismus $(g, \tilde{g}) : g^*(p) \to p$ von Serre-Faserungen.
+\end{bsp}
+
+\begin{lem}
+  Die langen exakten Sequenzen der Homotopiegruppen von Faserungen sind natürlich: \ES{} $(g, \tilde{g}) : p' \to p$ ein Morphismus von Serre-Faserungen $p' : E' \to B'$ und $p : E \to B$, $b_0' \in B'$, $b_0 \coloneqq g(b_0')$, $F' \coloneqq p'^{-1}(b_0')$, $F \coloneqq p^{-1}(b_0)$, $f'_0 \in F'$, $f_0 \coloneqq \tilde{g}(f'_0)$. Dann gibt es eine "`Leiter"' bestehend aus kommutativen Quadraten zwischen den Homotopiesequenzen:
+  \begin{centertikzcd}[row sep=0.8cm, column sep=0.6cm]
+    \ldots \arrow[r] &
+    \pi_n(F', f'_0) \arrow[r, "i'_*"] \arrow[d, "(\tilde{g}|_{F'})_*"] &
+    \pi_n(E', f'_0) \arrow[r, "p'_*"] \arrow[d, "\tilde{g}_*"] &
+    \pi_n(B', b'_0) \arrow[r, "\partial"] \arrow[d, "g_*"] &
+    \pi_{n-1}(F', f'_0) \arrow[r] \arrow[d, "(\tilde{g}|_{F'})_*"] &
+    \ldots \\
+    \ldots \arrow[r] &
+    \pi_n(F, f_0) \arrow[r, "i_*"] &
+    \pi_n(E, f_0) \arrow[r, "p_*"] &
+    \pi_n(B, b_0) \arrow[r, "\partial"] &
+    \pi_{n-1}(F, f_0) \arrow[r] &
+    \ldots
+  \end{centertikzcd}
+\end{lem}
+
+\begin{proof}
+  Folgt aus der Natürlichkeit der langen exakten Homotopiesequenz von Raumpaaren.
+\end{proof}
+
+\ES{} $p : E \to B$ eine Serre-Faserung, $\gamma : \I \to B$ ein stetiger Weg.
+Betrachte die lange exakte Sequenz
+% TODO: Aufpunkte, Zusammenhang, H_0?
+\[ \ldots \to \pi_n(F_{\gamma(0)}) \to \pi_n(\gamma^*(E)) \to \pi_n(\I) \to \pi_{n-1}(F_{\gamma(0)}) \to \ldots \]
+der Homotopiegruppen von $\gamma^*(p) : \gamma^*(E) \to \I$ mit Faser
+\[ F_{\gamma(t)} \coloneqq \gamma^*(p)^{-1}(t)  \subset \gamma^*(E) = \Set{(t, e) \in \I \times E}{\gamma(t) = p(e)}. \]
+In dieser Sequenz sind die Gruppen $\pi_n(\I)$ trivial.
+Folglich sind die Abbildungen $(i_{\gamma(t)})_* : \pi_n(F_{\gamma(t)}, *) \to \pi_n(\gamma^*(E), *)$ Isomorphismen. % TODO: Anderer Name für die Aufpunkte
+In anderen Worten: $i_{\gamma(t)}$ ist eine schwache Äquivalenz.
+Aus einem Korollar des Whitehead-Theorems folgt nun, dass $i_t$ auch in Homologie und Kohomologie Isomorphismen induziert (vgl. Spanier, AT, S. 406, Cor 7.6.25). % TODO: Besser referenzieren!
+Wir untersuchen den Isomorphismus
+\[ T_\gamma \coloneqq (i_{\gamma(1)})^* \circ ((i_{\gamma(0)})^*)^{-1} \enspace:\enspace H^*(F_{\gamma(0)}) \xrightarrow{\cong} H^*(F_{\gamma(1)}). \]
+
+\begin{lem}
+  $T_\gamma$ hängt lediglich von der Weghomotopieklasse von $\gamma$ ab, \dh{} ist $\eta$ ein zweiter Weg mit $\gamma \simeq \eta$, so gilt $T_\gamma = T_\eta$.
+\end{lem}
+
+\begin{proof}
+  Sei $H : \I \times \I \to B$ eine Homotopie zw. den Wegen $\gamma$ und $\eta$, \dh{} $H_0 \coloneqq H(0, \blank) = \gamma$, $H_1 = \eta$, $H(\blank, 0) \equiv x$ und $H(\blank, 1) \equiv y$ mit $x \coloneqq \gamma(0) \!=\! \eta(0)$ und $y \coloneqq \gamma(1) \!=\! \eta(1)$.
+  Für festes $s \in \I$ sei $i_s : \I \to \I \times \I, \enspace t \mapsto (s, t)$ die Inklusion als $\{ s \} \times I$.
+  Betrachte das kommutative Diagramm
+  \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
+    H_s^*(E) \arrow[r, hook, "\widetilde{i_s}"] \arrow{d}{}[swap]{H_s^*(p)} \arrow[dr, phantom, "\ulcorner", very near start] &
+    H^*(E) \arrow[r] \arrow[d, swap, "H^*(p)"] \arrow[dr, phantom, "\ulcorner", very near start] &
+    E \arrow[d, "p"] \\
+    \I \arrow[r, hook, "i_s"] \arrow[rr, bend right, "H_s"] &
+    \I \!\times\! \I \arrow[r, "H"] &
+    B
+  \end{centertikzcd}
+  Sei $t \in \I$ fest.
+  Sei $F_{s,t} \coloneqq \left( H_s^*(p) \right)^{-1}(t) = \left( H^*(p) \right)^{-1}((s, t))$ und $f_0 \in F$. % TODO: Warum gibt es solch ein $f_0$?
+  Das linke komm. Diagramm induziert einen Morphismus zw. den langen ex. Homotopieseq. von $H_t^*(p)$ und~$H^*(p)$:
+  \begin{centertikzcd}[row sep=0.8cm, column sep=0.8cm]
+    \ldots \arrow[r] &
+    \pi_{n+1}(I, t) \arrow[r, "\partial"] \arrow[d, "i_{s*}"] &
+    \pi_n(F_{s,t}, f_0) \arrow[r, "(i'_{s,t})*"] \arrow[d, equal] &
+    \pi_n(H_s^*(E), f_0) \arrow{r}{H_s^*(p)_*}{} \arrow{d}{(\widetilde{i_s})_*}{} &
+    \pi_n(\I, t) \arrow[r] \arrow{d}{i_{s*}}{} &
+    \ldots \\
+    \ldots \arrow[r] &
+    \pi_{n+1}(I \!\times\! I, (s, t)) \arrow[r, "\partial"] &
+    \pi_n(F_{s,t}, f_0) \arrow[r, "(i_{s,t})_*"] &
+    \pi_n(H^*(E), f_0) \arrow[r, "H^*(p)_*"] &
+    \pi_n(\I \!\times\! \I, (s, t)) \arrow[r] &
+    \ldots
+  \end{centertikzcd}
+  In diesen Sequenzen verschwinden die Gruppen $\pi_n(I, t)$ bzw. $\pi_n(I \ntimes I, (s, t))$.
+  Folglich induzieren die Abbildungen $\widetilde{i_s}$ Isomorphismen in Homotopie und in Kohomologie.
+  Es gilt nun
+  \begin{align*}
+    T_\gamma &
+    = (i'_{0,1})^* \circ ((i'_{0,0})^*)^{-1}
+    = (i'_{0,1})^* \circ (\widetilde{i_0})^* \circ (\widetilde{i_0})^{-1} \circ ((i'_{0,0})^*)^{-1} \\
+    & = (i_{0,1})^* \circ ((i_{0,0})^*)^{-1}
+    \stackrel{(\star)}{=} (i_{1,1})^* \circ ((i_{1,0})^*)^{-1} \\
+    & = (i'_{1,1})^* \circ (\widetilde{i_1})^* \circ (\widetilde{i_1})^{-1} \circ ((i'_{1,0})^*)^{-1}
+    = (i'_{1,1})^* \circ ((i'_{1,0})^*)^{-1}
+    = T_\eta.
+  \end{align*}
+  Die Gleichung $(\star)$ gilt wegen $i_{0,1} \simeq i_{1,1}$ und $i_{0,0} \simeq i_{1,0}$.
+\end{proof}
+
+Mit ganz ähnlicher Technik kann man zeigen:
+
+\begin{lem}
+  Seien $\gamma, \eta : I \to B$ stetige Wege mit $\gamma(1) = \eta(0)$.
+  Dann gilt
+  \[ T_\eta \circ T_\gamma = T_{\gamma \centerdot \eta} \enspace:\enspace H^*(F_{\gamma(0)}) \xrightarrow{\cong} H^*(F_{\eta(1)}). \]
+  Dabei ist die Komposition von $\gamma$ und $\eta$ folgender Weg:
+  \[
+    \gamma \centerdot \eta : I \to B, \quad
+    s \mapsto \begin{cases}
+      \gamma(2s), & \text{falls } s \in [0, \tfrac{1}{2}], \\
+      \eta(2s - 1), & \text{falls } s \in [\tfrac{1}{2}, 1].
+    \end{cases}
+  \]
+\end{lem}
+
+\begin{proof}
+  Betrachte folgendes kommutatives Diagramm:
+  \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
+    \gamma^*(E) \arrow[r, hook, "\widetilde{j}"] \arrow{d}{}[swap]{\gamma^*(p)} \arrow[dr, phantom, "\ulcorner", very near start] &
+    (\gamma \centerdot \eta)^*(E) \arrow[r] \arrow[d, swap, "(\gamma \centerdot \eta)^*(p)"] \arrow[dr, phantom, "\ulcorner", very near start] &
+    E \arrow[d, "p"] \\
+    \I \arrow[r, hook, "j"] \arrow[rr, bend right, "\gamma"] &
+    \I \arrow[r, "\gamma \centerdot \eta"] &
+    B
+  \end{centertikzcd}
+  Dabei ist $j : I \to I$ die Abbildung $s \mapsto \sfrac{s}{2}$.
+  Analog zum letzten Lemma sieht man anhand des Leiterdiagramms der langen exakten Sequenzen der Faserungen $\gamma^*(p)$ und $(\gamma \centerdot \eta)^*(p)$, dass $\widetilde{j}$ einen Isomorphismus in Homotopie und Kohomologie induziert.
+  Es gibt ein ähnliches Diagramm mit $\eta$ statt $\gamma$ und $k : I \to I, \enspace s \mapsto \sfrac{(1+s)}{2}$ statt $j$.
+  Es induziert auch $\widetilde{k}$ einen Isomorphismus in Kohomologie.
+  Es gilt nun
+  \begin{align*}
+    T_\eta \circ T_\gamma
+    & = (i_{\eta(1)})^* \circ ((i_{\eta(0)})^*)^{-1} \circ (i_{\gamma(1)})^* \circ ((i_{\gamma(0)})^*)^{-1} \\
+    & = (i_{\eta(1)})^* \circ \tilde{k}^* \circ (\tilde{k}^*)^{-1} \circ ((i_{\eta(0)})^*)^{-1} \circ (i_{\gamma(1)})^* \circ \tilde{j}^* \circ (\tilde{j}^*)^{-1} \circ ((i_{\gamma(0)})^*)^{-1} \\
+    & = (\tilde{k} \circ i_{\eta(1)})^* \circ ((\tilde{k} \circ i_{\eta(0)})^*)^{-1} \circ (\tilde{j} \circ i_{\gamma(1)})^* \circ ((\tilde{j} \circ i_{\gamma(0)})^*)^{-1} \\
+    & = (i_{\gamma \centerdot \eta(1)})^* \circ ((i_{\gamma \centerdot \eta(\sfrac{1}{2})})^*)^{-1} \circ (i_{\gamma \centerdot \eta(\sfrac{1}{2})})^* \circ ((i_{\gamma \centerdot \eta(0)})^*)^{-1} \\
+    & = (i_{\gamma \centerdot \eta(1)})^* \circ ((i_{\gamma \centerdot \eta(0)})^*)^{-1} = T_{\gamma \centerdot \eta}. \qedhere
+  \end{align*}
+\end{proof}
+
+Sei im Folgenden $B$ wegzusammenhängend.
+Wir haben gezeigt, dass dann alle Fasern diesselbe Kohomologiegruppen besitzen.
+Wir können also von der Kohomologie der Faser $F$ sprechen, wobei $F \coloneqq p^{-1}(b_0)$ für ein beliebiges $b_0 \in B$.
+Die Fundamentalgruppe $\pi_1(B, b_0)$ operiert auf $H^*(F)$ durch $[\gamma] \mapsto T_\gamma$.
 
 
+% Eilenberg-MacLane-Räume
 
 \end{document}
