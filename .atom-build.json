@@ -1,0 +1,6 @@
+{
+  "cmd": "/usr/texbin/pdflatex",
+  "name": "bachelorarbeit",
+  "args": [ "spektralsequenzen_serre.tex" ],
+  "sh": true
+}
