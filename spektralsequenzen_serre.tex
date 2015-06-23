@@ -40,7 +40,7 @@
 % Zahlbereiche
 \newcommand{\R}{\mathbb{R}} % Reelle Zahlen
 \newcommand{\N}{\mathbb{N}} % Natürliche Zahlen
-%\newcommand{\Z}{\mathbb{Z}} % Ganze Zahlen
+\newcommand{\Z}{\mathbb{Z}} % Ganze Zahlen
 %\newcommand{\C}{\mathbb{C}} % Komplexe Zahlen
 %\newcommand{\Q}{\mathbb{Q}} % Rationale Zahlen
 
@@ -50,12 +50,14 @@
 
 \DeclareMathOperator{\id}{id} % Identität
 \DeclareMathOperator{\spann}{spann} % Spann
+\DeclareMathOperator{\im}{im} % Image (Bild)
 \newcommand{\pt}{\mathrm{pt}}
 \newcommand{\blank}{\text{--}} % Platzhalter
 \newcommand{\ntimes}{\!\times\!} % schmaleres (narrower) \times
 \newcommand{\angles}[1]{{\langle #1 \rangle}}
 \newcommand{\const}[1]{\text{konst } #1} % konstante Funktion mit Wert #1
 \newcommand{\LH}{\mathcal{H}} % Local homology
+\DeclareMathOperator{\colim}{colim} % Kolimes
 
 % Abkürzungen
 \newcommand{\ES}{Es sei} % Prof. Hanke schreibt das immer, mag das anscheinend lieber als ein bloßes "Sei"
@@ -428,7 +430,7 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
     & \enspace\,\, \text{ ein Element $f(\sigma) \in A_{\sigma_0}$ zuordnen } \} \\[2pt]
     \delta^n(f) \coloneqq & \, (\sigma \in \Delta_{n+1}(B)) \mapsto T_{\sigma_{01}}^{-1}(f(d_0(\sigma))) + \sum_{i=1}^{n+1} (-1)^i f(d_i(\sigma)).
   \end{align*}
-  Man überprüft leicht, dass $\delta^{n+1} \circ \delta^n = 0$.
+  Man überprüft leicht, dass $\delta^{n+1} \circ \delta^n = 0$ gilt.
   Die Kohomologie $H^*(B; \underline{A}) \coloneqq H^*(C^*(B; \underline{A}))$ dieses Kettenkomplexes heißt \emph{singuläre Kohomologie von $B$ mit Koeffizienten in $\underline{A}$}.
 \end{defn}
 
@@ -437,6 +439,98 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
   Gewöhnliche Kohomologie mit Koeffizienten ist also ein Spezialfall von Kohomologie mit Koeffizienten in einem lokalen System.
 \end{beob}
 
+\subsection{Spektralsequenzen}
+
+% TODO: Einleitendes Gefasel zu Spektralsequenzen
+
+\ES{} $A$ im Folgenden ein kommutativer Ring mit Eins.
+
+\begin{defn}
+  Eine (kohomologische) \emph{Spektralsequenz} besteht aus
+  \begin{itemize}
+    \item $A$-Moduln $E_r^{p,q}$ für alle $p, q \in \Z$ und $r \geq 1$,
+    \item $A$-Modul-Homomorphismen $d_r^{p,q} : E_r^{p,q} \to E_r^{p+r,q-r+1}$ mit $d_r^{p+r,q-r+1} \circ d_r^{p,q} = 0$
+    \item und Isomorphismen $\alpha_r^{p,q} : H^{p,q}(E_r) \!\coloneqq\! \ker(d_r^{p,q}) / \im(d_r^{p-r,q+r-1}) \xrightarrow{\cong} E_{r+1}^{p,q}$.
+  \end{itemize}
+\end{defn}
+
+
+\begin{bem}
+  \begin{itemize}
+    \item Die Homomorphismen $d^r_{p,q}$ heißen \emph{Differentiale}.
+    \item Die Gesamtheit der Module $E^r_{p,q}$ und Differentiale $d_r^{pq}$ mit $r \in \N$ fest heißt $r$-te \emph{Seite} $E^r$.
+    \item Man stellt Seiten für gewöhnlich in einem 2-dimensionalen Raster dar:
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[x=12pt,y=12pt]
+      \begin{scope}[shift={(0,0)}]
+        \foreach \x in {-1,...,4}{
+          \foreach \y in {-2,-1,...,3}{
+            \node[draw,circle,inner sep=0.5pt,fill] at (\x,\y) {};
+          }
+        }
+        \foreach \x in {-1,...,5}{
+          \foreach \y in {-2,-1,...,3}{
+            \draw[->,gray] (\x-0.8,\y) -- (\x-0.2,\y);
+          }
+        }
+        \draw[->] (-0.35,-0.35) -- (5.35,-0.35) node[below] {p};
+        \draw[->] (-0.35,-0.35) -- (-0.35,4) node[left] {q};
+        \node at (5,4.5) {$E_1$};
+      \end{scope}
+      \begin{scope}[shift={(10,0)}]
+        \foreach \x in {-1,...,4}{
+          \foreach \y in {-2,-1,...,3}{
+            \node[draw,circle,inner sep=0.5pt,fill] at (\x,\y) {};
+          }
+        }
+        \foreach \x in {0,...,5}{
+          \foreach \y in {-2,-1,...,3}{
+            \draw[->,gray] (\x-1.8,\y+0.9) -- (\x-0.2,\y+0.1);
+          }
+        }
+        \draw[->] (-0.35,-0.35) -- (5.35,-0.35) node[below] {p};
+        \draw[->] (-0.35,-0.35) -- (-0.35,4) node[left] {q};
+        \node at (5,4.5) {$E_2$};
+      \end{scope}
+      \begin{scope}[shift={(20,0)}]
+        \foreach \x in {-1,...,4}{
+          \foreach \y in {-2,-1,...,3}{
+            \node[draw,circle,inner sep=0.5pt,fill] at (\x,\y) {};
+          }
+        }
+        \foreach \x in {1,...,5}{
+          \foreach \y in {-2,-1,...,2}{
+            \draw[->,gray] (\x-2.8,\y+1.9) -- (\x-0.2,\y+0.1);
+          }
+        }
+        \draw[->] (-0.35,-0.35) -- (5.35,-0.35) node[below] {p};
+        \draw[->] (-0.35,-0.35) -- (-0.35,4) node[left] {q};
+        \node at (5,4.5) {$E_3$};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+\end{bem}
+
+\begin{defn}
+  Eine Spektralsequenz \emph{konvergiert}, falls für alle $p, q \in \Z$ ein $R \in \N$ existiert, sodass für alle $r \geq R$ die Differentiale von und nach $E_r^{p,q}$ null sind und damit $E^\infty_{p,q} \coloneqq E_R^{p,q} \cong E_{R+1}^{p,q} \cong \ldots$ \\[2pt]
+  Der Grenzwert der SS ist die Unendlich-Seite $E^\infty \coloneqq \{ E_\infty^{p,q} \}_{p,q}$.
+\end{defn}
+
+% TODO: Indizierung andersrum bei Kohomologie?
+\begin{defn}
+  Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine aufsteigende Folge $\ldots \subseteq F_p M \subseteq F_{p+1} M \subseteq \ldots$ von Untermoduln von $M$, $p \!\in\! \Z$.
+  Eine Filtrierung heißt \emph{regulär}, falls
+  \[
+    0 = \cap_p F_p M \coloneqq \lim_{\mathclap{p \to -\!\infty}} F_p M
+    \quad \text{und} \quad
+    M = \cup_p F_p M \coloneqq \underset{\mathclap{p \to \infty}}{\colim} F_p M.
+  \]
+\end{defn}
+
+\begin{defn}
+  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$, falls $E$ überhaupt konvergiert und Filtrierungen $\ldots \subseteq F_p M_n \subseteq F_{p+1} M_n \subseteq \ldots$ existieren, sodass für alle $p, q \in \Z$ der Eintrag $E_\infty^{p+q}$ isomorph zum Quotienten $F_{p+1} M_{p+q} / F_p M_{p+q}$ ist.
+\end{defn}
 
 % Eilenberg-MacLane-Räume
 
