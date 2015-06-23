@@ -30,6 +30,7 @@
 %\newtheorem*{satz}{Satz}
 \newtheorem*{lem}{Lemma}
 \newtheorem*{defn}{Definition}
+\newtheorem*{beob}{Beobachtung}
 
 \theoremstyle{remark}
 \newtheorem*{bem}{Bemerkung}
@@ -37,7 +38,7 @@
 \newcommand{\TODO}[1]{\red{#1}} % TODO-Markierungen
 
 % Zahlbereiche
-%\newcommand{\R}{\mathbb{R}} % Reelle Zahlen
+\newcommand{\R}{\mathbb{R}} % Reelle Zahlen
 \newcommand{\N}{\mathbb{N}} % Natürliche Zahlen
 %\newcommand{\Z}{\mathbb{Z}} % Ganze Zahlen
 %\newcommand{\C}{\mathbb{C}} % Komplexe Zahlen
@@ -48,10 +49,13 @@
 %\newcommand{\ex}[1]{\exists \, {#1} \,:\,}
 
 \DeclareMathOperator{\id}{id} % Identität
+\DeclareMathOperator{\spann}{spann} % Spann
 \newcommand{\pt}{\mathrm{pt}}
 \newcommand{\blank}{\text{--}} % Platzhalter
 \newcommand{\ntimes}{\!\times\!} % schmaleres (narrower) \times
+\newcommand{\angles}[1]{{\langle #1 \rangle}}
 \newcommand{\const}[1]{\text{konst } #1} % konstante Funktion mit Wert #1
+\newcommand{\LH}{\mathcal{H}} % Local homology
 
 % Abkürzungen
 \newcommand{\ES}{Es sei} % Prof. Hanke schreibt das immer, mag das anscheinend lieber als ein bloßes "Sei"
@@ -128,28 +132,6 @@
   Dabei ist die Homotopie auf $S^{n-1} = \partial D^n$ durch die Komposition der bisher konstruierten Homotopie mit der anheftenden Abbildung $\phi_\alpha : S^{n-1} \to X^{n-1}$ vorgegeben.
   Man erhält die Fortsetzung durch Anwenden des zuerst bewiesenen Falls.
 \end{proof}
-
-% TODO: Dieses Lemma wird eigentlich gar nicht gebraucht. Lösche es!
-\iffalse
-\begin{lem}
-  \ES{} $p : E \to B$ eine Serre-Faserung, $X$ ein kontrahierbarer CW-Komplex, $g : X \to B$ stetig.
-  Angenommen, es gibt ein $e_0 \in p^{-1}(g(X))$.
-  Dann gibt es einen Lift $\tilde{g} : X \to E$ mit $g = p \circ \tilde{g}$.
-\end{lem}
-
-\begin{proof}
-  Sei $x_0 \in X$ mit $e_0 \in p^{-1}(g(x_0))$.
-  Sei $H : X \times I \to X$ eine Kontraktion mit $H_0 \equiv x_0$ und $H_1 = \id_X$.
-  Sei $\hat{g}$ der Lift in folgendem HLE-Diagramm:
-  \begin{centertikzcd}[row sep=1.2cm, column sep=1.4cm]
-    X \arrow[rr, "\const{e_0}"] \arrow[d, hook, swap] &&
-    E \arrow[d, "p"] \\
-    X \times \I \arrow[r, "H"] \arrow[urr, "\exists\, \hat{g}", dashed] & X \arrow[r, "g"] &
-    B
-  \end{centertikzcd}
-  Dann ist $\tilde{g} \coloneqq \hat{g}(\blank, 1)$ der gesuchte Lift von $g$.
-\end{proof}
-\fi
 
 % Lemma 4.5 in http://www.math.washington.edu/~mitchell/Notes/serre.pdf
 \begin{lem}
@@ -378,10 +360,82 @@ Mit ganz ähnlicher Technik kann man zeigen:
   \end{align*}
 \end{proof}
 
+\subsection{Lokale Koeffizienten}
+
+\iffalse
+% hier nach Hatcher, AT, Kapitel 3.H
+
 Sei im Folgenden $B$ wegzusammenhängend.
 Wir haben gezeigt, dass dann alle Fasern diesselbe Kohomologiegruppen besitzen.
 Wir können also von der Kohomologie der Faser $F$ sprechen, wobei $F \coloneqq p^{-1}(b_0)$ für ein beliebiges $b_0 \in B$.
 Die Fundamentalgruppe $\pi_1(B, b_0)$ operiert auf $H^*(F)$ durch $[\gamma] \mapsto T_\gamma$.
+
+% TODO: Welche Topologie trägt $G$? Diskret?
+\begin{defn}
+  Ein \emph{Bündel von Gruppen} auf einem topologischen Raum $B$ besteht aus einer Gruppe $G$, einer Abbildung $q : A \to B$ und Bijektionen $g_b : q^{-1}(b) \xrightarrow{\cong} G$ für alle $b \in B$, welche den Fasern von $q$ eine zu $G$ isomorphe Gruppenstruktur verleihen, sodass gilt:
+  Für jeden Punkt $x \in B$ gibt es eine Umgebung $U \subset B$, sodass
+  \[
+    g_U : q^{-1}(U) \to U \times G, \quad
+    y \mapsto (q(y), g_{q(y)}(y))
+  \]
+  stetig und sogar ein Homöomorphismus ist.
+\end{defn}
+
+\begin{bsp}
+  Sei $G$ eine Gruppe.
+  Die Projektion $B \times G \to B$ ist in kanonischer Weise ein Bündel von Gruppen auf $B$.
+\end{bsp}
+\fi
+
+% hier nach http://isites.harvard.edu/fs/docs/icb.topic880873.files/local_systems.pdf
+
+\begin{defn}
+  Ein \emph{lokales Koeffizientensystem} $\underline{A}$ auf einem topologischen Raum $B$ besteht aus abelschen Gruppen $(A_b)_{b \in B}$ und Isomorphismen $T_\gamma : A_{\gamma(0)} \xrightarrow{\cong} A_{\gamma(1)}$ für jeden stetigen Weg $\gamma : I \to B$, sodass gilt:
+  \begin{itemize}
+    \item Sind zwei Wege $\gamma, \eta : I \to B$ homotop modulo Endpunkte, so gilt $T_\gamma = T_\eta$.
+    \item Für komponierbare Wege $\gamma, \eta : I \to B$ gilt $T_{\gamma \centerdot \eta} = T_\eta \circ T_\gamma$.
+    \item Für den konstanten Weg $\gamma \equiv b$ gilt $T_\gamma = \id_{A_b}$.
+  \end{itemize}
+\end{defn}
+
+\begin{bem}
+  % TODO: sagt man "lokales Koeffizientensystem" oder nur "lokales System"?
+  Man kann ein lokales Koeffizientensystem auf $B$ auch als Funktor aus dem Fundamentalgruppoid von $B$ in die Kategorie der abelschen Gruppen auffassen.
+\end{bem}
+
+\begin{bsp}
+  Im letzten Abschnitt wurde gezeigt: Bei einer Serre-Faserung $p : E \to B$ bilden die $q$-ten Kohomologiegruppen $A_b \coloneqq H^q(p^{-1}(b))$ der Fasern ein lokales Koeffizientensystem.
+  Wir bezeichnen dieses Koeffizientensystem im Folgenden mit $\LH^q(F_p)$. % Das ist ne doofe Notation. Ändern?
+\end{bsp}
+
+\begin{bsp}
+  Für jede abelsche Gruppe $G$ gibt es das konstante Koeffizientensystem $\underline{G}$ mit $G_b \coloneqq G$ für alle $b \in B$ und $T_\gamma = \id_G$ für alle $\gamma : I \to B$.
+\end{bsp}
+
+Sei im Folgenden $\Delta_n(B)$ die Menge der $n$-Simplizes in $B$, also die Menge der stetigen Abbildungen $\Delta^n \to B$ mit $\Delta^n \coloneqq \spann \{ e_0, \ldots, e_n \} \subset \R^{n+1}$, und
+\[
+  d_n : \Delta_n(B) \to \Delta_{n-1}(B) \quad
+  \sigma \mapsto \sigma_{\angles{e_0, \ldots, \hat{e_i}, \ldots, e_n}} \qquad (0 \leq i \leq n),
+\]
+die Abbildung auf die $i$-Seite. % TODO: kann man das "Projektion" nennen?
+Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_i}} \in \Delta_0(B) = B$ die $i$-te Ecke und $\sigma_{ij} \coloneqq \sigma_{\angles{e_i, e_j}} \in \Delta_1(B)$ den Weg von von $\sigma_i$ nach $\sigma_j$ entlang der $ij$-Kante von $\sigma$ ($0 \leq i \leq j \leq n$).
+
+\begin{defn}
+  Sei $B$ ein topologischer Raum, $\underline{A}$ ein lokales Koeffizientensystem auf $B$.
+  Der \emph{Kokomplex der singulären Koketten auf $B$ mit Koeffizienten in $\underline{A}$} ist folgendermaßen definiert:
+  \begin{align*}
+    C^n(B; \underline{A}) \coloneqq & \, \{ \text{ Abbildungen $f$, welche einem $n$-Simplex $\sigma \in \Delta_n(B)$} \\
+    & \enspace\,\, \text{ ein Element $f(\sigma) \in A_{\sigma_0}$ zuordnen } \} \\[2pt]
+    \delta^n(f) \coloneqq & \, (\sigma \in \Delta_{n+1}(B)) \mapsto T_{\sigma_{01}}^{-1}(f(d_0(\sigma))) + \sum_{i=1}^{n+1} (-1)^i f(d_i(\sigma)).
+  \end{align*}
+  Man überprüft leicht, dass $\delta^{n+1} \circ \delta^n = 0$.
+  Die Kohomologie $H^*(B; \underline{A}) \coloneqq H^*(C^*(B; \underline{A}))$ dieses Kettenkomplexes heißt \emph{singuläre Kohomologie von $B$ mit Koeffizienten in $\underline{A}$}.
+\end{defn}
+
+\begin{beob}
+  Für das konstante Koeffizientensystem $\underline{G}$ gilt $H^*(B; \underline{G}) \cong H^*(B; G)$.
+  Gewöhnliche Kohomologie mit Koeffizienten ist also ein Spezialfall von Kohomologie mit Koeffizienten in einem lokalen System.
+\end{beob}
 
 
 % Eilenberg-MacLane-Räume
