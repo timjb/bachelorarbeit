@@ -27,7 +27,7 @@
 \theoremstyle{definition}
 %\newtheorem*{nota}{Notation}
 \newtheorem*{bsp}{Beispiel}
-%\newtheorem*{satz}{Satz}
+\newtheorem*{satz}{Satz}
 \newtheorem*{lem}{Lemma}
 \newtheorem*{defn}{Definition}
 \newtheorem*{beob}{Beobachtung}
@@ -514,8 +514,13 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 
 \begin{defn}
   Eine Spektralsequenz \emph{konvergiert}, falls für alle $p, q \in \Z$ ein $R \in \N$ existiert, sodass für alle $r \geq R$ die Differentiale von und nach $E_r^{p,q}$ null sind und damit $E^\infty_{p,q} \coloneqq E_R^{p,q} \cong E_{R+1}^{p,q} \cong \ldots$ \\[2pt]
-  Der Grenzwert der SS ist die Unendlich-Seite $E^\infty \coloneqq \{ E_\infty^{p,q} \}_{p,q}$.
+  Der Grenzwert der SS ist die Unendlich-Seite $E_\infty \coloneqq \{ E_\infty^{p,q} \}_{p,q}$.
 \end{defn}
+
+\begin{bem}
+  Viele Spektralsequenzen sind im ersten Quadranten konzentriert, \dh{} $E_r^{p,q}$ ist nur für $p, q \geq 0$ ungleich Null.
+  Solche Spektralsequenzen konvergieren immer, denn für alle $p, q \in \Z$ führen für $r \geq \max(p+1, q+2)$ alle Differentiale von $E_r^{p,q}$ aus dem ersten Quadranten heraus und alle dort eintreffenden Differentiale kommen von außerhalb des ersten Quadranten und sind daher Null.
+\end{bem}
 
 % TODO: Indizierung andersrum bei Kohomologie?
 \begin{defn}
@@ -529,8 +534,112 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 \end{defn}
 
 \begin{defn}
-  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$, falls $E$ überhaupt konvergiert und Filtrierungen $\ldots \subseteq F_p M_n \subseteq F_{p+1} M_n \subseteq \ldots$ existieren, sodass für alle $p, q \in \Z$ der Eintrag $E_\infty^{p+q}$ isomorph zum Quotienten $F_{p+1} M_{p+q} / F_p M_{p+q}$ ist.
+  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$ (notiert $E_r^{p,q} \Rightarrow M_{p+q}$), falls $E$ überhaupt konvergiert und Filtrierungen $\ldots \subseteq F_p M_n \subseteq F_{p+1} M_n \subseteq \ldots$ existieren, sodass für alle $p, q \in \Z$ der Eintrag $E_\infty^{p+q}$ isomorph zum Quotienten $F_{p+1} M_{p+q} / F_p M_{p+q}$ ist.
 \end{defn}
+
+\subsection{Die Spektralsequenz eines filtrierten Komplexes}
+
+% Hier nach http://people.mpim-bonn.mpg.de/matschke/SpectralSequences.pdf
+
+\begin{defn}
+  Eine \emph{Filtrierung eines Kokettenkomplexes} $C^\bullet$ ist eine aufsteigende Folge von Unterkomplexen $\ldots \subseteq F^p C^\bullet \subseteq F^{p+1} C^\bullet \subseteq \ldots \subseteq C^\bullet$.
+\end{defn}
+% TODO: Morphismus von filtrierten Komplexen?
+
+\begin{lem}
+  \ES{} $C^\bullet$ ein filtrierter Kokettenkomplex.
+  Es gibt eine Spektralsequenz mit
+  $E_2^{pq} = H^q(F^p C^\bullet / F^{p-1} C^\bullet)$.
+  % TODO: In welchem Sinne?
+  Falls die Filtrierung in einem gewissen Sinne endlich ist, so konvergiert diese Spektralsequenz gegen $H^*(C^\bullet)$.
+\end{lem}
+
+Wir führen zunächst etwas neue Notation ein.
+Diese hilft, den Beweis verständlicher zu formulieren.
+Wir fassen im folgenden den Kettenkomplex als ein einziges Modul $C \coloneqq \oplus_{n \in \Z} C^n$ anstatt als Folge von Modulen auf.
+Dieses Modul ist filtriert durch die Untermodule $F^p \coloneqq \oplus_{n \in \Z} F^p C^n$.
+Wir setzen $F^\infty \coloneqq C$ und $F^{-\infty} \coloneqq 0$.
+Die Korandabbildung fassen wir als Homomorphismen $d : C \to C$ mit $d \circ d = 0$ auf, der die Filtrierung von $C$ respektiert.
+
+Wir sind interessiert an der Kohomologie von $C^\bullet$, also an $H^*(C) \coloneqq \ker(d) / \im(d)$ und an der Kohomologie von $F^p / F^{p-1}$, also $H^*(F^p / F^{p-1}) \cong (d|_{F^p})^{-1}(F^{p-1}) / d(F^p)$.
+Wir geben nun eine Verallgemeinerung der Definition der Kohomologie von $C^\bullet$ und der Kohomologie des Quotientenkomplexes $F^p / F^q$: Statt Zykeln (\dh{} Elementen $c \in C$ mit $d(c) = 0$) betrachten wir \emph{$z$-Zykel}, das sind Elemente $c \in C$ mit $d(c) \in F^z$. Wir teilen diese durch die Menge $d(F^b)$ der \emph{$b$-Ränder} anstatt durch die Menge $d(C)$ der Ränder. Wir setzen
+
+\[ S[z, q, p, b] \coloneqq \frac{F^p \cap d^{-1}(F^z)}{(F^p \cap d^{-1}(F^z)) \cap (F^q + d(F ^b))}. \]
+
+% TODO: Bemerkung zur grafischen Notation von Matschke
+
+Wir haben als Spezialfälle
+\[
+  S[p,q,p,q] \cong F^p / F^q
+  \quad \text{und} \quad
+  S[q,q,p,p] \cong H^*(F^p / F^q).
+\]
+
+\begin{lem}
+  \ES{} $z_1 \leq q_1 \leq p_1 = z_2 \leq b_1 = q_2 \leq p_2 \leq b_2$.
+  Dann ist folgende Abbildung ein wohldefinierter Homomorphismus:
+  \[
+    d^* : S[z_2, q_2, p_2, b_2] \to S[z_1, q_1, p_1, b_1], \quad
+    [c] \mapsto [d(c)].
+  \]
+\end{lem}
+
+\begin{proof}
+  Falls $[c] = 0$ in $S[z_2, q_2, p_2, b_2]$, so existieren $x \in F^{q_2}$ und $y \in F^{b_2}$ mit $c = x + d(y)$. Somit gilt $d^*[c] = [dc] = [d(x) + d^2(y)] = [d(x)] = 0$ in $S[z_1, q_1, p_1, b_1]$, da $F^{b_1} = F^{q_2}$.
+\end{proof}
+
+\begin{lem}
+  Es seien Filtrierungsindizes wie folgt gegeben:
+  \begin{centertikzcd}[row sep=0.2cm, column sep=0.5cm]
+    &&&& z_3 \arrow[r, "\leq" description, phantom] \arrow[d, equal] &
+    q_3 \arrow[r, "\leq" description, phantom] \arrow[d, equal] &
+    p_3 \arrow[r, "\leq" description, phantom] &
+    b_3 \\
+
+    && z_2 \arrow[r, "\leq" description, phantom] \arrow[d, equal] &
+    q_2 \arrow[r, "\leq" description, phantom] \arrow[d, equal] &
+    p_2 \arrow[r, "\leq" description, phantom] &
+    b_2 \\
+
+    z_1 \arrow[r, "\leq" description, phantom] &
+    q_1 \arrow[r, "\leq" description, phantom] &
+    p_1 \arrow[r, "\leq" description, phantom] &
+    b_1
+  \end{centertikzcd}
+  Dann ist
+  \[
+    \alpha : S[q_1, q_2, p_2, p_3] \to
+    \frac{\ker(d^* : S[z_2, q_2, p_2, b_2] \to S[z_1, q_1, p_1, b_1])}{\im(d^* : S[z_3, q_3, p_3, b_3] \to S[z_2, q_2, p_2, b_2])} , \quad
+    [c] \mapsto [c]
+  \]
+  ein wohldefinierter Isomorphismus.
+\end{lem}
+
+\begin{proof}
+  Sei $A$ der Quotient auf der rechten Seite. \\[2pt]
+  \emph{Wohldefiniertheit}: Sei $[c] = 0$ in $S[q_1, q_2, p_2, p_3]$, \dh{} es gibt $e \in F^{q_2} = F^{b_1}$ und $f \in F^{p_1}$ mit $c = e + d(f)$. Dann ist $d^*[c] = [d(c)] = [d(e)] = 0$ in $S[z_1, q_1, p_1, b_1]$, also $c \in \ker(d^* : S[z_2, q_2, p_2, b_2] \to S[z_1, q_1, p_1, b_1])$.
+  Nun ist $f \in d^{-1}(F^{z_3})$, da $d(f) = c - e \in F^{p_2} = F^{z_3}$.
+  Es gilt $[c] = [e + d(f)] = [d(f)] = d^*[f] = 0$ in $A$. \\[2pt]
+  \emph{Injektivität}: Sei $c \in F^{p_2} \cap d^{-1}(F^{q_1})$ mit $[c] = 0$ in $A$.
+  Das heißt, es gibt $e \in F^{q_2}$, $f \in F^{b_2}$ und $g \in F^{p_3} \cap d^{-1}(F^{z_3})$ mit $c = e + d(f) + d(g)$.
+  Dann ist $[c] = [e + d(f+g)] = 0$ in $S[q_1, q_2, p_2, p_3]$, da $f+g \in F^{p_3}$. \\[2pt]
+  \emph{Surjektivität}: Sei $\tilde{c} \in F^{p_2} \cap d^{-1}(F^{z_2})$ mit $[\tilde{c}] \in \ker(d^* : S[z_2, q_2, p_2, b_2] \to S[z_1, q_1, p_1, b_1])$.
+  Das heißt, es gibt $e \in F^{q_1}$ und $f \in F^{b_1} = F^{q_2}$ mit $d(\tilde{c}) = e + d(f)$.
+  Dann ist $[\tilde{c}] = [\tilde{c} - f]$ in $S[q_1, q_2, p_2, p_3]$ mit $\tilde{c} - f \in F^{p_2} \cap d^{-1}(F^{q_1})$, da $d(\tilde{c} - f) = e \in F^{q_1}$.
+\end{proof}
+
+\begin{proof}[Beweis des Lemma über Spektralsequenz]
+  TODO
+\end{proof}
+
+
+\subsection{Die Serre-Spektralsequenz}
+
+\begin{satz}[Jean-Pierre Serre]
+  Für jede Serre-Faserung $p : E \to B$ existiert eine Spektralsequenz mit
+  \[ E_2^{p,q} = H^p(B; \LH^q(F_p)), \]
+  welche gegen $H^*(E)$ konvergiert.
+\end{satz}
 
 % Eilenberg-MacLane-Räume
 
