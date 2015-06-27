@@ -12,6 +12,7 @@
 \usepackage{geometry}
 \geometry{margin=2.5cm}
 \usepackage{xfrac}
+\usepackage{color} % \red
 
 \author{Tim Baumann}
 \geburtsdatum{15. Juni 1994}
@@ -35,7 +36,7 @@
 \theoremstyle{remark}
 \newtheorem*{bem}{Bemerkung}
 
-\newcommand{\TODO}[1]{\red{#1}} % TODO-Markierungen
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}} %\red{#1}} % TODO-Markierungen
 
 % Zahlbereiche
 \newcommand{\R}{\mathbb{R}} % Reelle Zahlen
@@ -522,19 +523,18 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
   Solche Spektralsequenzen konvergieren immer, denn für alle $p, q \in \Z$ führen für $r \geq \max(p+1, q+2)$ alle Differentiale von $E_r^{p,q}$ aus dem ersten Quadranten heraus und alle dort eintreffenden Differentiale kommen von außerhalb des ersten Quadranten und sind daher Null.
 \end{bem}
 
-% TODO: Indizierung andersrum bei Kohomologie?
 \begin{defn}
-  Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine aufsteigende Folge $\ldots \subseteq F_p M \subseteq F_{p+1} M \subseteq \ldots$ von Untermoduln von $M$, $p \!\in\! \Z$.
+  Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine absteigende Folge $\ldots \supseteq F^p M \supseteq F_{p+1} M \supseteq \ldots$ von Untermoduln von $M$, $p \!\in\! \Z$.
   Eine Filtrierung heißt \emph{regulär}, falls
   \[
-    0 = \cap_p F_p M \coloneqq \lim_{\mathclap{p \to -\!\infty}} F_p M
+    0 = \cap_p F^p M \coloneqq \lim_{\mathclap{p \to \infty}} F^p M
     \quad \text{und} \quad
-    M = \cup_p F_p M \coloneqq \underset{\mathclap{p \to \infty}}{\colim} F_p M.
+    M = \cup_p F^p M \coloneqq \underset{\mathclap{p \to -\!\infty}}{\colim} F^p M.
   \]
 \end{defn}
 
 \begin{defn}
-  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$ (notiert $E_r^{p,q} \Rightarrow M_{p+q}$), falls $E$ überhaupt konvergiert und Filtrierungen $\ldots \subseteq F_p M_n \subseteq F_{p+1} M_n \subseteq \ldots$ existieren, sodass für alle $p, q \in \Z$ der Eintrag $E_\infty^{p+q}$ isomorph zum Quotienten $F_{p+1} M_{p+q} / F_p M_{p+q}$ ist.
+  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M^n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und Filtrierungen $\ldots \supseteq F^p M_n \supseteq F_{p+1} M_n \supseteq \ldots$ existieren, sodass für alle $p, q \in \Z$ der Eintrag $E_\infty^{p+q}$ isomorph zum Quotienten $F^p M^{p+q} / F^{p+1} M^{p+q}$ ist.
 \end{defn}
 
 \subsection{Die Spektralsequenz eines filtrierten Komplexes}
@@ -542,26 +542,27 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 % Hier nach http://people.mpim-bonn.mpg.de/matschke/SpectralSequences.pdf
 
 \begin{defn}
-  Eine \emph{Filtrierung eines Kokettenkomplexes} $C^\bullet$ ist eine aufsteigende Folge von Unterkomplexen $\ldots \subseteq F^p C^\bullet \subseteq F^{p+1} C^\bullet \subseteq \ldots \subseteq C^\bullet$.
+  Eine \emph{Filtrierung eines Kokettenkomplexes} $C^\bullet$ ist eine absteigende Folge von Unterkomplexen $\ldots \supseteq F^p C^\bullet \supseteq F^{p+1} C^\bullet \supseteq \ldots \supseteq C^\bullet$.
 \end{defn}
 % TODO: Morphismus von filtrierten Komplexen?
 
 \begin{lem}
   \ES{} $C^\bullet$ ein filtrierter Kokettenkomplex.
   Es gibt eine Spektralsequenz mit
-  $E_2^{pq} = H^q(F^p C^\bullet / F^{p-1} C^\bullet)$.
+  $E_2^{pq} = H^q(F^p C^\bullet / F^{p+1} C^\bullet)$.
   % TODO: In welchem Sinne?
-  Falls die Filtrierung in einem gewissen Sinne endlich ist, so konvergiert diese Spektralsequenz gegen $H^*(C^\bullet)$.
+  Falls die Filtrierung $\TODO{welche Bedingung braucht man hier?}$
+  so konvergiert diese Spektralsequenz gegen $H^*(C^\bullet)$.
 \end{lem}
 
 Wir führen zunächst etwas neue Notation ein.
 Diese hilft, den Beweis verständlicher zu formulieren.
 Wir fassen im folgenden den Kettenkomplex als ein einziges Modul $C \coloneqq \oplus_{n \in \Z} C^n$ anstatt als Folge von Modulen auf.
 Dieses Modul ist filtriert durch die Untermodule $F^p \coloneqq \oplus_{n \in \Z} F^p C^n$.
-Wir setzen $F^\infty \coloneqq C$ und $F^{-\infty} \coloneqq 0$.
+Wir setzen $F^{-\infty} \coloneqq C$ und $F^{\infty} \coloneqq 0$.
 Die Korandabbildung fassen wir als Homomorphismen $d : C \to C$ mit $d \circ d = 0$ auf, der die Filtrierung von $C$ respektiert.
 
-Wir sind interessiert an der Kohomologie von $C^\bullet$, also an $H^*(C) \coloneqq \ker(d) / \im(d)$ und an der Kohomologie von $F^p / F^{p-1}$, also $H^*(F^p / F^{p-1}) \cong (d|_{F^p})^{-1}(F^{p-1}) / d(F^p)$.
+Wir sind interessiert an der Kohomologie von $C^\bullet$, also an $H^*(C) \coloneqq \ker(d) / \im(d)$ und an der Kohomologie von $F^p / F^{p+1}$, also $H^*(F^p / F^{p+1}) \cong (d|_{F^p})^{-1}(F^{p+1}) / d(F^p)$.
 Wir geben nun eine Verallgemeinerung der Definition der Kohomologie von $C^\bullet$ und der Kohomologie des Quotientenkomplexes $F^p / F^q$: Statt Zykeln (\dh{} Elementen $c \in C$ mit $d(c) = 0$) betrachten wir \emph{$z$-Zykel}, das sind Elemente $c \in C$ mit $d(c) \in F^z$. Wir teilen diese durch die Menge $d(F^b)$ der \emph{$b$-Ränder} anstatt durch die Menge $d(C)$ der Ränder. Wir setzen
 
 \[ S[z, q, p, b] \coloneqq \frac{F^p \cap d^{-1}(F^z)}{(F^p \cap d^{-1}(F^z)) \cap (F^q + d(F ^b))}. \]
@@ -576,7 +577,7 @@ Wir haben als Spezialfälle
 \]
 
 \begin{lem}
-  \ES{} $z_1 \leq q_1 \leq p_1 = z_2 \leq b_1 = q_2 \leq p_2 \leq b_2$.
+  \ES{} $z_1 \geq q_1 \geq p_1 = z_2 \geq b_1 = q_2 \geq p_2 \geq b_2$.
   Dann ist folgende Abbildung ein wohldefinierter Homomorphismus:
   \[
     d^* : S[z_2, q_2, p_2, b_2] \to S[z_1, q_1, p_1, b_1], \quad
@@ -591,25 +592,25 @@ Wir haben als Spezialfälle
 \begin{lem}
   Es seien Filtrierungsindizes wie folgt gegeben:
   \begin{centertikzcd}[row sep=0.2cm, column sep=0.5cm]
-    &&&& z_3 \arrow[r, "\leq" description, phantom] \arrow[d, equal] &
-    q_3 \arrow[r, "\leq" description, phantom] \arrow[d, equal] &
-    p_3 \arrow[r, "\leq" description, phantom] &
+    &&&& z_3 \arrow[r, "\geq" description, phantom] \arrow[d, equal] &
+    q_3 \arrow[r, "\geq" description, phantom] \arrow[d, equal] &
+    p_3 \arrow[r, "\geq" description, phantom] &
     b_3 \\
 
-    && z_2 \arrow[r, "\leq" description, phantom] \arrow[d, equal] &
-    q_2 \arrow[r, "\leq" description, phantom] \arrow[d, equal] &
-    p_2 \arrow[r, "\leq" description, phantom] &
+    && z_2 \arrow[r, "\geq" description, phantom] \arrow[d, equal] &
+    q_2 \arrow[r, "\geq" description, phantom] \arrow[d, equal] &
+    p_2 \arrow[r, "\geq" description, phantom] &
     b_2 \\
 
-    z_1 \arrow[r, "\leq" description, phantom] &
-    q_1 \arrow[r, "\leq" description, phantom] &
-    p_1 \arrow[r, "\leq" description, phantom] &
+    z_1 \arrow[r, "\geq" description, phantom] &
+    q_1 \arrow[r, "\geq" description, phantom] &
+    p_1 \arrow[r, "\geq" description, phantom] &
     b_1
   \end{centertikzcd}
   Dann ist
   \[
     \alpha : S[q_1, q_2, p_2, p_3] \to
-    \frac{\ker(d^* : S[z_2, q_2, p_2, b_2] \to S[z_1, q_1, p_1, b_1])}{\im(d^* : S[z_3, q_3, p_3, b_3] \to S[z_2, q_2, p_2, b_2])} , \quad
+    \frac{\ker(d^* : S[z_2, q_2, p_2, b_2] \to S[z_1, q_1, p_1, b_1])}{\im(d^* : S[z_3, q_3, p_3, b_3] \to S[z_2, q_2, p_2, b_2])}, \quad
     [c] \mapsto [c]
   \]
   ein wohldefinierter Isomorphismus.
@@ -628,8 +629,24 @@ Wir haben als Spezialfälle
   Dann ist $[\tilde{c}] = [\tilde{c} - f]$ in $S[q_1, q_2, p_2, p_3]$ mit $\tilde{c} - f \in F^{p_2} \cap d^{-1}(F^{q_1})$, da $d(\tilde{c} - f) = e \in F^{q_1}$.
 \end{proof}
 
-\begin{proof}[Beweis des Lemma über Spektralsequenz]
-  TODO
+\begin{proof}[Beweis des Lemmas über Existenz der Spektralsequenz]
+  Wir beachten jetzt wieder, dass $C$ und damit $S[z, q, p, b]$ graduiert und $d$ ein Differential vom Grad $+1$ ist.
+  Es sei $S[z, q, p, b]^n$ die $n$-te Komponente.
+  Setze
+  \[ E_r^{pq} \coloneqq S[p\!+\!r, p\!+\!1, p, p\!-\!r\!+\!1]^{p+q}. \]
+  Die Differentiale sind
+  \[
+    d_r^{pq}
+    \enspace : \enspace
+    \underbrace{S[p\!+\!r, p\!+\!1, p, p\!-\!r\!+\!1]^{p+q}}_{= E_r^{p,q}} \to \underbrace{S[p\!+\!2r, p\!+\!r\!+\!1, p\!+\!r, p\!+\!1]^{p+q+1}}_{= E_r^{p+r,q-r+1}}.
+  \]
+  Sie sind wohldefiniert nach Lemma \TODO{Nr}.
+  Wegen Lemma \TODO{Nr} ist
+  \[
+    \alpha_r^{pq} : H^{p,q}(E_r) = \ker(d^{pq}_r) / \im(d^{p-r,q+r-1}_r) \to E_{r+1}^{pq}, \quad
+    [c] \mapsto [c]
+  \]
+  ein wohldefinierter Isomorphismus.
 \end{proof}
 
 
