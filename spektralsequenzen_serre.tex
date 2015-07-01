@@ -328,7 +328,7 @@ Mit ganz ähnlicher Technik kann man zeigen:
   Seien $\gamma, \eta : I \to B$ stetige Wege mit $\gamma(1) = \eta(0)$.
   Dann gilt
   \[ T_\eta \circ T_\gamma = T_{\gamma \centerdot \eta} \enspace:\enspace H^*(F_{\gamma(0)}) \xrightarrow{\cong} H^*(F_{\eta(1)}). \]
-  Dabei ist die Komposition von $\gamma$ und $\eta$ folgender Weg:
+  Dabei ist die Komposition $\gamma \centerdot \eta$ von $\gamma$ und $\eta$ folgender Weg:
   \[
     \gamma \centerdot \eta : I \to B, \quad
     s \mapsto \begin{cases}
@@ -408,7 +408,7 @@ Die Fundamentalgruppe $\pi_1(B, b_0)$ operiert auf $H^*(F)$ durch $[\gamma] \map
 
 \begin{bsp}
   Im letzten Abschnitt wurde gezeigt: Bei einer Serre-Faserung $p : E \to B$ bilden die $q$-ten Kohomologiegruppen $A_b \coloneqq H^q(p^{-1}(b))$ der Fasern ein lokales Koeffizientensystem.
-  Wir bezeichnen dieses Koeffizientensystem im Folgenden mit $\LH^q(F_p)$. % Das ist ne doofe Notation. Ändern?
+  Wir bezeichnen dieses Koeffizientensystem im Folgenden mit $\LH^q(F_p)$. % XXX: Das ist ne doofe Notation. Ändern?
 \end{bsp}
 
 \begin{bsp}
@@ -524,17 +524,21 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 \end{bem}
 
 \begin{defn}
-  Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine absteigende Folge $\ldots \supseteq F^p M \supseteq F_{p+1} M \supseteq \ldots$ von Untermoduln von $M$, $p \!\in\! \Z$.
-  Eine Filtrierung heißt \emph{regulär}, falls
-  \[
-    0 = \cap_p F^p M \coloneqq \lim_{\mathclap{p \to \infty}} F^p M
-    \quad \text{und} \quad
-    M = \cup_p F^p M \coloneqq \underset{\mathclap{p \to -\!\infty}}{\colim} F^p M.
-  \]
+  Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine absteigende Folge
+  \[ M \ldots \supseteq F^{p-1} M \supseteq F^p M \supseteq F^{p+1} M \supseteq \ldots \]
+  von Untermoduln von $M$, $p \!\in\! \Z$.
+  Eine Filtrierung heißt
+  \begin{itemize}
+    \item \emph{ausschöpfend}, falls $M = \cup_p F^p$,
+    \item \emph{Hausdorffsch}, wenn $0 = \cap_p F^p M$ und
+    \item \emph{regulär}, wenn sie ausschöpfend und Hausdorffsch ist.
+  \end{itemize}
 \end{defn}
 
 \begin{defn}
-  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M^n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und Filtrierungen $\ldots \supseteq F^p M_n \supseteq F_{p+1} M_n \supseteq \ldots$ existieren, sodass für alle $p, q \in \Z$ der Eintrag $E_\infty^{p+q}$ isomorph zum Quotienten $F^p M^{p+q} / F^{p+1} M^{p+q}$ ist.
+  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
+  \[ M_n \supseteq \ldots \supseteq F^{p-1} M_n \supseteq F^p M_n \supseteq F^{p+1} M_n \supseteq \ldots \]
+  existieren, sodass $E_\infty^{pq} \cong F^p M_{p+q} / F^{p+1} M_{p+q}$ für alle $p, q \in \Z$.
 \end{defn}
 
 \subsection{Die Spektralsequenz eines filtrierten Komplexes}
@@ -542,22 +546,29 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 % Hier nach http://people.mpim-bonn.mpg.de/matschke/SpectralSequences.pdf
 
 \begin{defn}
-  Eine \emph{Filtrierung eines Kokettenkomplexes} $C^\bullet$ ist eine absteigende Folge von Unterkomplexen $\ldots \supseteq F^p C^\bullet \supseteq F^{p+1} C^\bullet \supseteq \ldots \supseteq C^\bullet$.
+  Eine \emph{Filtrierung eines Kokettenkomplexes} $C^\bullet$ ist eine absteigende Folge
+  \[ C^\bullet \supseteq \ldots \supseteq F^{p-1} C^\bullet \supseteq F^p C^\bullet \supseteq F^{p+1} C^\bullet \supseteq \ldots \]
+ von Unterkomplexen.
 \end{defn}
+
 % TODO: Morphismus von filtrierten Komplexen?
 
 \begin{lem}
   \ES{} $C^\bullet$ ein filtrierter Kokettenkomplex.
   Es gibt eine Spektralsequenz mit
-  $E_2^{pq} = H^q(F^p C^\bullet / F^{p+1} C^\bullet)$.
-  % TODO: In welchem Sinne?
-  Falls die Filtrierung $\TODO{welche Bedingung braucht man hier?}$
-  so konvergiert diese Spektralsequenz gegen $H^*(C^\bullet)$.
+  \[ E_1^{pq} = H^{p+q}(F^p C^\bullet / F^{p+1} C^\bullet). \]
+  Angenommen, die Filtrierung ist
+  \begin{enumerate}[label=\alph*)]
+    \item \emph{gradweise nach unten beschränkt}, \dh{} für alle $q \in \Z$ gibt es ein $p \in \Z$ mit $F^p C^q = 0$,
+    \item \emph{ausschöpfend}, \dh{} für alle $q \in \Z$ ist $\cup_p F^p C^q = C^q$ und %(aus der ersten Bedingung folgt schon $\cap_p F^p C^q = 0$).
+    \item für alle $q \in \Z$ gibt es ein $P \in \Z$, sodass für alle $p \leq P$ gilt: Die Inklusion $F^p C^\bullet \hookrightarrow C^\bullet$ induziert einen Isomorphismus $H^q (F^p C^\bullet) \cong H^q(C^\bullet)$ in Kohomologie.
+  \end{enumerate}
+  Dann konvergiert die Spektralsequenz gegen $H^*(C^\bullet)$.
 \end{lem}
 
 Wir führen zunächst etwas neue Notation ein.
 Diese hilft, den Beweis verständlicher zu formulieren.
-Wir fassen im folgenden den Kettenkomplex als ein einziges Modul $C \coloneqq \oplus_{n \in \Z} C^n$ anstatt als Folge von Modulen auf.
+Wir fassen im Folgenden den Kettenkomplex als ein einziges Modul $C \coloneqq \oplus_{n \in \Z} C^n$ anstatt als Folge von Modulen auf.
 Dieses Modul ist filtriert durch die Untermodule $F^p \coloneqq \oplus_{n \in \Z} F^p C^n$.
 Wir setzen $F^{-\infty} \coloneqq C$ und $F^{\infty} \coloneqq 0$.
 Die Korandabbildung fassen wir als Homomorphismen $d : C \to C$ mit $d \circ d = 0$ auf, der die Filtrierung von $C$ respektiert.
@@ -638,7 +649,8 @@ Wir haben als Spezialfälle
   \[
     d_r^{pq}
     \enspace : \enspace
-    \underbrace{S[p\!+\!r, p\!+\!1, p, p\!-\!r\!+\!1]^{p+q}}_{= E_r^{p,q}} \to \underbrace{S[p\!+\!2r, p\!+\!r\!+\!1, p\!+\!r, p\!+\!1]^{p+q+1}}_{= E_r^{p+r,q-r+1}}.
+    \underbrace{S[p\!+\!r, p\!+\!1, p, p\!-\!r\!+\!1]^{p+q}}_{= E_r^{p,q}} \to \underbrace{S[p\!+\!2r, p\!+\!r\!+\!1, p\!+\!r, p\!+\!1]^{p+q+1}}_{= E_r^{p+r,q-r+1}}, \quad
+    [c] \mapsto [d(c)].
   \]
   Sie sind wohldefiniert nach Lemma \TODO{Nr}.
   Wegen Lemma \TODO{Nr} ist
@@ -647,6 +659,28 @@ Wir haben als Spezialfälle
     [c] \mapsto [c]
   \]
   ein wohldefinierter Isomorphismus.
+
+  \emph{Beweis der Konvergenz}:
+  Es seien $p, q \in \Z$.
+  Wegen Bedingung a) gibt es ein $R_1 \geq 0$, sodass $F^{p+R_1} C^{p+q+1} = 0$.
+  Für $r \geq R_1$ ist damit $E^{p+r,q-r+1}_r$ als Subquotient (\dh{} Quotient eines Untermoduls) von $F^{p+R_1} C^{p+q+1}$ Null.
+  Folglich verschwindet auch das Differential $d_r^{pq}$.
+  Wegen Bedingung c) gibt es ein $S \in \Z$, sodass $F^s C^\bullet \hookrightarrow C^\bullet$ und somit auch $F^s C^\bullet \hookrightarrow F^{s-1} C^\bullet$ für $s \leq S$ einen Isomorphismus in $H^{p+q-1}$ und $H^{p+q}$ induziert.
+  Anhand der langen exakten Sequenz zu $0 \to F^s C^\bullet \to F^{s-1} C^\bullet \to F^{s-1} C^\bullet / F^s C^\bullet \to 0$ sieht man, dass $H^{p+q-1}(F^{s-1} C^\bullet / F^s C^\bullet) = 0$.
+  Somit ist $E_r^{p-r,q+r-1}$ für $r \geq R_2 \coloneqq p - s + 1$ als Submodul von $H^{p+q-1}(F^{p-r} C^\bullet / F^{p-r+1} C^\bullet)$ Null.
+  Folglich verschwindet auch $d_r^{p-r,q+r-1}$.
+  Mit $R \coloneqq \max(R_1, R_2)$ gilt dann $E^{pq}_R \cong E^{pq}_{R+1} \cong \ldots \cong E^{pq}_\infty$.
+
+  Sei $H^n(C^\bullet)$ absteigend filtriert durch $F^p H^n(C^\bullet) \coloneqq \im(i^* : H^n(F^p C^\bullet) \to H^n(C^\bullet))$.
+  Für $r \geq R$ ist
+  \[ E^{pq}_\infty \cong E^{pq}_r = \frac{F^p C^{p+q} \cap d^{-1}(0)}{(F^p C^{p+q} \cap d^{-1}(0)) \cap (F^{p+1} C^{p+q} + d(F^{p-r+1} C^{p+q-1}))} = S[\infty,p+1,p,p-r+1]^{p+q}. \]
+  Es ist daher $F^p H^{p+q}(C^\bullet) / F^{p+1} H^{p+q}(C^\bullet) \cong S[\infty, p+1, p, -\infty]^{p+q}$ ein Quotient von $E^{pq}_\infty$.
+  Tatsächlich gilt $S[\infty, p+1, p, -\infty]^{p+q} \cong E^{pq}_\infty$, denn:
+  Sei $c \in F^p C^{p+q} \cap d^{-1}(0)$ mit $[c] = 0$ in $S[\infty, p+1, p, -\infty]^{p+q}$.
+  Dann gibt es ein $e \in F^{p+1} C^{p+q}$ und ein $f \in C^{p+q-1}$ mit $c = e + d(f)$.
+  Wegen Bedingung b) gibt es ein $\tilde{p} \in \Z$ mit $f \in F^{\tilde{p}} C^{p+q+1}$.
+  Wähle $r$ so, dass $r \geq R$ und $p-r+1 \leq \tilde{p}$.
+  Dann ist $[c] = [e]+[d(f)] = 0$ in $E^{pq}_r \cong E^{pq}_\infty$.
 \end{proof}
 
 
