@@ -44,7 +44,7 @@
 \newcommand{\N}{\mathbb{N}} % Natürliche Zahlen
 \newcommand{\Z}{\mathbb{Z}} % Ganze Zahlen
 %\newcommand{\C}{\mathbb{C}} % Komplexe Zahlen
-%\newcommand{\Q}{\mathbb{Q}} % Rationale Zahlen
+\newcommand{\Q}{\mathbb{Q}} % Rationale Zahlen
 
 % Schöne Fürall- und Existenzquantoren
 %\newcommand{\fa}[1]{\forall \, {#1} \,:\,}
@@ -835,8 +835,6 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
 
 % TODO: Eindeutigkeit von K(G, n)'s?
 
-% TODO: Pfadräume von K(G, n)'s
-
 \begin{bem}
   Sei $(X, x_0)$ ein $K(G, n)$. Dann ist $\Omega X$ ein $K(G, n-1)$, denn
 
@@ -852,6 +850,54 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
   % XXX: Verträglichkeit mit Gruppenstruktur???
 \end{bem}
 
+\subsection{Serre-Klassen}
+
+% hatcher, 1.7
+\begin{satz}
+  Es Sei $(X, x_0)$ ein wegzusammenhängender, abelscher Raum, \dh{} die Wirkung von $\pi_1(X, x_0)$ auf den höheren Homotopiegruppen $\pi_n(X, x_0)$, $n \geq 1$, ist trivial.
+  Dann sind äquivalent:
+  \begin{itemize}
+    \item Die Homotopiegruppen $\pi_n(X, x_0)$ sind endlich für $n \geq 0$.
+    \item Die Homologiegruppen $H_n(X; \Z)$ sind endlich für $n \geq 1$.
+  \end{itemize}
+\end{satz}
+
+\begin{proof}
+  \TODO{}
+\end{proof}
+
+\subsection{Rationale Kohomologie von Räumen vom Typ $K(\Z, n)$}
+
+% TODO: Etwas schreiben über rationale Homotopiegruppen
+
+% Hatcher, 1.20
+\begin{satz}
+  Es gilt
+  \[
+    H^*(K(\Z, n); Q) \cong \Q[x] \cong \begin{cases}
+      \Q[x] & \text{falls $n$ gerade}, \\
+      \Lambda_\Q[x] & \text{falls $n$ ungerade}
+    \end{cases}
+  \]
+  mit Erzeuger $x \in H^n(K(\Z, n), \Q)$.
+  Dabei bezeichnet $\Lambda_\Q[x]$ die äußere Algebra mit Erzeuger $x$.
+\end{satz}
+
+\begin{proof}
+  \TODO{}
+\end{proof}
+
+\subsection{Satz von Serre}
+
+% Hatcher, 1.21
+\begin{satz}
+  Die Homotopiegruppen $\pi_i(S^n)$ sind endlich bis auf die Gruppen $\pi_{4k-1}(S^{2k})$, $k \geq 1$, welche jeweils isomorph zu einer direkten Summe von $\Z$ mit einer endlichen Gruppe sind.
+\end{satz}
+
+\begin{proof}
+  \TODO{}
+\end{proof}
+
 % TODO:
 % * Eilenberg-MacLane-Räume
 % * Abbildungen in Faserungen konvertieren
@@ -862,6 +908,7 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
 % pi_n(S^1)
 % * Satz von Serre (1.21)
 % * Was hat die Hopf-Invariante mit dem ganzen Zeugs zu tun?
+% * Existenz der Homologie-Spektralsequenz
 
 % Theoreme, die benutzt werden, die man beweisen müsste:
 % * Zelluläre Approximation
