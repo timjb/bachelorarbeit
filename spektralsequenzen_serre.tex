@@ -61,6 +61,7 @@
 \newcommand{\const}[1]{\text{konst } #1} % konstante Funktion mit Wert #1
 \newcommand{\LH}{\mathcal{H}} % Local homology
 \DeclareMathOperator{\colim}{colim} % Kolimes
+\newcommand{\nspace}[1]{\foreach \i in {1,...,#1}{ \! }} % Negativer Abstand
 
 % Abkürzungen
 \newcommand{\ES}{Es sei} % Prof. Hanke schreibt das immer, mag das anscheinend lieber als ein bloßes "Sei"
@@ -409,12 +410,13 @@ Die Fundamentalgruppe $\pi_1(B, b_0)$ operiert auf $H^*(F)$ durch $[\gamma] \map
 
 \begin{bem}
   % TODO: sagt man "lokales Koeffizientensystem" oder nur "lokales System"?
-  Man kann ein lokales Koeffizientensystem auf $B$ auch als Funktor aus dem Fundamentalgruppoid von $B$ in die Kategorie der abelschen Gruppen auffassen.
+  Man kann ein lokales Koeffizientensystem auf $B$ auch als Funktor von dem Fundamentalgruppoid von $B$ in die Kategorie der abelschen Gruppen auffassen.
 \end{bem}
 
 \begin{bsp}
   Im letzten Abschnitt wurde gezeigt: Bei einer Serre-Faserung $p : E \to B$ bilden die $q$-ten Kohomologiegruppen $A_b \coloneqq H^q(p^{-1}(b))$ der Fasern ein lokales Koeffizientensystem.
-  Wir bezeichnen dieses Koeffizientensystem im Folgenden mit $\LH^q(F_p)$. % XXX: Das ist ne doofe Notation. Ändern?
+  Mit dem universellen Koeffizententheorem sieht man, dass gleiches auch für die Homologiegruppen $A_b \coloneqq H^q(p^{-1}(b); G)$ mit Koeffizienten in einer abelschen Gruppe $G$ gilt.
+  Wir bezeichnen dieses Koeffizientensystem im Folgenden mit $\LH^q(F_p; G)$. % XXX: Das ist ne doofe Notation. Ändern?
 \end{bsp}
 
 \begin{bsp}
@@ -432,11 +434,10 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 \begin{defn}
   Sei $B$ ein topologischer Raum, $\underline{A}$ ein lokales Koeffizientensystem auf $B$.
   Der \emph{Kokomplex der singulären Koketten auf $B$ mit Koeffizienten in $\underline{A}$} ist folgendermaßen definiert:
-  \begin{align*}
-    C^n(B; \underline{A}) \coloneqq & \, \{ \text{ Abbildungen $f$, welche einem $n$-Simplex $\sigma \in \Delta_n(B)$} \\
-    & \enspace\,\, \text{ ein Element $f(\sigma) \in A_{\sigma_0}$ zuordnen } \} \\[2pt]
-    \delta^n(f) \coloneqq & \, (\sigma \in \Delta_{n+1}(B)) \mapsto T_{\sigma_{01}}^{-1}(f(d_0(\sigma))) + \sum_{i=1}^{n+1} (-1)^i f(d_i(\sigma)).
-  \end{align*}
+  \[
+    C^n(B; \underline{A}) \coloneqq \prod_{\mathclap{\sigma \in \Delta_n(B)}} A_{\sigma_0}, \quad
+    \delta^n\left((a_\tau)_{\tau \in \Delta_n(B)}\right)_{\sigma \in \Delta_{n+1}(B)} \coloneqq T_{\sigma_{01}}^{-1}(a_{d_0(\sigma)}) + \sum_{i=1}^{n+1} (-1)^i a_{d_i(\sigma)}.
+  \]
   Man überprüft leicht, dass $\delta^{n+1} \circ \delta^n = 0$ gilt.
   Die Kohomologie $H^*(B; \underline{A}) \coloneqq H^*(C^*(B; \underline{A}))$ dieses Kettenkomplexes heißt \emph{singuläre Kohomologie von $B$ mit Koeffizienten in $\underline{A}$}.
 \end{defn}
@@ -445,6 +446,15 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
   Für das konstante Koeffizientensystem $\underline{G}$ gilt $H^*(B; \underline{G}) \cong H^*(B; G)$.
   Gewöhnliche Kohomologie mit Koeffizienten ist also ein Spezialfall von Kohomologie mit Koeffizienten in einem lokalen System.
 \end{beob}
+
+\begin{defn}
+  Es sei $\underline{R}$ ein lokales Koeffizientensystem, in dem die Gruppen $R_b$ sogar Ringe und die Abbildungen $T_\gamma$ Ringisomorphismen sind. Dann definiert
+  \begin{align*}
+    & \cup : H^m(B; \underline{R}) \times H^n(B; \underline{R}) \to H^{m+n}(B; \underline{R}), \\
+    & ([(a_\sigma)_{\sigma \in \Delta_m(B)}] \cup [(b_\sigma)_{\sigma \in \Delta_n(B)}])_{\tau \in \Delta_{m+n}(B)} \coloneqq a_{\sigma_{\angles{e_1, \ldots, e_m}}} \cdot T_{\sigma_{0m}}^{-1}(b_{\sigma_{e_m, \ldots, e_{m+n}}})
+  \end{align*}
+  ein Produkt, das sogenannte \emph{Cup-Produkt}.
+\end{defn}
 
 \subsection{Spektralsequenzen}
 
@@ -693,9 +703,38 @@ Wir haben als Spezialfälle
 \subsection{Die Serre-Spektralsequenz}
 
 \begin{satz}[Jean-Pierre Serre]
+  Es sei $G$ eine abelsche Gruppe.
   Für jede Serre-Faserung $p : E \to B$ existiert eine Spektralsequenz mit
-  \[ E_2^{p,q} = H^p(B; \LH^q(F_p)), \]
+  \[ E_2^{p,q} = H^p(B; \LH^q(F_p; G)), \]
   welche gegen $H^*(E)$ konvergiert.
+\end{satz}
+
+\begin{proof}
+  \TODO{}
+\end{proof}
+
+\subsection{Multiplikative Struktur der Serre-Spektralsequenz}
+
+\begin{satz}
+  Es sei $R$ ein Ring, $p : E \to B$ eine Serre-Faserung.
+  Dann gibt es bilineare Abbildungen
+  \[ m_r : E^{p,q}_r \times E^{s,t}_r \to E^{p+s,q+t}_r, \enspace (x, y) \mapsto m_r(x, y) =: xy \]
+  mit folgenden Eigenschaften:
+  \begin{itemize}
+    \item $d_r$ ist derivativ: $d_r^{p+s,q+t}(xy) = (d_r^{p,q} x) y + (-1)^{p+q} x (d_r^{s,t} y)$
+    \item Es gilt $m_{r+1}([x], [y]) = [m_r(x, y)]$ für alle $x \in \ker(d_r^{p,q})$, $y \in \ker(d_r^{s,t})$.
+    \item $m_2 : E_2^{p,q} \!\times\! E_2^{r,s} \!\to\! E_2^{p+s,q+t}$ ist das $(-1)^{qs}$-fache des Cup-Produkts
+    \[
+      H^p(B; \LH^q(F; R)) \times H^s(B; \LH^t(F; R)) \to H^{p+s}(B; \LH^{q+t}(F; R)),
+    \]
+    welches für $a = [(a_\sigma)_{\sigma \in \Delta_m(B)}] \in H^p(B; \LH^q(F; R))$ und $b = [(b_\sigma)_{\sigma \in \Delta_n(B)}] \in H^s(B; \LH^t(F; R))$ definiert ist durch
+    \[
+      (a \cup b)_{\sigma \in \Delta_{p+s}(B)} \coloneqq
+      a_{\sigma_{\angles{e_1, \ldots, e_m}}} \cup T_{\sigma_{0m}}^{-1}(b_{\sigma_{e_m, \ldots, e_{m+n}}}).
+    \]
+    \item Das Cup-Produkt auf $H^*(B; R)$ respektiert die Filtrierungen von $H^n(B; R)$ und schränkt daher ein zu Abbildungen $F_p^m \times F_s^n \to F_{p+s}^{m+n}$.
+    Die induzierte Abbildung auf dem Quotienten $F^m_p/F^m_{p+1} \times F^n_s/F^n_{s+1} \to F^{m+n}_{p+s} / F^{m+n}_{p+s+1}$ entspricht dem Grenzwert $m_\infty : E_\infty^{p,m-p} \times E_\infty^{s,n-s} \to E_\infty^{p+s,m+n-p-s}$ der Multiplikationen $m_r$.
+  \end{itemize}
 \end{satz}
 
 \begin{proof}
