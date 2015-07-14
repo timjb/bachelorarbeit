@@ -811,6 +811,42 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
   \end{alignat*}
 \end{bem}
 
+\begin{lem}
+  Man kann jede stetige Abbildung $f : X \to Y$ schreiben als Komposition
+  \[ X \xrightarrow{i} E_f \xrightarrow{p} Y \]
+  einer Homotopieäquivalenz $i$ und einer Hurewicz-Faserung $p$.
+  Genauer gilt
+  \begin{align*}
+    E_f & \coloneqq \Set{(x, \gamma) \in X \times X^\I}{f(x) = \gamma(0)} \subset X \times Y^\I, \\
+    i(x) & \coloneqq (x, t \mapsto f(x)), \\
+    p(x, \gamma) & \coloneqq \gamma(1).
+  \end{align*}
+\end{lem}
+
+% Notation wie in https://en.wikipedia.org/wiki/Homotopy_fiber
+\begin{proof}
+  Offensichtlich sind $i$ und $p$ stetig und es gilt $p \circ i = f$.
+  Das Homotopie-Inverse von $i$ ist $j : E_f \to X, \enspace (x, \gamma) \mapsto x$.
+  Es gilt $j \circ i = \id_X$ und eine Homotopie zwischen $i \circ j$ und $id_{E_f}$ ist gegeben durch
+  \[
+    H : \I \times E_f \to E_f, \quad
+    (s, (x, \gamma)) \mapsto (x, \gamma(s \cdot \blank)).
+  \]
+  Es bleibt zu zeigen, dass $p$ eine Faserung ist.
+  Es sei dazu ein topologischer Raum $A$ und Abbildungen $H_0 : A \to E_f$ und $H : \I \times A \to Y$ mit $H \circ i_0 = p \circ H_0$ gegeben.
+  Dann ist folgende Abbildung eine Homotopieliftung:
+  \begin{align*}
+    \tilde{H} : \I \times A & \to E_f, \\
+    (s, a) & \mapsto \gamma_{s, a}, \quad
+    \gamma_{s, a}(t) \coloneqq \begin{cases}
+      H_0(a)(t \cdot (1+s)) & \text{falls $t \cdot (1+s) \leq 1$,} \\
+      H(t \cdot (1+s) - 1, a) & \text{falls $t \cdot (1+s) \geq 1$.}
+      \qedhere
+    \end{cases}
+  \end{align*}
+\end{proof}
+% TODO: Die Homotopieliftung ist zweimal genau gleich als Abbildung. Kann man die Pfadfaserung als Spezialfall vom Lemma sehen und sich das einmal sparen?
+
 \subsection{Eilenberg-MacLane-Räume}
 
 \begin{defn}
@@ -854,7 +890,7 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
 
 % hatcher, 1.7
 \begin{satz}
-  Es Sei $(X, x_0)$ ein wegzusammenhängender, abelscher Raum, \dh{} die Wirkung von $\pi_1(X, x_0)$ auf den höheren Homotopiegruppen $\pi_n(X, x_0)$, $n \geq 1$, ist trivial.
+  Es sei $(X, x_0)$ ein wegzusammenhängender, abelscher Raum, \dh{} die Wirkung von $\pi_1(X, x_0)$ auf den höheren Homotopiegruppen $\pi_n(X, x_0)$, $n \geq 1$, ist trivial.
   Dann sind äquivalent:
   \begin{itemize}
     \item Die Homotopiegruppen $\pi_n(X, x_0)$ sind endlich für $n \geq 0$.
