@@ -92,6 +92,9 @@
   {\begin{center}\begin{tikzcd}}
   {\end{tikzcd}\end{center}}
 
+% TikZ-Makros
+\newcommand{\zeroDot}[2]{\node[draw,circle,inner sep=0.4pt,fill] at (#1,#2) {};} % Punkt, der in Spektralsequenz für eine Null steht
+
 \begin{document}
 
 \maketitle
@@ -483,7 +486,7 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
       \begin{scope}[shift={(0,0)}]
         \foreach \x in {-1,...,4}{
           \foreach \y in {-2,-1,...,3}{
-            \node[draw,circle,inner sep=0.5pt,fill] at (\x,\y) {};
+            \zeroDot{\x}{\y}
           }
         }
         \foreach \x in {-1,...,5}{
@@ -498,12 +501,12 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
       \begin{scope}[shift={(10,0)}]
         \foreach \x in {-1,...,4}{
           \foreach \y in {-2,-1,...,3}{
-            \node[draw,circle,inner sep=0.5pt,fill] at (\x,\y) {};
+            \zeroDot{\x}{\y}
           }
         }
         \foreach \x in {0,...,5}{
           \foreach \y in {-2,-1,...,3}{
-            \draw[->,gray] (\x-1.8,\y+0.9) -- (\x-0.2,\y+0.1);
+            \zeroDot{\x}{\y}
           }
         }
         \draw[->] (-0.35,-0.35) -- (5.35,-0.35) node[below] {p};
@@ -908,19 +911,104 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
 
 % Hatcher, 1.20
 \begin{satz}
-  Es gilt
+  Für $n \geq 1$ gilt
   \[
-    H^*(K(\Z, n); Q) \cong \Q[x] \cong \begin{cases}
-      \Q[x] & \text{falls $n$ gerade}, \\
-      \Lambda_\Q[x] & \text{falls $n$ ungerade}
+    H^*(K(\Z, n); \Q) \cong \begin{cases}
+      \Q[x], & \text{falls $n$ gerade}, \\
+      \Lambda_\Q[x], & \text{falls $n$ ungerade}
     \end{cases}
   \]
-  mit Erzeuger $x \in H^n(K(\Z, n), \Q)$.
+  mit Erzeuger $x \in H^n(K(\Z, n); \Q)$.
   Dabei bezeichnet $\Lambda_\Q[x]$ die äußere Algebra mit Erzeuger $x$.
 \end{satz}
 
 \begin{proof}
-  \TODO{}
+  Durch Induktion über $n$.
+  Der Satz gilt für $n = 1$, denn die Sphäre $S^1$ ist ein $K(\Z, 1)$ und es gilt bekanntermaßen $H^*(S^1; R) \cong \Lambda_R[x]$ für $R = \Z$ und somit auch für $R = \Q$. \\
+  Im Induktionsschritt nutzen wir die Pfadraumfaserung $K(\Z, n-1) \to P \to K(\Z, n)$. Da $K(\Z, n)$ für $n \geq 2$ einfach zusammenhängend ist, gilt für deren Serre-Spektralsequenz $E_2^{p,q} \cong H^p(K(\Z, n); H^q(K(\Z, n-1)))$. \\
+  \emph{Falls $n$ gerade:} \enspace
+  \begin{center}
+    \begin{tikzpicture}[x=16pt,y=16pt]
+      \begin{scope}[shift={(0,0)}]
+        \foreach \x in {1,2,3,5,6,7}{
+          \foreach \y in {0,1,...,3}{
+            \zeroDot{\x}{\y}
+          }
+        }
+        \foreach \x in {0,...,8}{
+          \zeroDot{\x}{4}
+        }
+        \foreach \y in {0,...,4}{
+          \node at (9.5,\y) {$\cdots$};
+        }
+        \node at (0,0) {$\Q$\small $1$};
+        \zeroDot{0}{1}
+        \zeroDot{0}{2}
+        \node at (0,3) {$\Q$\small $a$};
+        \node at (4,0) {$\Q$\small $x$};
+        \zeroDot{4}{1}
+        \zeroDot{4}{2}
+        \node at (4,3) {$\Q$\small $ax$};
+        \draw[->,gray] (0.6,2.6) -- (3.4,0.4);
+        \node at (8,0) {$\Q$\small $x^2$};
+        \zeroDot{8}{1}
+        \zeroDot{8}{2}
+        \node at (8,3) {$\Q$\small $ax^2$};
+        \draw[->,gray] (4.6,2.6) -- (7.4,0.4);
+        \draw[->] (-0.7,-0.6) -- (10.3,-0.6); %node[below] {p};
+        \draw[->] (-0.7,-0.6) -- (-0.7,4.5); %node[left] {q};
+        \node[left] at (-0.7,0) {$0$};
+        \node[left] at (-0.9,1.7) {\vdots};
+        \node[left] at (-0.7,3) {$n{-}1$};
+        \node[below] at (0,-0.6) {$0$};
+        \node[below] at (2,-0.7) {$\cdots$};
+        \node[below] at (4,-0.6) {$n$};
+        \node[below] at (6,-0.7) {$\cdots$};
+        \node[below] at (8,-0.6) {$2n$};
+        \node[below] at (9.5,-0.7) {$\cdots$};
+      \end{scope}
+      \begin{scope}[shift={(14,0)}]
+        \foreach \x in {1,2,3}{
+          \foreach \y in {0,1,...,6}{
+            \zeroDot{\x}{\y}
+          }
+        }
+        \foreach \y in {0,...,6}{
+          \zeroDot{5}{\y}
+        }
+        \foreach \x in {0,...,5}{
+          \node at (\x,7.3) {\vdots};
+        }
+        \node at (0,0) {$\Q$\small $1$};
+        \zeroDot{0}{1}
+        \zeroDot{0}{2}
+        \node at (0,3) {$\Q$\small $a$};
+        \zeroDot{0}{4}
+        \zeroDot{0}{5}
+        \node at (0,6) {$\Q$\small $a^2$};
+        \node at (4,0) {$\Q$\small $x$};
+        \zeroDot{4}{1}
+        \zeroDot{4}{2}
+        \node at (4,3) {$\Q$\small $ax$};
+        \zeroDot{4}{4}
+        \zeroDot{4}{5}
+        \node at (4,6) {$\Q$\small $a^2 x$};
+        \draw[->,gray] (0.6,2.6) -- (3.4,0.4);
+        \draw[->,gray] (0.6,5.6) -- (3.4,3.4);
+        \draw[->] (-0.7,-0.6) -- (5.6,-0.6); %node[below] {p};
+        \draw[->] (-0.7,-0.6) -- (-0.7,7.8); %node[left] {q};
+        \node[left] at (-0.7,0) {$0$};
+        \node[left] at (-0.9,1.7) {\vdots};
+        \node[left] at (-0.7,3) {$n{-}1$};
+        \node[left] at (-0.9,4.7) {\vdots};
+        \node[left] at (-0.7,6) {$2n{-}2$};
+        \node[below] at (0,-0.6) {$0$};
+        \node[below] at (2,-0.7) {$\cdots$};
+        \node[below] at (4,-0.6) {$n$};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+  \TODO{Beweis fertig}
 \end{proof}
 
 \subsection{Satz von Serre}
