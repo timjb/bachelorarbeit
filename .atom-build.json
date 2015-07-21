@@ -1,6 +1,9 @@
 {
-  "cmd": "/usr/texbin/pdflatex",
+  "cmd": "sh",
   "name": "bachelorarbeit",
-  "args": [ "spektralsequenzen_serre.tex" ],
-  "sh": true
+  "args": [ "build.sh" ],
+  "sh": false,
+  "env": {
+    "PATH": "/usr/texbin:/usr/local/bin:/usr/bin:/bin"
+  }
 }
