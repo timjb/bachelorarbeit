@@ -35,6 +35,7 @@
 \newtheorem*{lem}{Lemma}
 \newtheorem*{defn}{Definition}
 \newtheorem*{beob}{Beobachtung}
+\newtheorem*{bspe}{Beispiele}
 
 \theoremstyle{remark}
 \newtheorem*{bem}{Bemerkung}
@@ -65,6 +66,10 @@
 \newcommand{\LH}{\mathcal{H}} % Local homology
 \DeclareMathOperator{\colim}{colim} % Kolimes
 \newcommand{\nspace}[1]{\foreach \i in {1,...,#1}{ \! }} % Negativer Abstand
+\DeclareMathOperator{\Tor}{Tor} % Tor-Funktor
+\newcommand{\SC}{\mathcal{C}} % Serre-Klasse
+\newcommand{\FG}{\mathcal{FG}} % Serre-Klasse der endlich erzeugten Gruppen
+\newcommand{\F}{\mathcal{F}} % Serre-Klasse der endlichen Gruppen
 
 % Abkürzungen
 \newcommand{\ES}{Es sei} % Prof. Hanke schreibt das immer, mag das anscheinend lieber als ein bloßes "Sei"
@@ -547,7 +552,7 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 
 \begin{defn}
   Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine absteigende Folge
-  \[ M \ldots \supseteq F^{p-1} M \supseteq F^p M \supseteq F^{p+1} M \supseteq \ldots \]
+  \[ M \supseteq \ldots \supseteq F^{p-1} M \supseteq F^p M \supseteq F^{p+1} M \supseteq \ldots \]
   von Untermoduln von $M$, $p \!\in\! \Z$.
   Eine Filtrierung heißt
   \begin{itemize}
@@ -892,11 +897,69 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
   % XXX: Verträglichkeit mit Gruppenstruktur???
 \end{bem}
 
-\subsection{Serre-Klassen}
+\subsection{Das Hurewicz-Mod-$\SC$-Theorem}
 
-% hatcher, 1.7
+Sei $(X, x_0)$ ein punktierter topologischer Raum.
+Für $n \geq 1$ liefert der Hurewicz-Homomorphismus $h_n : \pi_n(X, x_0) \to H_n(X; \Z)$ einen Zusammenhang zwischen der $n$-ten Homotopiegruppe und der $n$-ten Homologiegruppe von $X$.
+Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewählten Erzeuger $\alpha \in H_n(S^n; \Z)$.
+
+\begin{satz}[Hurewicz]
+  Sei $(X, x_0)$ ein $(n{-}1)$-zusammenhängender topologischer Raum, \dh{} $\pi_i(X, x_0) = 0$ für $i < n$.
+  Dann ist $h_i : \pi_i(X, x_0) \to H_i(X; \Z)$ ein Isomorphismus für $0 < i \leq n$.
+  Insbesondere gilt $H_i(X; \Z) = 0$ für $0 < i < n$.
+\end{satz}
+
+% TODO: Auf Beweis im Hatcher verweisen
+
+\begin{defn}
+  Eine Klasse $\SC$ von abelschen Gruppen heißt \emph{Serre-Klasse}, falls
+  \begin{enumerate}
+    \item Für jede kurze exakte Sequenz $0 \to A \to B \to C \to 0$ von abelschen Gruppen gilt: $B \in \SC \iff A, B \in \SC$.
+    \item Für $A, B \in \SC$, sind auch $A \otimes B \in \SC$ und $\Tor(A, B) \in \SC$.
+  \end{enumerate}
+\end{defn}
+
+\begin{bem}
+  Aus der ersten Eigenschaft folgt, dass Bilder, Untergruppen und Quotienten einer Gruppe aus $\SC$ wieder in $\SC$ sind.
+  Genauer gilt für eine ab. Gruppe $B$ und eine Untergruppe $A < B$: $B \in \SC \iff A, B/A \in \SC$.
+  Durch Induktion kann man zeigen, dass für eine Gruppe $A$ mit endlicher Filtrierung
+  $A = F^0 A \supseteq F^1 A \supseteq \ldots \supseteq F^k A = 0$
+  gilt: $A \in \SC \iff F^0 A / F^1 A, \ldots, F^{k-1} A / F^k A \in \SC$.
+  Außerdem ist die direkte Summe zweier Gruppen aus $\SC$ wieder in $\SC$.
+\end{bem}
+
+\begin{defn}
+  Es sei $\SC$ eine Serre-Klasse.
+  Ein Morphismus $f : A \to B$ zwischen abelschen Gruppen heißt \emph{Isomorphimus modulo $\SC$}, falls $\ker(f), \coker(f) \in \SC$. \\
+  Dies ist äquivalent zur Existenz einer exakten Sequenz $K \to A \xrightarrow{f} B \to C$ mit $K, C \in \SC$.
+\end{defn}
+
+\begin{bspe}
+  Man kann leicht zeigen, dass folgende Klassen die Definition erfüllen:
+  % XXX: Nummer der Definition
+  \begin{itemize}
+    \item $\FG \coloneqq \{\, \text{endlich erzeugte Gruppen} \,\}$
+    \item $\F \coloneqq \{\, \text{endliche Gruppen} \,\}$
+    % TODO: ist das tatsächlich leicht zu zeigen?
+    % XXX: weitere Beispiele?
+  \end{itemize}
+\end{bspe}
+
+Es sei im Folgenden $\SC \in \{ \FG, \F \}$.
+
+% Hatcher, 1.8
+\begin{satz}["`Hurewicz-mod-$\SC$-Theorem"']
+  Es sei $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
+  Angenommen, $\pi_i(X, x_0) \in \SC$ für $0 < i < n$.
+  Dann ist $h_i : \pi_i(X, x_0) \to H_i(X; \Z)$ eine Isomorphismus modulo $\SC$ für $i \leq n$.
+  Insbesondere gilt $H_i(X; \Z) \in \SC$ für $0 < i < n$.
+\end{satz}
+
+Mit $\SC \coloneqq \{ 0 \}$ folgt das gewöhnliche Hurewicz-Theorem.
+
+% Hatcher, 1.7
 \begin{satz}
-  Es sei $(X, x_0)$ ein wegzusammenhängender, abelscher Raum, \dh{} die Wirkung von $\pi_1(X, x_0)$ auf den höheren Homotopiegruppen $\pi_n(X, x_0)$, $n \geq 1$, ist trivial.
+  Es sei $(X, x_0)$ ein einfach zusammenhängend.
   Dann sind äquivalent:
   \begin{itemize}
     \item Die Homotopiegruppen $\pi_n(X, x_0)$ sind endlich für $n \geq 0$.
@@ -904,9 +967,110 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
   \end{itemize}
 \end{satz}
 
+\begin{lem}
+  Es sei $F \to X \to B$ eine Faserung und die Räume $F$, $X$ und $B$ wegzusammenhängend.
+  % TODO: Wirkung beschreiben (bisher nur für Kohomologie getan)
+  Wirke $\pi_1(B)$ trivial auf $H_*(F)$.
+  Dann gilt folgende $2$-aus-$3$-Eigenschaft: Falls für zwei der Räume $F$, $X$ und $B$ alle Homologiegruppen $H_n(\blank; \Z)$ für $n \geq 1$ aus $\SC$ sind, so gilt gleiches für den dritten Raum.
+\end{lem}
+
+\begin{proof}
+  Wir betrachten die Serre-Spektralsequenz zu der Faserung mit Koeffizienten in $\Z$.
+  Die Aussage, dass die Homologiegruppe $H_n(X)$ in $\SC$ liegt, ist äquivalent dazu, dass die Gruppen $E^\infty_{i,n-i}$ für $i = 0, \ldots, n$ in $\SC$ liegen, denn diese Gruppen sind die Quotienten einer endlichen Filtrierung von $H_n(X)$.
+
+  \emph{Fall 1: $H_n(F), H_n(B) \in \SC$ für alle $n > 0$}: \enspace
+  Die universelle Koeffizientenformel liefert
+  \[ E^2_{pq} \cong H_p(B; H_q(F; \Z)) \cong \left( H_p(B) \otimes H_q(F) \right) \oplus \Tor(H_{p-1}(B), H_q). \]
+  Man sieht durch Unterscheidung der Fälle $p=0$, $p=1$ und $p>1$ sowie $q=0$ und $q > 0$, dass $E^2_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
+  Als Subquotient von $E^2_{pq}$, einer Gruppe aus $\SC$, ist dann auch $E^\infty_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
+  Dies zeigt die Behauptung nach der Bemerkung am Anfang des Beweises.
+
+  \emph{Fall 2: $H_n(F), H_n(X) \in \SC$ für alle $n > 0$}: \enspace
+  Wir zeigen nun durch Induktion über $k$, dass $H_p(B) \in \SC$ für $0 < p < k$.
+  %Dies gilt trivialerweise für $k = 1$.
+  Gelte dies für $k \geq 1$.
+  Wir wollen zeigen, dass dann auch $H_k(B)$ in $\SC$ liegt.
+  %Zunächst sieht man wie im Fall 1, dass $E^2_{pq}$ und somit auch $E^r_{pq}$ in $\SC$ für $(p, q) \neq (0, 0)$ und $p < k$.
+  Für alle $r \geq 2$ gibt es eine kurze exakte Sequenz
+  \begin{centertikzcd}[column sep=0.4cm, row sep=0.35cm]
+    0 \arrow[r] &
+    \ker(d^r_{k,0}) \arrow[d, equal] \arrow[r] &
+    E^r_{k,0} \arrow[r, "d^r_{k,0}"] &
+    \im(d^r_{k,0}) \arrow[d, "\subseteq"] \arrow[r] &
+    0 \\
+    & E^{r+1}_{k,0} &&
+    E^r_{k-r,r-1}
+  \end{centertikzcd}
+  Man sieht unter Verwendung der Induktionsannahme und der universellen Koeffizientenformel, dass $E^2_{k-r,r-1}$ und somit auch $E^r_{k-r,r-1}$ in $\SC$ liegen.
+  Folglich gilt auch $\im(d^r_{k,0}) \in \SC$, also $E^r_{k,0} \in \SC \iff E^{r+1}_{k,0} \in \SC$.
+  Da aber $E^R_{k,0} \cong E^\infty_{k,0} \in \SC$ für $R$ groß genug, gilt $E^r_{k,0} \in \SC$ für alle $r \geq 2$.
+  Insbesondere $H_k(B; \Z) \cong H_k(B; H_0(F; \Z)) \cong E^2_{k,0} \in \SC$.
+
+  \emph{Fall 3: $H_n(X), H_n(B) \in \SC$ für alle $n > 0$}: \enspace
+  Analog zum vorherigen Fall zeigt man induktiv, dass $H_q(F) \in \SC$ für $0 < q < k$.
+  Dazu verwendet man die kurze exakte Sequenz $0 \to \im(d^r_{r,k-r+1}) \hookrightarrow E^r_{0,k} \to E^{r+1}_{0,k}$.
+\end{proof}
+
+% 1.10 im Hatcher
+\begin{lem}
+  Sei $G \in \SC \in \{ \FG, \F \}$.
+  Dann gilt $H_k(K(G, n)) \in \SC$ für alle $k, n > 0$.
+\end{lem}
+
+\begin{proof}
+  Sei zunächst $n=1$.
+  \begin{itemize}
+    \item Falls $G = \Z$, so stimmt die Aussage, denn der Kreis $S^1$ ist ein $K(\Z, 1)$ und $H_*(S^1; \Z) \in \FG$.
+    \item Falls $G = \Z_m$, \TODO{begründen damit, dass der "`unendliche Linsenraum"' ein $K(\Z_m, 1)$ ist}
+    \item Falls $G = G_1 \oplus G_2$, dann ist $K(G_1, 1) \times K(G_2, 1)$ ein $K(G, 1)$.
+    Wenn die Aussage für $G_1$ und $G_2$ stimmt, so folgt aus dem letzten Lemma, angewendet auf die Produktfaserung $K(G_1, 1) \to K(G_1, 1) \times K(G_2, 1) \to K(G_2, 1)$, dass sie auch für $G$ gilt.
+  \end{itemize}
+  Da man jede endlich erzeugte abelsche Gruppe als direkte Summe von endlich vielen Summanden der Form $\Z$ und $\Z_m$ schreiben kann, gilt die Aussage für $n=1$.
+
+  Induktiv zeigen wir nun, dass die Aussage für $n$ beliebig gilt.
+  Dazu verwenden wir die Pfadraumfaserung $K(G, n) \to P \to K(G, n{+}1)$.
+  Es gilt $H_k(P) = 0 \in \SC$ und $H_k(K(G, n)) \in \SC$ für $k \geq 1$ nach Induktionshypothese, also $H_k(K(G, n{+}1)) \in \SC$ für alle $k \geq 1$ nach dem vorherigen Lemma.
+\end{proof}
+
+
+\renewcommand\windowpagestuff{
+  % Vertikal:
+  \iffalse
+  \begin{centertikzcd}[ampersand replacement=\&, column sep=0.5cm, row sep=0.2cm]
+    \& \vdots \arrow[d] \\
+    \& X_3 \arrow[d] \\
+    \& X_2 \arrow[d] \\
+    X \arrow[r] \arrow[ru] \arrow[ruu] \& X_1
+  \end{centertikzcd}
+  \fi
+  \vspace{1cm}
+  \begin{centertikzcd}[ampersand replacement=\&, column sep=0.2cm, row sep=0.5cm]
+    \&\&\& X \arrow[dll] \arrow[dl] \arrow[d] \\
+    \dots \arrow[r] \&
+    X_3 \arrow[r] \&
+    X_2 \arrow[r] \&
+    X_1
+  \end{centertikzcd}
+}
+\opencutright
+\begin{cutout}{0}{\dimexpr\linewidth-4.5cm\relax}{0pt}{2}
+  \begin{defn}
+    Ein \emph{Postnikov-Turm} eines wegzusammenhängenden Raumes $X$ ist ein kommutatives Diagramm wie rechts, für das gilt: \\[3pt]
+    %\begin{itemize}
+    %\item
+    \quad$\bullet$\enspace $\pi_i(X \to X_n)$ ist ein Isomorphismus für $i \leq n$ und \\
+    \quad$\bullet$\enspace $\pi_i(X_n) = 0$ für $i > n$.
+    %\end{itemize}
+  \end{defn}
+\end{cutout}
+
 \begin{proof}
   \TODO{}
 \end{proof}
+
+\begin{bem}
+  Man kann in diesem Kapitel die Voraussetzung, dass $X$ einfach zusammenhängend ist, ersetzen durch die Forderung, dass $X$ wegzusammenhängend und abelsch ist, \dh{} die Wirkung der Fundamentalgruppe $\pi_1(X)$ auf den höheren Homotopiegruppen $\pi_n(X)$ trivial ist.
+\end{bem}
 
 \subsection{Rationale Kohomologie von Räumen vom Typ $K(\Z, n)$}
 
@@ -1077,6 +1241,7 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
 \end{proof}
 
 % TODO:
+% * Homologische Spektralsequenzen einführen
 % * Eilenberg-MacLane-Räume
 % * Abbildungen in Faserungen konvertieren
 % "pathspace fibration"
