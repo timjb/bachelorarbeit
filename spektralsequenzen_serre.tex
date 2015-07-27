@@ -986,7 +986,7 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
   Es sei $\SC \in \{ \FG, \F \}$ und
   $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
   Angenommen, $\pi_i(X, x_0) \in \SC$ für $0 < i < n$.
-  Dann ist $h_i : \pi_i(X, x_0) \to H_i(X; \Z)$ eine Isomorphismus modulo $\SC$ für $i \leq n$.
+  Dann ist $h_i : \pi_i(X, x_0) \to H_i(X; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
   Insbesondere gilt $H_i(X; \Z) \in \SC$ für $0 < i < n$.
 \end{satz}
 
@@ -1107,7 +1107,7 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
   Man sieht anhand der langen exakten Sequenz von Homotopiegruppen, dass die Faser von $X_{i+1}' \to X_i'$ ein $K(\pi_{n+1}(X), n{+}1)$ ist.
 \end{bem}
 
-\begin{lem}
+\begin{lem}\label{homotopy-in-c-implies-homology-in-c}
   Es sei $X$ einfach zusammenhängend mit $\pi_i(X, x_0) \in \SC$ für alle $i \geq 0$, wobei $\SC \in \{ \FG, \F \}$.
   Dann gilt $H_i(X) \in \SC$ für $i \geq 1$.
 \end{lem}
@@ -1139,11 +1139,57 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
   \end{centertikzcd}
   Es genügt daher zu zeigen, dass $h_n : \pi_n(X_n) \to H_n(X_n; \Z)$ ein Isomorphismus modulo $\SC$ ist.
   Wir betrachten die Serre-Spektralsequenz zur Faserung $F_n \to X_n \to X_{n-1}$.
-  Für diese gilt
   \[ E^2_{pq} \cong H_p(X_{n-1}; \underbrace{H_q(K(\pi_n(X), n); \Z)}_{= 0 \text{ für } 0 < q < n}), \]
   % TODO: Begründung für das Verschwinden dieser Homologiegruppen
-  es
-  \TODO{}
+  Es verschwinden also alle Einträge zwischen der 0-ten und der $n$-ten Zeile. Für diese gilt
+  Wir betrachten die exakte Sequenz
+  % Alternativ:
+  \iffalse
+    \usepackage{stackengine} % Für Zeilen unter mathematischem Symbol
+    \def\useanchorwidth{T}\stackMath
+    \stackunder{E^n_{n+1,0}}{
+      \def\stackalignment{l}
+      \stackunder{= E^2_{n+1,0}}{
+        = H_{n+1}(X_{n-1})
+      }
+    } \arrow[r] &
+  \fi
+  \begin{centertikzcd}[row sep=0.1cm, column sep=0.5cm]
+    H_{n+1}(X_{n-1}) \arrow[d, equal] &&
+    H_n(F_n) \arrow[d, equal] &
+    0 \arrow[rd] &&
+    0 &&&
+    H_n(X_{n-1}) \arrow[d, equal] \\
+    E^2_{n+1,0} \arrow[d, equal] && E^2_{0,n} \arrow[d, equal] && E^\infty_{0,n} \arrow[rrd] \arrow[ru] &&&&
+    E^2_{n,0} \arrow[d, equal] \\
+    %\underbrace{E^n_{n+1,0}}_{\mathrlap{\substack{= E^2_{n+1,0} \\ = H_{n+1}(X_{n-1})}}} \arrow[r, "d^n_{n+1,0}"] &
+    E^n_{n+1,0} \arrow[rr, "d^r_{n+1,0}"] &&
+    E^n_{0,n} \arrow[rrrr] \arrow[rru] &&&&
+    H_n(X_n) \arrow[rr] &&
+    E^\infty_{n,0} \arrow[r] &
+    0
+  \end{centertikzcd}
+  welche sich aus zwei kurzen Sequenzen zusammensetzt:
+  \begin{itemize}
+    \item Die linke Sequenz ist exakt, da $E^\infty_{0,n} \cong E^{n+1}_{0,n} \cong \ker(d^r_{0,n}) / \im(d^r_{n+1,0}) = E^n_{0,n} / \im(d^r_{n+1,0})$.
+    \item Die rechte Sequenz ist exakt, da $E^\infty_{0,n} = F^0 H_n(X_n)$ und $E^\infty_{n,0} = F^n H_n(X_n) / F^{n-1} H_n(X_n)$ für eine Filtrierung $0 = F^{-1} H_n(X_n) \subseteq F^0 H_n(X_n) \subseteq \ldots \subseteq F^n H_n(X_n) = H_n(X_n)$.
+    Da $F^p H_n(X_n) / F^{p-1} H_n(X_n) = E^\infty_{p,n-p} = 0$ für $p = 1, \ldots, n-1$, gilt $F^0 H_n(X_n) = \ldots = F^{n-1} H_n(X_n)$.
+  \end{itemize}
+  Aus Lemma \label{homotopy-in-c-implies-homology-in-c} folgt, dass $E^n_{n+1,0}, E^\infty_{n,0} \in \SC$.
+  Somit ist der mittlere Morphismus $H_n(F_n) = E^n_{0,n} \to H_n(X_n)$ ein Isomorphismus modulo $\SC$.
+  \TODO{Begründen, warum dieser Morphismus genau der von der Inklusion $F_n \hookrightarrow X_n$ induzierte Morphismus ist.}
+  Betrachte nun das kommutative Diagramm
+  \begin{centertikzcd}
+    \pi_n(F_n) \arrow{d}{h_n}[swap]{\cong} \arrow[r, "\cong"] &
+    \pi_n(X_n) \arrow[d, "h_n"] \\
+    H_n(F_n) \arrow[r] &
+    H_n(X_n)
+  \end{centertikzcd}
+  Dabei sind die vertikalen Morphismen die Hurewicz-Homomorphismen und die horizontalen Morphismen werden durch die Inklusion induziert.
+  Der linke Hurewicz-Homomorphismus ist nach dem Hurewicz-Theorem ein Isomorphismus, da $F_n$ $(n{-}1)$-zusammenhängend ist.
+  Der obere Morphismus ist ein Isomorphismus, wie man anhand der langen exakten Sequenz der Faserung $F_n \to X_n \to X_{n-1}$ sehen kann.
+  Der untere Morphismus ist ein Isomorphismus modulo $\SC$, wie wir gerade eben gesehen haben.
+  Somit ist auch der rechte Morphismus im Diagramm ein Isomorphismus modulo $\SC$.
 \end{proof}
 
 \begin{bem}
