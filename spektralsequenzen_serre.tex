@@ -36,6 +36,7 @@
 \newtheorem{defn}{Definition}
 \newtheorem{beob}{Beobachtung}
 \newtheorem{bspe}{Beispiele}
+\newtheorem{kor}{Korollar}
 
 \theoremstyle{remark}
 \newtheorem*{bem}{Bemerkung}
@@ -50,7 +51,7 @@
 \newcommand{\Q}{\mathbb{Q}} % Rationale Zahlen
 
 % Schöne Fürall- und Existenzquantoren
-%\newcommand{\fa}[1]{\forall \, {#1} \,:\,}
+\newcommand{\fa}[1]{\forall \, {#1} \,:\,}
 %\newcommand{\ex}[1]{\exists \, {#1} \,:\,}
 
 \DeclareMathOperator{\Hom}{Hom} % Homomorphisms
@@ -966,8 +967,12 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
 \begin{defn}
   Es sei $\SC$ eine Serre-Klasse.
   Ein Morphismus $f : A \to B$ zwischen abelschen Gruppen heißt \emph{Isomorphimus modulo $\SC$}, falls $\ker(f), \coker(f) \in \SC$. \\
-  Dies ist äquivalent zur Existenz einer exakten Sequenz $K \to A \xrightarrow{f} B \to C$ mit $K, C \in \SC$.
 \end{defn}
+
+\begin{bem}
+  Dies ist äquivalent zur Existenz einer exakten Sequenz $K \to A \xrightarrow{f} B \to C$ mit $K, C \in \SC$.
+  Eine Gruppe, welche modulo-$\SC$-isomorph zu einer Gruppe aus $\SC$ ist, ist selbst in $\SC$.
+\end{bem}
 
 \begin{bspe}
   Man kann leicht zeigen, dass folgende Klassen die Definition erfüllen:
@@ -993,14 +998,22 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
 %Mit $\SC \coloneqq \{ 0 \}$ folgt das gewöhnliche Hurewicz-Theorem.
 
 % Hatcher, 1.7
-\begin{satz}
-  Es sei $(X, x_0)$ ein einfach zusammenhängend.
-  Dann sind äquivalent:
-  \begin{itemize}
-    \item Die Homotopiegruppen $\pi_n(X, x_0)$ sind endlich für $n \geq 0$.
-    \item Die Homologiegruppen $H_n(X; \Z)$ sind endlich für $n \geq 1$.
-  \end{itemize}
-\end{satz}
+\begin{kor}\label{homotopy-in-c-iff-homology-in-c}
+  Es sei $\SC \in \{ \FG, \F \}$ und
+  $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
+  Dann gilt für alle $N \in \N \cup \{ \infty \}$:
+  \[
+    \fa{0 \leq n < N} \pi_n(X, x_0) \in \SC
+    \quad \iff \quad
+    \fa{1 \leq n < N} H_n(X; \Z) \in \SC.
+  \]
+\end{kor}
+
+\begin{proof}
+  Die Aussage folgt aus Satz \ref{hurewicz-mod-c} durch Induktion über $N$.
+\end{proof}
+
+Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erzeugt sind, da die Homologiegruppen der Sphären endlich erzeugt sind.
 
 \begin{lem}\label{two-of-three}
   Es sei $F \to X \to B$ eine Faserung und die Räume $F$, $X$ und $B$ wegzusammenhängend.
@@ -1190,6 +1203,10 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
   Der obere Morphismus ist ein Isomorphismus, wie man anhand der langen exakten Sequenz der Faserung $F_n \to X_n \to X_{n-1}$ sehen kann.
   Der untere Morphismus ist ein Isomorphismus modulo $\SC$, wie wir gerade eben gesehen haben.
   Somit ist auch der rechte Morphismus im Diagramm ein Isomorphismus modulo $\SC$.
+\end{proof}
+
+\begin{proof}[Beweis von Satz \ref{homotopy-in-c-iff-homology-in-c}]
+
 \end{proof}
 
 \begin{bem}
