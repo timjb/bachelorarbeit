@@ -30,12 +30,12 @@
 
 \theoremstyle{definition}
 %\newtheorem*{nota}{Notation}
-\newtheorem*{bsp}{Beispiel}
-\newtheorem*{satz}{Satz}
-\newtheorem*{lem}{Lemma}
-\newtheorem*{defn}{Definition}
-\newtheorem*{beob}{Beobachtung}
-\newtheorem*{bspe}{Beispiele}
+\newtheorem{bsp}{Beispiel}
+\newtheorem{satz}{Satz}
+\newtheorem{lem}{Lemma}
+\newtheorem{defn}{Definition}
+\newtheorem{beob}{Beobachtung}
+\newtheorem{bspe}{Beispiele}
 
 \theoremstyle{remark}
 \newtheorem*{bem}{Bemerkung}
@@ -563,9 +563,9 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 \end{defn}
 
 \begin{defn}
-  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
-  \[ M_n \supseteq \ldots \supseteq F^{p-1} M_n \supseteq F^p M_n \supseteq F^{p+1} M_n \supseteq \ldots \]
-  existieren, sodass $E_\infty^{pq} \cong F^p M_{p+q} / F^{p+1} M_{p+q}$ für alle $p, q \in \Z$.
+  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M^n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
+  \[ M^n \supseteq \ldots \supseteq F^{p-1} M^n \supseteq F^p M^n \supseteq F^{p+1} M^n \supseteq \ldots \]
+  existieren, sodass $E_\infty^{pq} \cong F^p M^{p+q} / F^{p+1} M^{p+q}$ für alle $p, q \in \Z$.
 \end{defn}
 
 \subsection{Die Spektralsequenz eines filtrierten Komplexes}
@@ -758,6 +758,41 @@ Wir haben als Spezialfälle
 % May/Ponto, More Concise AT: Allgemeine Serre-Spektralsequenz (mit lokalen Koeff'en); nur ein "sketch proof"
 % McCleary, User's Guide to SS: Lokale Koeffizienten, statement: p. 139, proof: p. 167ff
 
+\subsection{Die Serre-Spektralsequenz für Homologie}
+
+Es gibt eine Version des Satzes für Serre für Homologie anstatt Kohomologie.
+In Homologie wird eine andere Indizierung für Spektralsequenzen verwendet:
+
+\begin{defn}
+  Eine homologische \emph{Spektralsequenz} besteht aus
+  \begin{itemize}
+    \item $A$-Moduln $E^r_{p,q}$ für alle $p, q \in \Z$ und $r \geq 1$,
+    \item $A$-Modul-Homomorphismen $d^r_{p,q} : E^r_{p,q} \to E^r_{p-r,q+r-1}$ mit $d^r_{p-r,q+r-1} \circ d^r_{p,q} = 0$
+    \item und Isomorphismen $\alpha^r_{p,q} : H_{p,q}(E^r) \!\coloneqq\! \ker(d ^r_{p,q}) / \im(d^r_{p+r,q-r+1}) \xrightarrow{\cong} E^{r+1}_{p,q}$.
+  \end{itemize}
+\end{defn}
+
+Jede homologische Spektralsequenz $E$ liefert eine kohomologische Spektralsequenz, wenn man $E_r^{p,q} \coloneqq E^r_{-p,-q}$ setzt.
+
+\begin{defn}
+  Eine homologische Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$ (notiert $E^r_{p,q} \Rightarrow M_{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
+  \[ 0 \subseteq \ldots \subseteq F^{p-1} M_n \subseteq F^p M_n \subseteq F^{p+1} M_n \subseteq \ldots \]
+  existieren, sodass $E^\infty_{pq} \cong F^p M_{p+q} / F^{p-1} M_{p+q}$ für alle $p, q \in \Z$.
+\end{defn}
+
+\begin{satz}[Jean-Pierre Serre]
+  Es sei $G$ eine abelsche Gruppe.
+  Für jede Serre-Faserung $p : E \to B$ existiert eine (homologische) Spektralsequenz mit
+  \[ E^2_{p,q} = H_p(B; \LH_q(F_p; G)), \]
+  welche gegen $H_*(E)$ konvergiert.
+\end{satz}
+
+% TODO: Verweis auf Beweis in irgendeinem Buch.
+
+Dabei bilden die $q$-ten Homologiegruppen der Fasern ein lokales Koeffizientensystem mit $\LH_q(F_p; G)_b = H_q(p^{-1}(b))$.
+Homologie mit einem Koeffizientensystem $\underline{A}$ ist ähnlich definiert wie Homologie.
+Falls $B$ einfach zusammenhängend ist oder allgemeiner $\pi_1(B)$ trivial auf den Homologiegruppen der Faser wirkt, so gilt $H_p(B; \LH_q(F_p; G)) \cong H_p(B; H_q(F_p; G))$.
+
 \subsection{Die Pfadfaserung}
 
 % TODO: wohin?
@@ -945,17 +980,17 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
   \end{itemize}
 \end{bspe}
 
-Es sei im Folgenden $\SC \in \{ \FG, \F \}$.
 
 % Hatcher, 1.8
-\begin{satz}["`Hurewicz-mod-$\SC$-Theorem"']
-  Es sei $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
+\begin{satz}["`Hurewicz-mod-$\SC$-Theorem"']\label{hurewicz-mod-c}
+  Es sei $\SC \in \{ \FG, \F \}$ und
+  $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
   Angenommen, $\pi_i(X, x_0) \in \SC$ für $0 < i < n$.
   Dann ist $h_i : \pi_i(X, x_0) \to H_i(X; \Z)$ eine Isomorphismus modulo $\SC$ für $i \leq n$.
   Insbesondere gilt $H_i(X; \Z) \in \SC$ für $0 < i < n$.
 \end{satz}
 
-Mit $\SC \coloneqq \{ 0 \}$ folgt das gewöhnliche Hurewicz-Theorem.
+%Mit $\SC \coloneqq \{ 0 \}$ folgt das gewöhnliche Hurewicz-Theorem.
 
 % Hatcher, 1.7
 \begin{satz}
@@ -967,7 +1002,7 @@ Mit $\SC \coloneqq \{ 0 \}$ folgt das gewöhnliche Hurewicz-Theorem.
   \end{itemize}
 \end{satz}
 
-\begin{lem}
+\begin{lem}\label{two-of-three}
   Es sei $F \to X \to B$ eine Faserung und die Räume $F$, $X$ und $B$ wegzusammenhängend.
   % TODO: Wirkung beschreiben (bisher nur für Kohomologie getan)
   Wirke $\pi_1(B)$ trivial auf $H_*(F)$.
@@ -1012,7 +1047,7 @@ Mit $\SC \coloneqq \{ 0 \}$ folgt das gewöhnliche Hurewicz-Theorem.
 \end{proof}
 
 % 1.10 im Hatcher
-\begin{lem}
+\begin{lem}\label{homology-kgn-in-c}
   Sei $G \in \SC \in \{ \FG, \F \}$.
   Dann gilt $H_k(K(G, n)) \in \SC$ für alle $k, n > 0$.
 \end{lem}
@@ -1064,7 +1099,50 @@ Mit $\SC \coloneqq \{ 0 \}$ folgt das gewöhnliche Hurewicz-Theorem.
   \end{defn}
 \end{cutout}
 
+\TODO{Bemerkung zur Konstruktion von Postnikov-Türmen}
+
+\begin{bem}
+  Es sei ein Postnikov-Turm $\ldots \to X_2 \to X_1$ gegeben.
+  Dann kann man durch wiederholtes Anwenden der in \TODO{Ref} beschriebenen Konstruktion einen neuen Postnikovturm $\ldots \to X_2' \to X_1'$ und Homotopieäquivalenzen $X_i \simeq X_i'$ konstruieren, sodass die Abbildungen $X_{i+1}' \to X_i'$ Hurewicz-Faserungen sind.
+  Man sieht anhand der langen exakten Sequenz von Homotopiegruppen, dass die Faser von $X_{i+1}' \to X_i'$ ein $K(\pi_{n+1}(X), n{+}1)$ ist.
+\end{bem}
+
+\begin{lem}
+  Es sei $X$ einfach zusammenhängend mit $\pi_i(X, x_0) \in \SC$ für alle $i \geq 0$, wobei $\SC \in \{ \FG, \F \}$.
+  Dann gilt $H_i(X) \in \SC$ für $i \geq 1$.
+\end{lem}
+
 \begin{proof}
+  Es sei $\ldots \to X_{i+1} \to X_i \to \ldots \to X_1$ ein Postnikov-Turm von $X$, dessen Abbildungen $X_{i+1} \to X_i$ Hurewicz-Faserungen sind.
+  Wir zeigen, dass $H_i(X_k; \Z) \in \SC$ für alle $i, k > 0$.
+  Die Aussage stimmt für $k = 1$, da alle Homotopiegruppen und somit auch Homologiegruppen von $X_1$ gleich Null sind.
+  %Beachte, dass $X_2$ ein $K(\pi_2(X); 2)$, denn $\pi_1(X_2) \cong \pi_1(X) = 0$.
+  %Da $X_2$ ist ein  ist, stimmt die Aussage nach Lemma \ref{homology-kgn-in-c} für $k=2$.
+  Gelte die Aussage nun für ein $k \geq 1$.
+  Wir verwenden die Faserung $K(\pi_{k+1}(X), k{+}1) \to X_{k+1} \to X_k$.
+  Nach Lemma \ref{homology-kgn-in-c} sind die Homologiegruppen der Faser in $\SC$.
+  Gleiches gilt für den Basisraum nach Induktionsvoraussetzung,
+  und somit auch für $X_k$ nach Lemma \ref{two-of-three}.
+
+  Es gilt $H_i(X; \Z) \cong H_i(X_k; \Z) \in \SC$ für $k \geq i$, da $\pi_i(X \to X_k)$ und nach einem Korollar der relativen Version des Hurewicz-Theorems damit auch $H_i(X \to X_k)$ ein Isomorphismus für $i \leq k$ ist.
+  % TODO: Fußnote zu dem letzten Satz?
+\end{proof}
+
+
+\begin{proof}[Beweis von Satz \ref{hurewicz-mod-c}]
+  Aufgrund der Natürlichkeit des Hurewicz-Homomorphismus kommutiert folgendes Diagramm:
+  \begin{centertikzcd}
+    \pi_n(X) \arrow[r, "\cong"] \arrow[d, "h_n"] &
+    \pi_n(X_n) \arrow[d, "h_n"] \\
+    H_n(X) \arrow[r, "\cong"] &
+    H_n(X_n)
+  \end{centertikzcd}
+  Es genügt daher zu zeigen, dass $h_n : \pi_n(X_n) \to H_n(X_n; \Z)$ ein Isomorphismus modulo $\SC$ ist.
+  Wir betrachten die Serre-Spektralsequenz zur Faserung $F_n \to X_n \to X_{n-1}$.
+  Für diese gilt
+  \[ E^2_{pq} \cong H_p(X_{n-1}; \underbrace{H_q(K(\pi_n(X), n); \Z)}_{= 0 \text{ für } 0 < q < n}), \]
+  % TODO: Begründung für das Verschwinden dieser Homologiegruppen
+  es
   \TODO{}
 \end{proof}
 
@@ -1077,7 +1155,7 @@ Mit $\SC \coloneqq \{ 0 \}$ folgt das gewöhnliche Hurewicz-Theorem.
 % TODO: Etwas schreiben über rationale Homotopiegruppen
 
 % Hatcher, 1.20
-\begin{satz}
+\begin{satz}\label{rational-homology-kgn}
   Für $n \geq 1$ gilt
   \[
     H^*(K(\Z, n); \Q) \cong \begin{cases}
