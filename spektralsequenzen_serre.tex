@@ -17,6 +17,11 @@
 \usepackage{cutwin} % Bild neben Text
 \usepackage{mathabx} % \divides
 
+\usepackage[style=alphabetic-verb, backend=bibtex]{biblatex} % Literaturverzeichnis
+\bibliography{literatur.bib}
+%\usepackage[natbib=true,style=numeric]{biblatex}
+%\bibliography{bibliography}
+
 \author{Tim Baumann}
 \geburtsdatum{15. Juni 1994}
 \geburtsort{Friedberg}
@@ -617,7 +622,7 @@ Wir haben als Spezialfälle
   S[q,q,p,p] \cong H^*(F^p / F^q).
 \]
 
-\begin{lem}
+\begin{lem}\label{differential-homomorphism}
   \ES{} $z_1 \geq q_1 \geq p_1 = z_2 \geq b_1 = q_2 \geq p_2 \geq b_2$.
   Dann ist folgende Abbildung ein wohldefinierter Homomorphismus:
   \[
@@ -630,7 +635,7 @@ Wir haben als Spezialfälle
   Falls $[c] = 0$ in $S[z_2, q_2, p_2, b_2]$, so existieren $x \in F^{q_2}$ und $y \in F^{b_2}$ mit $c = x + d(y)$. Somit gilt $d^*[c] = [dc] = [d(x) + d^2(y)] = [d(x)] = 0$ in $S[z_1, q_1, p_1, b_1]$, da $F^{b_1} = F^{q_2}$.
 \end{proof}
 
-\begin{lem}
+\begin{lem}\label{differential-isomorphism}
   Es seien Filtrierungsindizes wie folgt gegeben:
   \begin{centertikzcd}[row sep=0.2cm, column sep=0.5cm]
     &&&& z_3 \arrow[r, "\geq" description, phantom] \arrow[d, equal] &
@@ -682,8 +687,8 @@ Wir haben als Spezialfälle
     \underbrace{S[p\!+\!r, p\!+\!1, p, p\!-\!r\!+\!1]^{p+q}}_{= E_r^{p,q}} \to \underbrace{S[p\!+\!2r, p\!+\!r\!+\!1, p\!+\!r, p\!+\!1]^{p+q+1}}_{= E_r^{p+r,q-r+1}}, \quad
     [c] \mapsto [d(c)].
   \]
-  Sie sind wohldefiniert nach Lemma \TODO{Nr}.
-  Wegen Lemma \TODO{Nr} ist
+  Sie sind wohldefiniert nach Lemma~\ref{differential-homomorphism}.und
+  wegen Lemma~\ref{differential-isomorphism} ist
   \[
     \alpha_r^{pq} : H^{p,q}(E_r) = \ker(d^{pq}_r) / \im(d^{p-r,q+r-1}_r) \to E_{r+1}^{pq}, \quad
     [c] \mapsto [c]
@@ -947,7 +952,7 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
   Insbesondere gilt $H_i(X; \Z) = 0$ für $0 < i < n$.
 \end{satz}
 
-% TODO: Auf Beweis im Hatcher verweisen
+Ein Beweis dieses Satzes wird in~\cite[S. 366ff]{hatcher:at} geführt.
 
 \begin{defn}
   Eine Klasse $\SC$ von abelschen Gruppen heißt \emph{Serre-Klasse}, falls
@@ -1123,7 +1128,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 
 \begin{bem}
   Es sei ein Postnikov-Turm $\ldots \to X_2 \to X_1$ gegeben.
-  Dann kann man durch wiederholtes Anwenden der in \TODO{Ref} beschriebenen Konstruktion einen neuen Postnikovturm $\ldots \to X_2' \to X_1'$ und Homotopieäquivalenzen $X_i \simeq X_i'$ konstruieren, sodass die Abbildungen $X_{i+1}' \to X_i'$ Hurewicz-Faserungen sind.
+  Dann kann man durch wiederholtes Anwenden der in Lemma~\ref{convert-to-fibration} beschriebenen Konstruktion einen neuen Postnikovturm $\ldots \to X_2' \to X_1'$ und Homotopieäquivalenzen $X_i \simeq X_i'$ konstruieren, sodass die Abbildungen $X_{i+1}' \to X_i'$ Hurewicz-Faserungen sind.
   Man sieht anhand der langen exakten Sequenz von Homotopiegruppen, dass die Faser von $X_{i+1}' \to X_i'$ ein $K(\pi_{n+1}(X), n{+}1)$ ist.
 \end{bem}
 
@@ -1490,9 +1495,14 @@ Zusammengefasst wissen wir also
     Daher gilt $\widetilde{H}^*(Y; \Q) = 0$.
     Da die Serre-Spektralsequenz zur Faserung $Z \to F'' \to Y$ mit Koeffizienten in~$\Q$ auf der $E_2$-Seite also nur Einträge in der Spalte $p=0$ besitzt, gilt $H^*(Z; \Q) \cong H^*(F''; \Q) \cong \Lambda[b]$.
     Die Aussage folgt nun aus dem vorhergehenden Lemma mit $X \coloneqq Z$.
-    % TODO: 
+    % TODO:
   \end{cutout}
 \end{proof}
+
+\nocite{*}
+%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+%\bibliographystyle{plain}
+\printbibliography
 
 % TODO:
 % * Eilenberg-MacLane-Räume
