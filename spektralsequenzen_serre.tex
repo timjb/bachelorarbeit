@@ -115,7 +115,10 @@
 
 \maketitle
 
-\section{Spektralsequenzen}
+\tableofcontents
+\newpage
+
+\section{Die Serre-Spektralsequenz}
 
 \subsection{Faserungen}
 
@@ -801,6 +804,8 @@ Dabei bilden die $q$-ten Homologiegruppen der Fasern ein lokales Koeffizientensy
 Homologie mit einem Koeffizientensystem $\underline{A}$ ist ähnlich definiert wie Homologie.
 Falls $B$ einfach zusammenhängend ist oder allgemeiner $\pi_1(B)$ trivial auf den Homologiegruppen der Faser wirkt, so gilt $H_p(B; \LH_q(F_p; G)) \cong H_p(B; H_q(F_p; G))$.
 
+\section{Endlichkeit der Homotopiegruppen der Sphären}
+
 \subsection{Die Pfadfaserung}
 
 % TODO: wohin?
@@ -1038,14 +1043,14 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Wir betrachten die Serre-Spektralsequenz zu der Faserung mit Koeffizienten in $\Z$.
   Die Aussage, dass die Homologiegruppe $H_n(X)$ in $\SC$ liegt, ist äquivalent dazu, dass die Gruppen $E^\infty_{i,n-i}$ für $i = 0, \ldots, n$ in $\SC$ liegen, denn diese Gruppen sind die Quotienten einer endlichen Filtrierung von $H_n(X)$.
 
-  \fall{Fall 1: $F$ und $B$ sind $\SC$-azyklisch}:
+  \fall{Fall 1: $F$ und $B$ sind $\SC$-azyklisch}
   Die universelle Koeffizientenformel liefert
   \[ E^2_{pq} \cong H_p(B; H_q(F; \Z)) \cong \left( H_p(B) \otimes H_q(F) \right) \oplus \Tor(H_{p-1}(B), H_q). \]
   Man sieht durch Unterscheidung der Fälle $p=0$, $p=1$ und $p>1$ sowie $q=0$ und $q > 0$, dass $E^2_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
   Als Subquotient von $E^2_{pq}$, einer Gruppe aus $\SC$, ist dann auch $E^\infty_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
   Dies zeigt die Behauptung nach der Bemerkung am Anfang des Beweises.
 
-  \fall{Fall 1: $F$ und $X$ sind $\SC$-azyklisch}:
+  \fall{Fall 2: $F$ und $X$ sind $\SC$-azyklisch}
   Wir zeigen nun durch Induktion über $k$, dass $H_p(B) \in \SC$ für $0 < p < k$.
   %Dies gilt trivialerweise für $k = 1$.
   Gelte dies für $k \geq 1$.
@@ -1066,7 +1071,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Da aber $E^R_{k,0} \cong E^\infty_{k,0} \in \SC$ für $R$ groß genug, gilt $E^r_{k,0} \in \SC$ für alle $r \geq 2$.
   Insbesondere $H_k(B; \Z) \cong H_k(B; H_0(F; \Z)) \cong E^2_{k,0} \in \SC$.
 
-  \fall{Fall 1: $B$ und $X$ sind $\SC$-azyklisch}:
+  \fall{Fall 3: $B$ und $X$ sind $\SC$-azyklisch}
   Analog zum vorherigen Fall zeigt man induktiv, dass $H_q(F) \in \SC$ für $0 < q < k$.
   Dazu verwendet man die kurze exakte Sequenz $0 \to \im(d^r_{r,k-r+1}) \hookrightarrow E^r_{0,k} \to E^{r+1}_{0,k}$.
 \end{proof}
@@ -1495,13 +1500,11 @@ Zusammengefasst wissen wir also
     Daher gilt $\widetilde{H}^*(Y; \Q) = 0$.
     Da die Serre-Spektralsequenz zur Faserung $Z \to F'' \to Y$ mit Koeffizienten in~$\Q$ auf der $E_2$-Seite also nur Einträge in der Spalte $p=0$ besitzt, gilt $H^*(Z; \Q) \cong H^*(F''; \Q) \cong \Lambda[b]$.
     Die Aussage folgt nun aus dem vorhergehenden Lemma mit $X \coloneqq Z$.
-    % TODO:
   \end{cutout}
 \end{proof}
 
 \nocite{*}
-%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
-%\bibliographystyle{plain}
+\addcontentsline{toc}{section}{Literatur}
 \printbibliography
 
 % TODO:
