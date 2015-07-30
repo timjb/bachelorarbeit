@@ -83,6 +83,8 @@
 \newcommand{\I}{I} % Kompaktes Einheitsinterval [0,1]
 %\newcommand{\I}{\cinterval{0}{1}} % Kompaktes Einheitsinterval [0,1] (alternativ)
 
+\newcommand{\fall}[1]{\emph{#1}:\enspace}
+
 % Schöne Mengen { #1 | #2 } (benötigt mathtools)
 % siehe http://tex.stackexchange.com/questions/13634/define-pretty-sets-in-latex-esp-how-to-do-the-condition-separator
 \DeclarePairedDelimiterX\Set[2]{\lbrace}{\rbrace}%
@@ -1031,14 +1033,14 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Wir betrachten die Serre-Spektralsequenz zu der Faserung mit Koeffizienten in $\Z$.
   Die Aussage, dass die Homologiegruppe $H_n(X)$ in $\SC$ liegt, ist äquivalent dazu, dass die Gruppen $E^\infty_{i,n-i}$ für $i = 0, \ldots, n$ in $\SC$ liegen, denn diese Gruppen sind die Quotienten einer endlichen Filtrierung von $H_n(X)$.
 
-  \emph{Fall 1: $H_n(F), H_n(B) \in \SC$ für alle $n > 0$}: \enspace
+  \fall{Fall 1: $F$ und $B$ sind $\SC$-azyklisch}:
   Die universelle Koeffizientenformel liefert
   \[ E^2_{pq} \cong H_p(B; H_q(F; \Z)) \cong \left( H_p(B) \otimes H_q(F) \right) \oplus \Tor(H_{p-1}(B), H_q). \]
   Man sieht durch Unterscheidung der Fälle $p=0$, $p=1$ und $p>1$ sowie $q=0$ und $q > 0$, dass $E^2_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
   Als Subquotient von $E^2_{pq}$, einer Gruppe aus $\SC$, ist dann auch $E^\infty_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
   Dies zeigt die Behauptung nach der Bemerkung am Anfang des Beweises.
 
-  \emph{Fall 2: $H_n(F), H_n(X) \in \SC$ für alle $n > 0$}: \enspace
+  \fall{Fall 1: $F$ und $X$ sind $\SC$-azyklisch}:
   Wir zeigen nun durch Induktion über $k$, dass $H_p(B) \in \SC$ für $0 < p < k$.
   %Dies gilt trivialerweise für $k = 1$.
   Gelte dies für $k \geq 1$.
@@ -1059,7 +1061,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Da aber $E^R_{k,0} \cong E^\infty_{k,0} \in \SC$ für $R$ groß genug, gilt $E^r_{k,0} \in \SC$ für alle $r \geq 2$.
   Insbesondere $H_k(B; \Z) \cong H_k(B; H_0(F; \Z)) \cong E^2_{k,0} \in \SC$.
 
-  \emph{Fall 3: $H_n(X), H_n(B) \in \SC$ für alle $n > 0$}: \enspace
+  \fall{Fall 1: $B$ und $X$ sind $\SC$-azyklisch}:
   Analog zum vorherigen Fall zeigt man induktiv, dass $H_q(F) \in \SC$ für $0 < q < k$.
   Dazu verwendet man die kurze exakte Sequenz $0 \to \im(d^r_{r,k-r+1}) \hookrightarrow E^r_{0,k} \to E^{r+1}_{0,k}$.
 \end{proof}
@@ -1375,14 +1377,14 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 \subsection{Satz von Serre}
 
 \begin{lem}
-  Es sei $n \geq 2$ ungerade und $X$ ein $(n{-}1)$-zusammenhängender topologischer Raum.
+  Es sei $n \geq 3$ ungerade und $X$ ein $(n{-}1)$-zusammenhängender topologischer Raum.
   Angenommen, $H^k(X; \Z) = 0$ für $k > n$ und $H_n(X) \cong \pi_n(X)$ ist die direkte Summe von $\Z$ und einer endlichen Gruppe.
   Dann sind die Homotopiegruppen $\pi_k(X, x_0)$, $k > n$ endlich.
 \end{lem}
 
 \begin{proof}
   Durch Töten der höheren Homotopiegruppen bekommen wir eine Abbildung $f : X \to K(\pi_n(X), n) \approx K(\Z, n) \times K(G, n)$, wobei $G$ eine endliche Gruppe ist.
-  Wir führen die in Lemma \ref{convert-to-fibration} beschriebene Konstruktion durch und erhalten einen zu $X$ homotopieäquivalenten Raum $X'$ und eine Hurewicz-Faserung $p : X' \to K(\pi_n(X), n)$ mit Faser $F$.
+  Wir führen die in Lemma~\ref{convert-to-fibration} beschriebene Konstruktion durch und erhalten einen zu $X$ homotopieäquivalenten Raum~$X'$ und eine Hurewicz-Faserung $p : X' \to K(\pi_n(X), n)$ mit Faser $F$.
   Anhand der langen exakten Sequenz dieser Faserung sehen wir, dass
   \[
     \pi_i(F) \cong \begin{cases}
@@ -1391,36 +1393,109 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
     \end{cases}
   \]
   Wir wenden diesselbe Konstruktion auf die Inklusion $F \hookrightarrow X'$ an und bekommen einen zu $F$ homotopieäquivalenten Raum $F'$ und eine Faserung $q : F' \to X'$.
-  Aus der langen exakten Homotopiesequenz ergibt sich, dass die Faser $\tilde{F}$ dieser Faserung ein $K(\pi_n(X), n{-}1)$ ist.
+  Aus der langen exakten Homotopiesequenz ergibt sich, dass die Faser~$\tilde{F}$ dieser Faserung ein $K(\pi_n(X), n{-}1)$ ist.
 
-  Wir wollen die Serre-Spektralsequenz der Faserung $\tilde{F} \to F' \to X'$ mit Koeffizienten in $\Q$ verwenden.
+  Wir wollen die Serre-Spektralsequenz der Faserung $\tilde{F} \to F' \to X'$ mit Koeffizienten in~$\Q$ verwenden.
   Dazu untersuchen wir zunächst die rationale Kohomologie von Faser und Basisraum.
   Lemma \ref{homology-kgn-in-c} impliziert, dass die Homotopiegruppen und wegen Korollar \ref{homotopy-in-c-iff-homology-in-c} auch die reduzierten Homologiegruppen von $K(G, n{-}1)$ endlich sind.
-  Nach der universellen Koeffizientenformel verschwinden somit alle reduzierten Kohomologiegruppen von $K(G, n{-}1)$ mit Koeffizienten in $\Q$.
-  Wir sehen nun an der Serre-Spektralsequenz der Produktfaserung $K(G, n{-}1) \to K(\pi_n(X), n{-}1) \to K(\Z, n{-}1)$ und Lemma \ref{rational-homology-kzn}, dass $H^*(K(\pi_n(X), n{-}1); Q) \cong H^*(K(\Z, n{-}1); \Q) \cong \Q[x]$ mit Erzeuger $a \in H^{n-1}(K(\pi_n(X), n{-}1); \Q)$.
-  Aus der universellen Koeffizientenformel folgt, dass die rationale Kohomologie von $X'$ gleich $\Q$ ist in Grad 0 und in Grad $n$, und Null sonst.
+  Nach der universellen Koeffizientenformel verschwinden somit alle reduzierten Kohomologiegruppen von $K(G, n{-}1)$ mit Koeffizienten in~$\Q$.
+  Wir sehen nun an der Serre-Spektralsequenz der Produktfaserung $K(G, n{-}1) \to K(\pi_n(X), n{-}1) \to K(\Z, n{-}1)$ und Lemma \ref{rational-homology-kzn}, dass $H^*(K(\pi_n(X), n{-}1); \Q) \cong H^*(K(\Z, n{-}1); \Q) \cong \Q[x]$ mit Erzeuger $x \in H^{n-1}(K(\pi_n(X), n{-}1); \Q)$.
+  Für den Basisraum folgt aus der universellen Koeffizientenformel, dass die rationale Kohomologie von~$X'$ gleich~$\Q$ ist in Grad~$0$ und in Grad~$n$, und Null sonst.
 
-  Wir wissen also, dass $E_2^{pq} = 0$ außer falls $p \in \{ 0, n \}$ und $n{-}1 \divides q$ gilt.
+  Wir wissen nun, dass $E_2^{pq} = 0$ außer falls $p \in \{ 0, n \}$ und $n{-}1 \divides q$ gilt.
   Die Spektralsequenz besitzt also auf der $E_2$-Seite und damit auch auf der $E_n$-Seite die gleichen Einträge wie die Spektralsequenz aus dem zweiten Fall ($n$ ungerade) des vorhergehenden Lemmas.
   Genau wie dort schließen wir, dass $d_n^{0,n-1}$ ein Isomorphismus ist (denn $H^n(X'; \Q) = 0$) und dass aufgrund der multiplikativen Struktur der Spektralsequenz auch die Differentiale $d_n^{0,k(n-1)}$ für $k \geq 1$ Isomorphismen sind.
   Somit ist $E_{n+1}^{pq} = 0$ außer für $p = q = 0$.
   Es folgt, dass $H^n(F'; \Q) = 0$ für $n > 0$.
+  Somit gilt auch $H_n(F'; \Z) \times \Q \cong H_n(F'; \Q) \cong H^n(F'; \Q) = 0$, es ist also $H_n(F'; \Z)$ eine Torsionsgruppe.
+  Da $X' \simeq X$ und $K(\pi_n(X), n)$ $\FG$-azyklisch sind, ist auch $F' \simeq F$ $\FG$-azyklisch, \dh{} die Homologiegruppen $H_n(F'; \Z)$,~$n > 0$ sind endlich erzeugt.
+  Somit sind diese Homologiegruppen schon endlich.
+  Nach Korollar~\ref{homotopy-in-c-iff-homology-in-c} sind damit alle Homotopiegruppen von $F'$ endlich.
+  Diese entsprechen im Grad $k > n$ aber gerade den Homotopiegruppen von $X$.
 \end{proof}
 
 % Hatcher, 1.21
 \begin{satz}
-  Die Homotopiegruppen $\pi_i(S^n)$ sind endlich bis auf die Gruppen $\pi_{4k-1}(S^{2k})$, $k \geq 1$, welche jeweils isomorph zu einer direkten Summe von $\Z$ mit einer endlichen Gruppe sind.
+  Die Homotopiegruppen $\pi_i(S^n, *)$,~$i > n$, sind endlich bis auf die Gruppen $\pi_{4k-1}(S^{2k})$, $k \geq 1$, welche jeweils isomorph zu einer direkten Summe von $\Z$ mit einer endlichen Gruppe sind.
 \end{satz}
 
+Zusammengefasst wissen wir also
+\[
+  \pi_i(S^n, *) \cong \begin{cases}
+    0, & \text{für $i < n$,} \\
+    \Z, & \text{für $i = n$,} \\
+    \Z \oplus \text{endliche Gruppe}, & \text{für $i=2n-1$ und $n$ gerade,} \\
+    \text{endliche Gruppe}, & \text{sonst.}
+  \end{cases}
+\]
+
 \begin{proof}
-  \TODO{}
+  Im Fall $n=1$ stimmt die Aussage, denn die universelle Überlagerung von $S^1$ ist $\R$.
+  Wir können daher $n \geq 2$ annehmen.
+  Im Fall, dass $n \geq 3$ ungerade ist, folgt die Aussage aus dem vorhergehenden Lemma.
+  Es bleibt der Fall, dass $n \geq 2$ gerade ist.
+
+  \vspace{2em}
+
+  \renewcommand\windowpagestuff{
+    \begin{center}\begin{tikzpicture}[x=16pt,y=16pt]\begin{scope}[shift={(0,0)}]
+      \foreach \x in {1,2,3,5}{
+        \foreach \y in {0,1,...,3}{
+          \zeroDot{\x}{\y}
+        }
+      }
+      \foreach \x in {0,...,5}{
+        \zeroDot{\x}{4}
+      }
+      \node at (0,0) {$\Q$\small $1$};
+      \zeroDot{0}{1}
+      \zeroDot{0}{2}
+      \node at (0,3) {$\Q$\small $a$};
+      \node at (4,0) {$\Q$\small $x$};
+      \zeroDot{4}{1}
+      \zeroDot{4}{2}
+      \node at (4,3) {$\Q$\small $ax$};
+      \draw[->,gray] (0.6,2.6) -- (3.4,0.4);
+      \draw[->] (-0.7,-0.6) -- (6,-0.6); %node[below] {p};
+      \draw[->] (-0.7,-0.6) -- (-0.7,4.5); %node[left] {q};
+      \node[left] at (-0.7,0) {$0$};
+      \node[left] at (-0.9,1.7) {\vdots};
+      \node[left] at (-0.7,3) {$n{-}1$};
+      \node[below] at (0,-0.6) {$0$};
+      \node[below] at (2,-0.7) {$\cdots$};
+      \node[below] at (4,-0.7) {$n$};
+    \end{scope}\end{tikzpicture}\end{center}
+  }
+  \opencutright
+  \begin{cutout}{0}{\dimexpr\linewidth-5cm\relax}{0pt}{8}
+    Wir wenden diesselbe Konstruktion wie im Beweis des vorhergehenden Lemmas für den Raum $X = S^n$ an.
+    Da $n$ gerade ist, haben wir aber $H^*(K(\pi_n(X), n{-}1)) \cong H^*(K(\pi_n(X), n{-}1)) \cong \Lambda[x]$.
+    %Also $E_2^{pq} = 0$ außer für $(p, q) \in \{ 0, n \} \times \{ 0, n-1 \}$.
+    Die $E_n$-Seite der Serre-Spektralsequenz der Faserung $K(\pi_n(X), n{-}1) \to F' \to X'$ ist daher wie rechts abgebildet.
+    Der Eintrag $\Q$ auf Position $E_2^{n,n-1}$ überlebt die Spektralsequenz.
+    Somit ist $H^*(F'; \Q) \cong \Lambda[b]$ mit $b \in H^{2n-1}(F'; \Q)$.
+    Es folgt $H_i(F'; \Z) \otimes \Q \cong H_i(F'; \Q) = 0$ für $i < 2n-1$.
+    Da die Homologiegruppen von $F'$ endlich erzeugt sind, ist $H_i(F'; \Z) \in \F$ für $i < 2n-1$ und $H_{2n-1}(F'; \Z) \cong \Z \oplus G$, wobei $G$ eine endliche Gruppe ist.
+    Das Hurewicz-modulo-$\SC$-Theorem impliziert, dass damit auch die Homotopiegruppen $\pi_i(F')$ endlich sind für $i < 2n-1$ und dass $\pi_{2n-1}(F) \cong \Z \oplus G'$ für eine endliche Gruppe $G'$.
+    Indem wir höhere Homotopiegruppen killen, erhalten wir eine Abbildung $F' \to Y$, wobei $\pi_i(Y) = 0$ für $i \geq 2n-1$.
+    Wir konvertieren diese Abbildung zu einer Faserung $F'' \to Y$ mit Faser $Z$.
+    Anhand der langen exakten Homotopiesequenz dieser Faserung sehen wir, dass
+    \[
+      \pi_m(Z) = \begin{cases}
+        0, & \text{für $m < 2n-1$,} \\
+        \pi_m(F'') \cong \pi_m(F) \cong \pi_m(S^n), & \text{für $m \geq 2n-1$.}
+      \end{cases}
+    \]
+    Wir bemerken, dass alle Homotopiegruppen und somit auch Homologiegruppen von~$Y$ endlich sind.
+    Daher gilt $\widetilde{H}^*(Y; \Q) = 0$.
+    Da die Serre-Spektralsequenz zur Faserung $Z \to F'' \to Y$ mit Koeffizienten in~$\Q$ auf der $E_2$-Seite also nur Einträge in der Spalte $p=0$ besitzt, gilt $H^*(Z; \Q) \cong H^*(F''; \Q) \cong \Lambda[b]$.
+    Die Aussage folgt nun aus dem vorhergehenden Lemma mit $X \coloneqq Z$.
+    % TODO: 
+  \end{cutout}
 \end{proof}
 
 % TODO:
-% * Homologische Spektralsequenzen einführen
 % * Eilenberg-MacLane-Räume
-% * Abbildungen in Faserungen konvertieren
-% "pathspace fibration"
 % simpliziale Approximation
 % pi_q(S^n) wobei q < n
 % pi_n(S^n) = Z (mit Freudenthal-Suspensionssatz?)
@@ -1428,6 +1503,8 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 % * Satz von Serre (1.21)
 % * Was hat die Hopf-Invariante mit dem ganzen Zeugs zu tun?
 % * Existenz der Homologie-Spektralsequenz
+% * Mehr Vorsicht bei Voraussetzungen an Existenz der Serre-Spektralsequenz: Z.B. ist Raum einfach zusammenhängend?
+% * Methode des Killens von unteren Homotopiegruppen separat beschreiben (und damit Beweise vereinfachen?)
 
 % Theoreme, die benutzt werden, die man beweisen müsste:
 % * Zelluläre Approximation
