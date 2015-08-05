@@ -2,7 +2,6 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
-\usepackage{BA_Titelseite}
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{tikz}
 \usepackage{enumitem} % bessere Aufzählungen
@@ -21,17 +20,6 @@
 \bibliography{literatur.bib}
 %\usepackage[natbib=true,style=numeric]{biblatex}
 %\bibliography{bibliography}
-
-\author{Tim Baumann}
-\geburtsdatum{15. Juni 1994}
-\geburtsort{Friedberg}
-\date{\today}
-
-\betreuer{Betreuer: Prof. Dr. Bernhard Hanke}
-\zweitgutachter{Zweitgutachter: Prof. Dr. X Y}
-\institut{Institut für Mathematik}
-\title{Spektralsequenzen und der Satz von Serre}
-\ausarbeitungstyp{Bachelorarbeit Mathematik}
 
 \theoremstyle{definition}
 %\newtheorem*{nota}{Notation}
@@ -113,7 +101,7 @@
 
 \begin{document}
 
-\maketitle
+\input{titelseite.tex}
 
 \tableofcontents
 \newpage
@@ -1507,7 +1495,14 @@ Zusammengefasst wissen wir also
 \addcontentsline{toc}{section}{Literatur}
 \printbibliography
 
+% TODO für 31.7.2015:
+% * Masterbewerbung abgeben (bis 12:00!)
+% * Erklären, woher man pi_i(S^n) für i <= n kennt (Einhängungssatz, simpliziale Approximation)
+% * Technik des Killens von Homotopiegruppen und Konstruktion von Eilenberg-MacLane-Räumen erklären
+% * TODOs wegmachen
+
 % TODO:
+% * Beweis der Existenz der Serre-Spektralsequenz
 % * Eilenberg-MacLane-Räume
 % simpliziale Approximation
 % pi_q(S^n) wobei q < n
@@ -1518,6 +1513,7 @@ Zusammengefasst wissen wir also
 % * Existenz der Homologie-Spektralsequenz
 % * Mehr Vorsicht bei Voraussetzungen an Existenz der Serre-Spektralsequenz: Z.B. ist Raum einfach zusammenhängend?
 % * Methode des Killens von unteren Homotopiegruppen separat beschreiben (und damit Beweise vereinfachen?)
+% Beweise umformulieren: "man" vermeiden
 
 % Theoreme, die benutzt werden, die man beweisen müsste:
 % * Zelluläre Approximation
