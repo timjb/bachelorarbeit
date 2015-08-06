@@ -106,9 +106,88 @@
 \tableofcontents
 \newpage
 
-\section{Die Serre-Spektralsequenz}
+\section{Einleitung}
 
-\subsection{Faserungen}
+% Hatcher, 1.21
+\begin{satz}
+  Die Homotopiegruppen $\pi_i(S^n, *)$,~$i > n$, sind endlich bis auf die Gruppen $\pi_{4k-1}(S^{2k})$, $k \geq 1$, welche jeweils isomorph zu einer direkten Summe von $\Z$ und einer endlichen Gruppe sind.
+\end{satz}
+
+\section{Homotopiegruppen der Sphären}
+
+\begin{defn}
+  Es sei $(X, x_0)$ ein punktierter topologischer Raum.
+  Für $n \geq 1$ heißt die Menge
+  \[ \pi_n(X, x_0) \coloneqq [(S^n, *), (X, x_0)] \]
+  der basispunkterhaltenden Abbildungen $S^n \to X$ modulo basispunkterhaltender Homotopie \emph{$n$-te Homotopiegruppe} von $X$ (mit Basispunkt $x_0$).
+\end{defn}
+
+Die Gruppenstruktur auf $\pi_n(X)$ wird induziert durch die Kogruppenstruktur auf $S^n$, welche durch die Abbildung $S^n \to S^n \vee S^n$ gegeben ist, die die Südkappe $D^n_+$ auf die erste $S^n$, die Nordkappe $D^n_{-}$ auf die zweite $S^n$ und den Äquator $D^n_{+} \cap D^n_{-}$ auf den Anklebepunkt von $S^n \vee S^n$ abbildet.
+Das neutrale Element der Homotopiegruppen wird repräsentiert durch die konstante Abbildung auf den Basispunkt $x_0$.
+Man kann zeigen, dass $\pi_n(X, x_0)$ für $n \geq 2$ abelsch ist (vgl. \cite{hatcher:at}).
+
+Eine basispunkterhaltende Abbildung $g : (X, x_0) \to (Y, y_0)$ induziert Abbildungen $g_* = \pi_i(g) : \pi_i(X, x_0) \to \pi_i(Y, y_0)$ durch Nachkomponieren mit $g$.
+Auf diese Weise wird $\pi_i$ zu einem Funktor von der Kategorie der punktierten topologischen Räume in die Kategorie der (abelschen) Gruppen.
+
+Falls ein Weg von $x_0$ nach $x'_0$ in $X$ existiert, so sind $\pi_n(X, x_0)$ und $\pi_n(X, x'_0)$ isomorph.
+Für nicht leere, wegzusammenhängende Räume $X$ kann man daher den Basispunkt in der Notation weglassen von der Homotopiegruppe $\pi_n(X)$ von $X$ sprechen.
+
+% TODO: Motivation für Studium der Homotopiegruppen der Sphären
+
+Für $i < n$ gilt $\pi_i(S^n) = 0$:
+Wir können die Sphären $S^i$ und $S^n$ als CW-Komplexe mit jeweils einer Nullzelle und einer $i$-Zelle bzw. $n$-Zelle realisieren.
+Das zelluläre Approximationstheorem besagt, dass jede Abbildung $f : S^i \to S^n$ homotop relativ Basispunkt zu einer zellulären Abbildung ist, \dh{} einer Abbildung $\tilde{f} : S^i \to S^n$, die das $i$-Skelett von $S^i$ (das ist ganz $S^i$) auf das $i$-Skelett von $S^n$ (das ist $\{ * \}$) abbildet.
+In anderen Worten ist jede Abbildung $S^i \to S^n$ homotop zur konstanten Abbildung und repräsentiert daher das neutrale Element in $\pi_i(S^n)$.
+% TODO: Hatcher zitieren
+
+Mit der universellen Überlagerung $p : \R \to S^1, \enspace t \mapsto e^{it}$ kann man die Homotopiegruppen von $S^1$ bestimmen:
+Die Fundamentalgruppe von $S^1$ ist isomorph zur Decktransformationsgruppe dieser Überlagerung, von der man leicht zeigen kann, dass diese isomorph zu $\Z$ ist.
+Es sei nun $i > 1$ und $f : S^i \to S^1$ stetig.
+Dann existiert eine Hochhebung $\tilde{f} : S^i \to \R$, da $f_* (\pi_1(S^n)) = f_*(0) = 0 = p_*(\pi_0(\R))$.
+Da $\R$ zusammenziehbar ist, finden wir eine Homotopie $H$ von $\tilde{f}$ zur konstanten Abbildung $x \mapsto 0$.
+Dann ist $p \circ H$ eine Homotopie zwischen $f$ und der konstanten Abbildung.
+Somit ist $\pi_i(S^1) = 0$ für $i > 1$.
+
+\begin{defn}
+  Die \emph{Einhängung} $\Sigma X$ eines punktierten Raumes $(X, x_0)$ ist
+  \[ \Sigma X \coloneqq (X \times I) / (X \times \{ 0, 1 \} \cup \{ x_0 \} \times I). \]
+  Der Basispunkt $*$ von $\Sigma X$ ist der auf einen Punkt zusammengezogene Teilraum.
+\end{defn}
+
+Einhängung ist ein Endofunktor der Kategorie der punktierten topologischen Räume: \\
+Für $f : (X, x_0) \to (Y, y_0)$ ist
+\[
+  \Sigma f : (\Sigma X, *) \to (\Sigma Y, *), \quad
+  [(x, t)] \mapsto [(f(x), t)].
+\]
+
+Man sieht leicht, dass $\Sigma S^i \approx S^{i+1}$.
+Somit induziert Einhängung eine Abbildung $E : \pi_i(X, x_0) \to \pi_i(\Sigma X, *)$.
+Da Einhängung mit den Kogruppenstruktur von $S^i$ und $S^{i+1}$ verträglich ist, ist $E$ sogar ein Gruppenhomomorphismus.
+
+\begin{defn}
+  Ein nicht leerer topologischer Raum $X$ heißt \emph{$n$-zusammenhängend}, falls $X$ wegzusammenhängend ist und $\pi_i(X) = 0$ für $1 \leq i \leq n$.
+\end{defn}
+
+% TODO: Hatcher zitieren, p. 360
+\begin{satz}[Freudenthal'scher Einhängungssatz]
+  Es sei $X$ ein $(n{-}1)$-zusammenhängender CW-Komplex.
+  Dann ist $E : \pi_i(X) \to \pi_{i+1}(\Sigma X)$ ein Isomorphismus für $i < 2n - 1$ und ein Epimorphismus für $i = 2n$.
+\end{satz}
+
+% TODO: Stabile Homotopiegruppen erklären
+
+Zusammengefasst wissen wir also
+\[
+  \pi_i(S^n, *) \cong \begin{cases}
+    0, & \text{für $i < n$ und $i > n = 1$} \\
+    \Z, & \text{für $i = n$,} \\
+    \Z \oplus \text{endliche Gruppe}, & \text{für $i=2n-1$ und $n$ gerade,} \\
+    \text{endliche Gruppe}, & \text{sonst.}
+  \end{cases}
+\]
+
+\section{Faserungen}
 
 \begin{defn}
   Eine \emph{Serre-Faserung} ist eine stetige Abbildung $p : E \to B$, welche die \emph{Homotopieliftungseigenschaft} (HLE) für die Scheiben $D^n$ besitzt, \dh{}
@@ -342,7 +421,7 @@ Wir untersuchen den Isomorphismus
 Mit ganz ähnlicher Technik kann man zeigen:
 
 \begin{lem}
-  Seien $\gamma, \eta : I \to B$ stetige Wege mit $\gamma(1) = \eta(0)$.
+  Es seien $\gamma, \eta : I \to B$ stetige Wege mit $\gamma(1) = \eta(0)$.
   Dann gilt
   \[ T_\eta \circ T_\gamma = T_{\gamma \centerdot \eta} \enspace:\enspace H^*(F_{\gamma(0)}) \xrightarrow{\cong} H^*(F_{\eta(1)}). \]
   Dabei ist die Komposition $\gamma \centerdot \eta$ von $\gamma$ und $\eta$ folgender Weg:
@@ -380,7 +459,109 @@ Mit ganz ähnlicher Technik kann man zeigen:
   \end{align*}
 \end{proof}
 
-\subsection{Lokale Koeffizienten}
+\section{Wichtige Faserungen}
+
+Das einfachste Beispiel einer Hurewicz-Faserung ist die \emph{Produktfaserung}, die Projektion $p_0 : X \times Y \to X$ eines Produktraumes auf einen Faktor mit Faser $Y$.
+
+% TODO: wohin?
+\begin{defn}
+  Der \emph{Pfadraum} eines punktierten topologischer Raum $(X, x_0)$ ist
+  \[ PX \coloneqq \Set{\gamma \in X^\I}{\gamma(0) = x_0} \subset X^I \]
+  mit der Unterraumtopologie des Raumes $X^I$, welcher die Kompakt-Offen-Topologie besitzt.
+  Der Basispunkt von $PX$ ist der konstante Weg $y_0 : \I \to X, \enspace t \mapsto x_0$.
+\end{defn}
+
+\begin{bem}
+  Der Raum $PX$ ist zusammenziehbar: Die Abbildung
+  \[
+    H : \I \times PX \to PX, \quad
+    (t, \gamma) \mapsto \gamma(t \cdot \blank)
+  \]
+  ist eine Homotopie zwischen der konstanten Abbildung mit Wert $\gamma_0$ und $\id_{PX}$.
+\end{bem}
+
+\begin{lem}
+  Die Abbildung
+  $
+    p : PX \to X, \enspace
+    \gamma \mapsto \gamma(1)
+  $
+  ist eine Hurewicz-Faserung.
+\end{lem}
+
+\begin{proof}
+  Es sei ein topologischer Raum $A$ und stetige Abbildungen $H_0 : A \to PX$, $H : \I \times A \to X$ mit $H \circ i_0 = p \circ H_0$ gegeben.
+  %Definiere $\tilde{H}$ durch
+  Dann ist eine Homotopieliftung gegeben durch
+  \begin{align*}
+    \tilde{H} : \I \times A & \to PX, \\
+    (s, a) & \mapsto \gamma_{s, a}, \quad
+    \gamma_{s, a}(t) \coloneqq \begin{cases}
+      H_0(a)(t \cdot (1+s)) & \text{falls $t \cdot (1+s) \leq 1$,} \\
+      H(t \cdot (1+s) - 1, a) & \text{falls $t \cdot (1+s) \geq 1$.}
+      \qedhere
+    \end{cases}
+  \end{align*}
+\end{proof}
+
+Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
+
+\begin{bem}
+  Die Faser von $p$ über $x_0$ ist
+  \[ \Omega X \coloneqq \Set{\gamma \in X^\I}{\gamma(0) = \gamma(1) = x_0}. \]
+  Der Raum $\Omega X$ heißt \emph{Schleifenraum} von $X$.
+\end{bem}
+
+% XXX: $\Sigma X$ definieren?
+
+\begin{bem}
+  Es seien $(X, x_0)$ und $(Y, y_0)$ punktierte Räume.
+  Es gibt eine in $X$ und $Y$ natürliche Bijektion
+  % XXX: Einschränkung auf Unterkategorie der topologischen Räume nötig?
+  \begin{alignat*}{4}
+    \Hom((\Sigma X, x_0), (Y, y_0)) & \enspace\cong\enspace && \Hom((X, x_0), (\Omega Y, \gamma_0)), \\
+    f & \enspace\mapsto\enspace && (x \mapsto t \mapsto f([(x, t)])), \\
+    ([(x, t)] \mapsto g(x)(t)) & \enspace\mapsfrom\enspace && g.
+  \end{alignat*}
+\end{bem}
+
+\begin{lem}\label{convert-to-fibration}
+  Man kann jede stetige Abbildung $f : X \to Y$ schreiben als Komposition
+  \[ X \xrightarrow{i} E_f \xrightarrow{p} Y \]
+  einer Homotopieäquivalenz $i$ und einer Hurewicz-Faserung $p$.
+  Genauer gilt
+  \begin{align*}
+    E_f & \coloneqq \Set{(x, \gamma) \in X \times X^\I}{f(x) = \gamma(0)} \subset X \times Y^\I, \\
+    i(x) & \coloneqq (x, t \mapsto f(x)), \\
+    p(x, \gamma) & \coloneqq \gamma(1).
+  \end{align*}
+\end{lem}
+
+% Notation wie in https://en.wikipedia.org/wiki/Homotopy_fiber
+\begin{proof}
+  Offensichtlich sind $i$ und $p$ stetig und es gilt $p \circ i = f$.
+  Das Homotopie-Inverse von $i$ ist $j : E_f \to X, \enspace (x, \gamma) \mapsto x$.
+  Es gilt $j \circ i = \id_X$ und eine Homotopie zwischen $i \circ j$ und $id_{E_f}$ ist gegeben durch
+  \[
+    H : \I \times E_f \to E_f, \quad
+    (s, (x, \gamma)) \mapsto (x, \gamma(s \cdot \blank)).
+  \]
+  Es bleibt zu zeigen, dass $p$ eine Faserung ist.
+  Es sei dazu ein topologischer Raum $A$ und Abbildungen $H_0 : A \to E_f$ und $H : \I \times A \to Y$ mit $H \circ i_0 = p \circ H_0$ gegeben.
+  Dann ist folgende Abbildung eine Homotopieliftung:
+  \begin{align*}
+    \tilde{H} : \I \times A & \to E_f, \\
+    (s, a) & \mapsto \gamma_{s, a}, \quad
+    \gamma_{s, a}(t) \coloneqq \begin{cases}
+      H_0(a)(t \cdot (1+s)) & \text{falls $t \cdot (1+s) \leq 1$,} \\
+      H(t \cdot (1+s) - 1, a) & \text{falls $t \cdot (1+s) \geq 1$.}
+      \qedhere
+    \end{cases}
+  \end{align*}
+\end{proof}
+% TODO: Die Homotopieliftung ist zweimal genau gleich als Abbildung. Kann man die Pfadfaserung als Spezialfall vom Lemma sehen und sich das einmal sparen?
+
+\section{Lokale Koeffizienten}
 
 \iffalse
 % hier nach Hatcher, AT, Kapitel 3.H
@@ -466,9 +647,15 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
   ein Produkt, das sogenannte \emph{Cup-Produkt}.
 \end{defn}
 
-\subsection{Spektralsequenzen}
+\section{Spektralsequenzen}
 
-% TODO: Einleitendes Gefasel zu Spektralsequenzen
+Ein häufig verwendetes Hilfsmittel in der algebraischen Topologie sind lange exakte Sequenzen.
+Sie liefern einen Zusammenhang zwischen Homologie- oder Homotopiegruppen von verschiedenen Räumen.
+Wenn man genügend viele dieser Gruppen kennt, so kann man oft rein algebraisch die anderen Gruppen erschließen.
+Ein Beispiel ist die lange exakte Homotopiesequenz einer Faserung.
+Nun kann man sich fragen, ob es bei Faserungen auch einen Zusammenhang zwischen den Homologie- und Kohomologiegruppen von Basisraum, Totalraum und Faser gibt.
+Im Jahr 1951 hat Jean-Pierre Serre in seiner Dissertation \cite{serre:thesis} gezeigt, dass es einen solchen tatsächlich gibt.
+Dieser hat jedoch nicht die Form einer langen exakten Sequenz, sondern ist kodiert in einem komplizierten algebraischen Objekt, einer Spektralsequenz.
 
 \ES{} $A$ im Folgenden ein kommutativer Ring mit Eins.
 
@@ -481,13 +668,14 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
   \end{itemize}
 \end{defn}
 
-
 \begin{bem}
   \begin{itemize}
     \item Die Homomorphismen $d^r_{p,q}$ heißen \emph{Differentiale}.
-    \item Die Gesamtheit der Module $E^r_{p,q}$ und Differentiale $d_r^{pq}$ mit $r \in \N$ fest heißt $r$-te \emph{Seite} $E^r$.
-    \item Man stellt Seiten für gewöhnlich in einem 2-dimensionalen Raster dar:
+    \item Die Gesamtheit der Moduln $E_r^{p,q}$ und Differentiale $d_r^{pq}$ mit $r \in \N$ fest heißt \emph{$r$-te Seite} $E_r$.
+    \item Die Isomorphismen $\alpha_r^{p,q}$ werden in der Notation  unterdrückt und so gerechnet, als wäre $E^{p,q}_{r+1}$ gleich $H^{p,q}(E_r)$.
+    Wenn man eine Seite einer Spektralsequenz kennt, kann man also die Einträge auf der nächsten Seite berechnen, die Differentiale jedoch im Allgemeinen nicht.
   \end{itemize}
+  Man stellt Seiten für gewöhnlich in einem 2-dimensionalen Raster dar:
   \begin{center}
     \begin{tikzpicture}[x=12pt,y=12pt]
       \begin{scope}[shift={(0,0)}]
@@ -540,7 +728,7 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 \end{bem}
 
 \begin{defn}
-  Eine Spektralsequenz \emph{konvergiert}, falls für alle $p, q \in \Z$ ein $R \in \N$ existiert, sodass für alle $r \geq R$ die Differentiale von und nach $E_r^{p,q}$ null sind und damit $E^\infty_{p,q} \coloneqq E_R^{p,q} \cong E_{R+1}^{p,q} \cong \ldots$ \\[2pt]
+  Eine Spektralsequenz \emph{konvergiert}, falls für alle $p, q \in \Z$ ein $R \in \N$ existiert, sodass für alle $r \geq R$ die Differentiale von und nach $E_r^{p,q}$ verschwinden und damit $E^\infty_{p,q} \coloneqq E_R^{p,q} \cong E_{R+1}^{p,q} \cong \ldots$ \\[2pt]
   Der Grenzwert der SS ist die Unendlich-Seite $E_\infty \coloneqq \{ E_\infty^{p,q} \}_{p,q}$.
 \end{defn}
 
@@ -555,8 +743,8 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
   von Untermoduln von $M$, $p \!\in\! \Z$.
   Eine Filtrierung heißt
   \begin{itemize}
-    \item \emph{ausschöpfend}, falls $M = \cup_p F^p$,
-    \item \emph{Hausdorffsch}, wenn $0 = \cap_p F^p M$ und
+    \item \emph{ausschöpfend}, falls $M = \bigcup_p F^p$,
+    \item \emph{Hausdorffsch}, wenn $0 = \bigcap_p F^p M$ und
     \item \emph{regulär}, wenn sie ausschöpfend und Hausdorffsch ist.
   \end{itemize}
 \end{defn}
@@ -567,7 +755,21 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
   existieren, sodass $E_\infty^{pq} \cong F^p M^{p+q} / F^{p+1} M^{p+q}$ für alle $p, q \in \Z$.
 \end{defn}
 
-\subsection{Die Spektralsequenz eines filtrierten Komplexes}
+In der Anwendung von Spektralsequenzen kennt man oft die Einträge der $E_1$ oder $E_2$-Seite.
+Man versucht dann, die Einträge der $E_\infty$-Seite zu bestimmen, indem man sukzessive die Seiten $E_r$ ausrechnet.
+Das Problem dabei ist, dass die dazu benötigten Differentiale auf diesen Seiten im Allgemeinen nicht bekannt sind.
+In der Praxis hofft man darauf, dass Differentiale allein deswegen verschwinden, da ihre Quell- bzw. Zielgruppe die Nullgruppe ist.
+Man kann auch partielle Information über die $E_\infty$-Seite verwenden, um Aussagen über Differentiale zu treffen, z.\,B. dass ein Differential ein Isomorphismus ist.
+
+Angenommen, man hat auf diesem Weg die Seite $E_\infty$ einer Spektralsequenz, welche gegen $M$ konvergiert, berechnet.
+Dann kennt man immer noch nicht die Moduln $M^n$, sondern lediglich die Quotienten in einer Filtrierung von $M^n$.
+Im Fall, dass $A$ ein Körper ist, ist $M^n$ isomorph zur direkten Summe dieser Quotienten.
+Im Allgemeinen ist das aber nicht der Fall, wie das Beispiel der Filtrierung $\Z \supseteq 2 \Z \supseteq 0$ der abelschen Gruppe $\Z$ zeigt.
+
+Anders herum kann man Spektralsequenzen auch verwenden, um von $E_\infty$ (oder den Moduln $M^n$) auf $E_2$ bzw. $E_1$ zu schließen.
+Dies werden wir tun, um die Homologie von Eilenberg-MacLane-Räumen mit Koeffizienten in $\Q$ zu bestimmen.
+
+\section{Die Spektralsequenz eines filtrierten Komplexes}
 
 % Hier nach http://people.mpim-bonn.mpg.de/matschke/SpectralSequences.pdf
 
@@ -594,7 +796,7 @@ Für einen $n$-Simplex $\sigma$ bezeichne $\sigma_i \coloneqq \sigma_{\angles{e_
 
 Wir führen zunächst etwas neue Notation ein.
 Diese hilft, den Beweis verständlicher zu formulieren.
-Wir fassen im Folgenden den Kettenkomplex als ein einziges Modul $C \coloneqq \oplus_{n \in \Z} C^n$ anstatt als Folge von Modulen auf.
+Wir fassen im Folgenden den Kettenkomplex als ein einziges Modul $C \coloneqq \oplus_{n \in \Z} C^n$ anstatt als Folge von Moduln auf.
 Dieses Modul ist filtriert durch die Untermodule $F^p \coloneqq \oplus_{n \in \Z} F^p C^n$.
 Wir setzen $F^{-\infty} \coloneqq C$ und $F^{\infty} \coloneqq 0$.
 Die Korandabbildung fassen wir als Homomorphismen $d : C \to C$ mit $d \circ d = 0$ auf, der die Filtrierung von $C$ respektiert.
@@ -710,7 +912,7 @@ Wir haben als Spezialfälle
 \end{proof}
 
 
-\subsection{Die Serre-Spektralsequenz}
+\section{Die Serre-Spektralsequenz}
 
 \begin{satz}[Jean-Pierre Serre]
   Es sei $G$ eine abelsche Gruppe.
@@ -723,17 +925,21 @@ Wir haben als Spezialfälle
   \TODO{}
 \end{proof}
 
-\subsection{Multiplikative Struktur der Serre-Spektralsequenz}
+\section{Multiplikative Struktur der Serre-Spektralsequenz}
 
 \begin{satz}
   Es sei $R$ ein Ring, $p : E \to B$ eine Serre-Faserung.
   Dann gibt es bilineare Abbildungen
-  \[ m_r : E^{p,q}_r \times E^{s,t}_r \to E^{p+s,q+t}_r, \enspace (x, y) \mapsto m_r(x, y) =: xy \]
+  \[
+    m_r = m_r^{p,q,s,t} \enspace:\enspace E^{p,q}_r \times E^{s,t}_r \to E^{p+s,q+t}_r, \quad
+    (x, y) \mapsto m_r(x, y) =: xy
+  \]
   mit folgenden Eigenschaften:
   \begin{enumerate}[label=(\roman*)]
-    \item $d_r$ ist derivativ: $d_r^{p+s,q+t}(xy) = (d_r^{p,q} x) y + (-1)^{p+q} x (d_r^{s,t} y)$
-    \item Es gilt $m_{r+1}([x], [y]) = [m_r(x, y)]$ für alle $x \in \ker(d_r^{p,q})$, $y \in \ker(d_r^{s,t})$.
-    \item $m_2 : E_2^{p,q} \!\times\! E_2^{r,s} \!\to\! E_2^{p+s,q+t}$ ist das $(-1)^{qs}$-fache des Cup-Produkts
+    \item $d_r$ ist derivativ: $d_r^{p+s,q+t}(xy) = (d_r^{p,q} x) y + (-1)^{p+q} x (d_r^{s,t} y)$ für alle $x \in E^{p,q}_r$ und $y \in E^{s,t}_r$
+    \item Es gilt $m_{r+1}([x], [y]) = [m_r(x, y)]$ für alle $x \in \ker(d_r^{p,q})$ und $y \in \ker(d_r^{s,t})$. \\
+    Dabei ist $m_r(x, y) \in \ker(d_r^{p+s,q+t})$ wegen (i).
+    \item Auf der $E_2$-Seite ist $m_2 : E_2^{p,q} \!\times\! E_2^{r,s} \!\to\! E_2^{p+s,q+t}$ das $(-1)^{qs}$-fache des Cup-Produkts
     \[
       H^p(B; \LH^q(F; R)) \times H^s(B; \LH^t(F; R)) \to H^{p+s}(B; \LH^{q+t}(F; R)),
     \]
@@ -757,7 +963,7 @@ Wir haben als Spezialfälle
 % May/Ponto, More Concise AT: Allgemeine Serre-Spektralsequenz (mit lokalen Koeff'en); nur ein "sketch proof"
 % McCleary, User's Guide to SS: Lokale Koeffizienten, statement: p. 139, proof: p. 167ff
 
-\subsection{Die Serre-Spektralsequenz für Homologie}
+\section{Die Serre-Spektralsequenz für Homologie}
 
 Es gibt eine Version des Satzes für Serre für Homologie anstatt Kohomologie.
 In Homologie wird eine andere Indizierung für Spektralsequenzen verwendet:
@@ -789,112 +995,10 @@ Jede homologische Spektralsequenz $E$ liefert eine kohomologische Spektralsequen
 % TODO: Verweis auf Beweis in irgendeinem Buch.
 
 Dabei bilden die $q$-ten Homologiegruppen der Fasern ein lokales Koeffizientensystem mit $\LH_q(F_p; G)_b = H_q(p^{-1}(b))$.
-Homologie mit einem Koeffizientensystem $\underline{A}$ ist ähnlich definiert wie Homologie.
+Homologie mit einem Koeffizientensystem $\underline{A}$ ist analog zu Kohomologie mit Koeffizientensystem definiert.
 Falls $B$ einfach zusammenhängend ist oder allgemeiner $\pi_1(B)$ trivial auf den Homologiegruppen der Faser wirkt, so gilt $H_p(B; \LH_q(F_p; G)) \cong H_p(B; H_q(F_p; G))$.
 
-\section{Endlichkeit der Homotopiegruppen der Sphären}
-
-\subsection{Die Pfadfaserung}
-
-% TODO: wohin?
-\begin{defn}
-  Der \emph{Pfadraum} eines punktierten topologischer Raum $(X, x_0)$ ist
-  \[ PX \coloneqq \Set{\gamma \in X^\I}{\gamma(0) = x_0} \subset X^I \]
-  mit der Unterraumtopologie des Raumes $X^I$, welcher die Kompakt-Offen-Topologie besitzt.
-  Der Basispunkt von $PX$ ist der konstante Weg $y_0 : \I \to X, \enspace t \mapsto x_0$.
-\end{defn}
-
-\begin{bem}
-  Der Raum $PX$ ist zusammenziehbar: Die Abbildung
-  \[
-    H : \I \times PX \to PX, \quad
-    (t, \gamma) \mapsto \gamma(t \cdot \blank)
-  \]
-  ist eine Homotopie zwischen der konstanten Abbildung mit Wert $\gamma_0$ und $\id_{PX}$.
-\end{bem}
-
-\begin{lem}
-  Die Abbildung
-  $
-    p : PX \to X, \enspace
-    \gamma \mapsto \gamma(1)
-  $
-  ist eine Hurewicz-Faserung.
-\end{lem}
-
-\begin{proof}
-  Es sei ein topologischer Raum $A$ und stetige Abbildungen $H_0 : A \to PX$, $H : \I \times A \to X$ mit $H \circ i_0 = p \circ H_0$ gegeben.
-  %Definiere $\tilde{H}$ durch
-  Dann ist eine Homotopieliftung gegeben durch
-  \begin{align*}
-    \tilde{H} : \I \times A & \to PX, \\
-    (s, a) & \mapsto \gamma_{s, a}, \quad
-    \gamma_{s, a}(t) \coloneqq \begin{cases}
-      H_0(a)(t \cdot (1+s)) & \text{falls $t \cdot (1+s) \leq 1$,} \\
-      H(t \cdot (1+s) - 1, a) & \text{falls $t \cdot (1+s) \geq 1$.}
-      \qedhere
-    \end{cases}
-  \end{align*}
-\end{proof}
-
-Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
-
-\begin{bem}
-  Die Faser von $p$ über $x_0$ ist
-  \[ \Omega X \coloneqq \Set{\gamma \in X^\I}{\gamma(0) = \gamma(1) = x_0}. \]
-  Der Raum $\Omega X$ heißt \emph{Schleifenraum} von $X$.
-\end{bem}
-
-% XXX: $\Sigma X$ definieren?
-
-\begin{bem}
-  Seien $(X, x_0)$ und $(Y, y_0)$ punktierte Räume.
-  Es gibt eine in $X$ und $Y$ natürliche Bijektion
-  % XXX: Einschränkung auf Unterkategorie der topologischen Räume nötig?
-  \begin{alignat*}{4}
-    \Hom((\Sigma X, x_0), (Y, y_0)) & \enspace\cong\enspace && \Hom((X, x_0), (\Omega Y, \gamma_0)), \\
-    f & \enspace\mapsto\enspace && (x \mapsto t \mapsto f([(x, t)])), \\
-    ([(x, t)] \mapsto g(x)(t)) & \enspace\mapsfrom\enspace && g.
-  \end{alignat*}
-\end{bem}
-
-\begin{lem}\label{convert-to-fibration}
-  Man kann jede stetige Abbildung $f : X \to Y$ schreiben als Komposition
-  \[ X \xrightarrow{i} E_f \xrightarrow{p} Y \]
-  einer Homotopieäquivalenz $i$ und einer Hurewicz-Faserung $p$.
-  Genauer gilt
-  \begin{align*}
-    E_f & \coloneqq \Set{(x, \gamma) \in X \times X^\I}{f(x) = \gamma(0)} \subset X \times Y^\I, \\
-    i(x) & \coloneqq (x, t \mapsto f(x)), \\
-    p(x, \gamma) & \coloneqq \gamma(1).
-  \end{align*}
-\end{lem}
-
-% Notation wie in https://en.wikipedia.org/wiki/Homotopy_fiber
-\begin{proof}
-  Offensichtlich sind $i$ und $p$ stetig und es gilt $p \circ i = f$.
-  Das Homotopie-Inverse von $i$ ist $j : E_f \to X, \enspace (x, \gamma) \mapsto x$.
-  Es gilt $j \circ i = \id_X$ und eine Homotopie zwischen $i \circ j$ und $id_{E_f}$ ist gegeben durch
-  \[
-    H : \I \times E_f \to E_f, \quad
-    (s, (x, \gamma)) \mapsto (x, \gamma(s \cdot \blank)).
-  \]
-  Es bleibt zu zeigen, dass $p$ eine Faserung ist.
-  Es sei dazu ein topologischer Raum $A$ und Abbildungen $H_0 : A \to E_f$ und $H : \I \times A \to Y$ mit $H \circ i_0 = p \circ H_0$ gegeben.
-  Dann ist folgende Abbildung eine Homotopieliftung:
-  \begin{align*}
-    \tilde{H} : \I \times A & \to E_f, \\
-    (s, a) & \mapsto \gamma_{s, a}, \quad
-    \gamma_{s, a}(t) \coloneqq \begin{cases}
-      H_0(a)(t \cdot (1+s)) & \text{falls $t \cdot (1+s) \leq 1$,} \\
-      H(t \cdot (1+s) - 1, a) & \text{falls $t \cdot (1+s) \geq 1$.}
-      \qedhere
-    \end{cases}
-  \end{align*}
-\end{proof}
-% TODO: Die Homotopieliftung ist zweimal genau gleich als Abbildung. Kann man die Pfadfaserung als Spezialfall vom Lemma sehen und sich das einmal sparen?
-
-\subsection{Eilenberg-MacLane-Räume}
+\section{Töten von Homotopiegruppen und Eilenberg-MacLane-Räume}
 
 \begin{defn}
   Sei $G$ eine Gruppe, $n \geq 1$.
@@ -933,7 +1037,7 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
   % XXX: Verträglichkeit mit Gruppenstruktur???
 \end{bem}
 
-\subsection{Das Hurewicz-Mod-$\SC$-Theorem}
+\section{Das Hurewicz-Mod-$\SC$-Theorem}
 
 Sei $(X, x_0)$ ein punktierter topologischer Raum.
 Für $n \geq 1$ liefert der Hurewicz-Homomorphismus $h_n : \pi_n(X, x_0) \to H_n(X; \Z)$ einen Zusammenhang zwischen der $n$-ten Homotopiegruppe und der $n$-ten Homologiegruppe von $X$.
@@ -1215,7 +1319,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Man kann in diesem Kapitel die Voraussetzung, dass $X$ einfach zusammenhängend ist, ersetzen durch die Forderung, dass $X$ wegzusammenhängend und abelsch ist, \dh{} die Wirkung der Fundamentalgruppe $\pi_1(X)$ auf den höheren Homotopiegruppen $\pi_n(X)$ trivial ist.
 \end{bem}
 
-\subsection{Rationale Kohomologie von Räumen vom Typ $K(\Z, n)$}
+\section{Rationale Kohomologie von Räumen vom Typ $K(\Z, n)$}
 
 % TODO: Etwas schreiben über rationale Homotopiegruppen
 
@@ -1372,7 +1476,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   \end{cutout}
 \end{proof}
 
-\subsection{Satz von Serre}
+\section{Beweis des Satzes von Serre}
 
 \begin{lem}
   Es sei $n \geq 3$ ungerade und $X$ ein $(n{-}1)$-zusammenhängender topologischer Raum.
@@ -1412,22 +1516,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Diese entsprechen im Grad $k > n$ aber gerade den Homotopiegruppen von $X$.
 \end{proof}
 
-% Hatcher, 1.21
-\begin{satz}
-  Die Homotopiegruppen $\pi_i(S^n, *)$,~$i > n$, sind endlich bis auf die Gruppen $\pi_{4k-1}(S^{2k})$, $k \geq 1$, welche jeweils isomorph zu einer direkten Summe von $\Z$ mit einer endlichen Gruppe sind.
-\end{satz}
-
-Zusammengefasst wissen wir also
-\[
-  \pi_i(S^n, *) \cong \begin{cases}
-    0, & \text{für $i < n$,} \\
-    \Z, & \text{für $i = n$,} \\
-    \Z \oplus \text{endliche Gruppe}, & \text{für $i=2n-1$ und $n$ gerade,} \\
-    \text{endliche Gruppe}, & \text{sonst.}
-  \end{cases}
-\]
-
-\begin{proof}
+\begin{proof}[Beweis des Satzes von Serre (Satz \ref{})]
   Im Fall $n=1$ stimmt die Aussage, denn die universelle Überlagerung von $S^1$ ist $\R$.
   Wir können daher $n \geq 2$ annehmen.
   Im Fall, dass $n \geq 3$ ungerade ist, folgt die Aussage aus dem vorhergehenden Lemma.
@@ -1496,7 +1585,6 @@ Zusammengefasst wissen wir also
 \printbibliography
 
 % TODO für 31.7.2015:
-% * Masterbewerbung abgeben (bis 12:00!)
 % * Erklären, woher man pi_i(S^n) für i <= n kennt (Einhängungssatz, simpliziale Approximation)
 % * Technik des Killens von Homotopiegruppen und Konstruktion von Eilenberg-MacLane-Räumen erklären
 % * TODOs wegmachen
