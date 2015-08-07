@@ -117,9 +117,10 @@
 
 \begin{defn}
   Es sei $(X, x_0)$ ein punktierter topologischer Raum.
-  Für $n \geq 1$ heißt die Menge
+  Für $n \geq 0$ sei
   \[ \pi_n(X, x_0) \coloneqq [(S^n, *), (X, x_0)] \]
-  der basispunkterhaltenden Abbildungen $S^n \to X$ modulo basispunkterhaltender Homotopie \emph{$n$-te Homotopiegruppe} von $X$ (mit Basispunkt $x_0$).
+  die Menge der basispunkterhaltenden Abbildungen $S^n \to X$ modulo basispunkterhaltender Homotopie.
+  Für $n \geq 1$ heißt $\pi_n(X)$ die \emph{$n$-te Homotopiegruppe} von $X$ (mit Basispunkt $x_0$).
 \end{defn}
 
 Die Gruppenstruktur auf $\pi_n(X)$ wird induziert durch die Kogruppenstruktur auf $S^n$, welche durch die Abbildung $S^n \to S^n \vee S^n$ gegeben ist, die die Südkappe $D^n_+$ auf die erste $S^n$, die Nordkappe $D^n_{-}$ auf die zweite $S^n$ und den Äquator $D^n_{+} \cap D^n_{-}$ auf den Anklebepunkt von $S^n \vee S^n$ abbildet.
@@ -128,6 +129,9 @@ Man kann zeigen, dass $\pi_n(X, x_0)$ für $n \geq 2$ abelsch ist (vgl. \cite{ha
 
 Eine basispunkterhaltende Abbildung $g : (X, x_0) \to (Y, y_0)$ induziert Abbildungen $g_* = \pi_i(g) : \pi_i(X, x_0) \to \pi_i(Y, y_0)$ durch Nachkomponieren mit $g$.
 Auf diese Weise wird $\pi_i$ zu einem Funktor von der Kategorie der punktierten topologischen Räume in die Kategorie der (abelschen) Gruppen.
+
+Die Menge $\pi_0(X, x_0)$ ist die Menge der Wegzusammenhangskomponenten von $X$.
+Wir schreiben $\pi_0(X, x_0) = 0$, falls die einzige Wegzusammenhangskomponente von $X$ die von $x_0$ ist.
 
 Falls ein Weg von $x_0$ nach $x'_0$ in $X$ existiert, so sind $\pi_n(X, x_0)$ und $\pi_n(X, x'_0)$ isomorph.
 Für nicht leere, wegzusammenhängende Räume $X$ kann man daher den Basispunkt in der Notation weglassen von der Homotopiegruppe $\pi_n(X)$ von $X$ sprechen.
@@ -149,7 +153,7 @@ Dann ist $p \circ H$ eine Homotopie zwischen $f$ und der konstanten Abbildung.
 Somit ist $\pi_i(S^1) = 0$ für $i > 1$.
 
 \begin{defn}
-  Die \emph{Einhängung} $\Sigma X$ eines punktierten Raumes $(X, x_0)$ ist
+  Die \emph{(reduzierte) Einhängung} $\Sigma X$ eines punktierten Raumes $(X, x_0)$ ist
   \[ \Sigma X \coloneqq (X \times I) / (X \times \{ 0, 1 \} \cup \{ x_0 \} \times I). \]
   Der Basispunkt $*$ von $\Sigma X$ ist der auf einen Punkt zusammengezogene Teilraum.
 \end{defn}
@@ -161,21 +165,48 @@ Für $f : (X, x_0) \to (Y, y_0)$ ist
   [(x, t)] \mapsto [(f(x), t)].
 \]
 
+Die Einhängung eines CW-Komplexes ist wieder ein CW-Komplex.
 Man sieht leicht, dass $\Sigma S^i \approx S^{i+1}$.
 Somit induziert Einhängung eine Abbildung $E : \pi_i(X, x_0) \to \pi_i(\Sigma X, *)$.
 Da Einhängung mit den Kogruppenstruktur von $S^i$ und $S^{i+1}$ verträglich ist, ist $E$ sogar ein Gruppenhomomorphismus.
 
 \begin{defn}
-  Ein nicht leerer topologischer Raum $X$ heißt \emph{$n$-zusammenhängend}, falls $X$ wegzusammenhängend ist und $\pi_i(X) = 0$ für $1 \leq i \leq n$.
+  Ein nicht leerer topologischer Raum $X$ heißt \emph{$n$-zusammenhängend}, falls $\pi_i(X) = 0$ für $0 \leq i \leq n$.
 \end{defn}
 
 % TODO: Hatcher zitieren, p. 360
 \begin{satz}[Freudenthal'scher Einhängungssatz]
-  Es sei $X$ ein $(n{-}1)$-zusammenhängender CW-Komplex.
-  Dann ist $E : \pi_i(X) \to \pi_{i+1}(\Sigma X)$ ein Isomorphismus für $i < 2n - 1$ und ein Epimorphismus für $i = 2n$.
+  Es sei $n \geq 0$ und $X$ ein $n$-zusammenhängender CW-Komplex.
+  Dann ist $E : \pi_i(X) \to \pi_{i+1}(\Sigma X)$ bijektiv für $0 \leq i \leq 2n$ und surjektiv für $i = 2n + 1$.
 \end{satz}
 
-% TODO: Stabile Homotopiegruppen erklären
+Insbesondere ist die $i$-fach iterierte Einhängung $\Sigma^i X$ eines $n$-zusammenhängenden CW-Komplexes $X$ ein $(n{+}i)$-zusammenhängender CW-Komplex.
+
+Für einen beliebigen CW-Komplex $X$ gilt daher $\pi_{n+j}(\Sigma^j X) \cong \pi_{n+j+1}(\Sigma^{j+1} X)$ für $n + j \leq 2(j-1) \Leftrightarrow n+2 \leq j$.
+Somit ist
+\[ \pi_{2n+2}(\Sigma^{n} X) \cong \pi_{2n+3}(\Sigma^{n+1} X) \cong \pi_{2n+4}(\Sigma^{n+2} X) \cong \ldots \cong \colim \pi_{n+j}(\Sigma^j X). \]
+Diese Gruppe heißt \emph{$n$-te stabile Homotopiegruppe} von $X$.
+Im Fall der Sphären haben wir mit $X = S^0$:
+\[ \pi_{2n+2}(S^{n+2}) \cong \pi_{2n+3}(S^{n+3}) \cong \pi_{2n+4}(S^{n+4}) \cong \ldots \cong \colim_j \pi_{n+j}(S^j) =: \pi^s_n. \]
+Wir behaupten, dass $E : \pi_1(S^1) \to \pi_2(S^2)$ ein Isomorphismus ist.
+Aus dem Einhängungssatz folgt, dass diese Abbildung surjektiv ist.
+Somit ist $\pi_2(S^2)$ ein zyklische Gruppe mit Erzeuger $\id_{S^2}$.
+Es sei nun $k \in \Z$.
+Dann entspricht $H_2(k \cdot \id_{S^2})$ der Multiplikation mit $k$.
+Angenommen, $k \cdot \id_{S^2}$ ist nullhomomotop.
+Dann ist auch $H_2(k \cdot \id_{S^2}) = 0$ und somit $k = 0$.
+Es folgt
+\[ \Z \cong \pi_1(S^1) \cong \pi_2(S^2) \cong \ldots \cong \pi_i(S^i)  \cong \ldots \cong \colim_j \pi_j(S^j) = \pi^s_0. \]
+Dabei ist $\id_{S^i}$ ein Erzeuger von $\pi_i(S^i)$.
+
+\begin{center}
+  \begin{tabular}{r | c c c c c c c c c c c}
+    $\pi_{n+k}(S^n)$ & $n{=}1$ & $n{=}2$ & $n = 3$ & $n = 4$ & $n = 5$ & $n = 6$ & $n = 7$ & $n = 8$ & $n = 9$ & $n = 10$ \\[0.2em] \hline \\[0.2em]
+    $k < 0$ & $0$ & $\cdots$ \\
+    $k = 0$ & $\Z$ & $\Z$ & $\cdots$ \\
+    $k = 1$ & 0 & $\Z$ & $\Z_2$ & $\cdots$
+  \end{tabular}
+\end{center}
 
 Zusammengefasst wissen wir also
 \[
@@ -562,31 +593,6 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
 % TODO: Die Homotopieliftung ist zweimal genau gleich als Abbildung. Kann man die Pfadfaserung als Spezialfall vom Lemma sehen und sich das einmal sparen?
 
 \section{Lokale Koeffizienten}
-
-\iffalse
-% hier nach Hatcher, AT, Kapitel 3.H
-
-Sei im Folgenden $B$ wegzusammenhängend.
-Wir haben gezeigt, dass dann alle Fasern diesselbe Kohomologiegruppen besitzen.
-Wir können also von der Kohomologie der Faser $F$ sprechen, wobei $F \coloneqq p^{-1}(b_0)$ für ein beliebiges $b_0 \in B$.
-Die Fundamentalgruppe $\pi_1(B, b_0)$ operiert auf $H^*(F)$ durch $[\gamma] \mapsto T_\gamma$.
-
-% TODO: Welche Topologie trägt $G$? Diskret?
-\begin{defn}
-  Ein \emph{Bündel von Gruppen} auf einem topologischen Raum $B$ besteht aus einer Gruppe $G$, einer Abbildung $q : A \to B$ und Bijektionen $g_b : q^{-1}(b) \xrightarrow{\cong} G$ für alle $b \in B$, welche den Fasern von $q$ eine zu $G$ isomorphe Gruppenstruktur verleihen, sodass gilt:
-  Für jeden Punkt $x \in B$ gibt es eine Umgebung $U \subset B$, sodass
-  \[
-    g_U : q^{-1}(U) \to U \times G, \quad
-    y \mapsto (q(y), g_{q(y)}(y))
-  \]
-  stetig und sogar ein Homöomorphismus ist.
-\end{defn}
-
-\begin{bsp}
-  Sei $G$ eine Gruppe.
-  Die Projektion $B \times G \to B$ ist in kanonischer Weise ein Bündel von Gruppen auf $B$.
-\end{bsp}
-\fi
 
 % hier nach http://isites.harvard.edu/fs/docs/icb.topic880873.files/local_systems.pdf
 
@@ -1191,15 +1197,6 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 
 
 \renewcommand\windowpagestuff{
-  % Vertikal:
-  \iffalse
-  \begin{centertikzcd}[ampersand replacement=\&, column sep=0.5cm, row sep=0.2cm]
-    \& \vdots \arrow[d] \\
-    \& X_3 \arrow[d] \\
-    \& X_2 \arrow[d] \\
-    X \arrow[r] \arrow[ru] \arrow[ruu] \& X_1
-  \end{centertikzcd}
-  \fi
   \vspace{1cm}
   \begin{centertikzcd}[ampersand replacement=\&, column sep=0.2cm, row sep=0.5cm]
     \&\&\& X \arrow[dll] \arrow[dl] \arrow[d] \\
@@ -1266,17 +1263,6 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   % TODO: Begründung für das Verschwinden dieser Homologiegruppen
   Es verschwinden also alle Einträge zwischen der 0-ten und der $n$-ten Zeile. Für diese gilt
   Wir betrachten die exakte Sequenz
-  % Alternativ:
-  \iffalse
-    \usepackage{stackengine} % Für Zeilen unter mathematischem Symbol
-    \def\useanchorwidth{T}\stackMath
-    \stackunder{E^n_{n+1,0}}{
-      \def\stackalignment{l}
-      \stackunder{= E^2_{n+1,0}}{
-        = H_{n+1}(X_{n-1})
-      }
-    } \arrow[r] &
-  \fi
   \begin{centertikzcd}[row sep=0.1cm, column sep=0.5cm]
     H_{n+1}(X_{n-1}) \arrow[d, equal] &&
     H_n(F_n) \arrow[d, equal] &
