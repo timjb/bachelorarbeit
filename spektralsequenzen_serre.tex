@@ -15,6 +15,8 @@
 %\usepackage{wrapfig} % Bild neben Text
 \usepackage{cutwin} % Bild neben Text
 \usepackage{mathabx} % \divides
+\usepackage{array} % für \setlength\extrarowheight{2pt}
+\usepackage{lscape} % Für Querformat
 
 \usepackage[style=alphabetic-verb, backend=bibtex]{biblatex} % Literaturverzeichnis
 \bibliography{literatur.bib}
@@ -192,21 +194,33 @@ Wir behaupten, dass $E : \pi_1(S^1) \to \pi_2(S^2)$ ein Isomorphismus ist.
 Aus dem Einhängungssatz folgt, dass diese Abbildung surjektiv ist.
 Somit ist $\pi_2(S^2)$ ein zyklische Gruppe mit Erzeuger $\id_{S^2}$.
 Es sei nun $k \in \Z$.
-Dann entspricht $H_2(k \cdot \id_{S^2})$ der Multiplikation mit $k$.
+Dann ist $H_2(k \cdot \id_{S^2}) : H_2(S^2) \to H^2(S^2)$ gegeben durch Multiplikation mit $k$.
 Angenommen, $k \cdot \id_{S^2}$ ist nullhomomotop.
 Dann ist auch $H_2(k \cdot \id_{S^2}) = 0$ und somit $k = 0$.
+Somit ist $E$ injektiv.
 Es folgt
 \[ \Z \cong \pi_1(S^1) \cong \pi_2(S^2) \cong \ldots \cong \pi_i(S^i)  \cong \ldots \cong \colim_j \pi_j(S^j) = \pi^s_0. \]
 Dabei ist $\id_{S^i}$ ein Erzeuger von $\pi_i(S^i)$.
 
-\begin{center}
-  \begin{tabular}{r | c c c c c c c c c c c}
-    $\pi_{n+k}(S^n)$ & $n{=}1$ & $n{=}2$ & $n = 3$ & $n = 4$ & $n = 5$ & $n = 6$ & $n = 7$ & $n = 8$ & $n = 9$ & $n = 10$ \\[0.2em] \hline \\[0.2em]
-    $k < 0$ & $0$ & $\cdots$ \\
-    $k = 0$ & $\Z$ & $\Z$ & $\cdots$ \\
-    $k = 1$ & 0 & $\Z$ & $\Z_2$ & $\cdots$
+% TODO: Quelle angeben, überprüfen
+{\small \setlength\extrarowheight{5pt}
+\begin{landscape}\begin{center}
+  \begin{tabular}{r | c c c c c c c c c c c | l}
+    $\pi_{n+k}(S^n)$ & $n{=}1$ & $n{=}2$ & $n{=}3$ & $n{=}4$ & $n{=}5$ & $n{=}6$ & $n{=}7$ & $n{=}8$ & $n{=}9$ & $n{=}10$ & $n{=}11$ & $\pi^s_k$ \\[0.2em] \hline
+    %$k < 0$ & $0$ & $\cdots$ \\ \cline{2-2}
+    $k = 0$ & \multicolumn{1}{c|}{$\Z$} & $\Z$ & $\cdots$ &&&&&&&&& $\Z$ \\ \cline{3-3}
+    $k = 1$ & $0$ & \multicolumn{1}{c|}{$\Z$} & $\Z_2$ & $\cdots$ &&&&&&&& $\Z_2$ \\ \cline{4-4}
+    $k = 2$ & $0$ & $\Z_2$ & \multicolumn{1}{c|}{$\Z_2$} & $\Z_2$ & $\cdots$ &&&&&&& $\Z_2$ \\ \cline{5-5}
+    $k = 3$ & $0$ & $\Z_4 {\times} \Z_3$ & $\Z {\times} \Z_4 {\times} \Z_3$ & \multicolumn{1}{c|}{$\Z_8 {\times} \Z_3$} & $\Z_8 {\times} \Z_3$ & $\cdots$ &&&&&& $\Z_8 {\times} \Z_3$ \\ \cline{6-6}
+    $k = 4$ & $0$ & $\Z_4 {\times} \Z_3$ & $\Z_2$ & $\Z_2 {\times} \Z_2$ & \multicolumn{1}{c|}{$\Z_2$} & $0$ & $\cdots$ &&&&& $0$ \\ \cline{7-7}
+    $k = 5$ & $0$ & $\Z_2$ & $\Z_2$ & $\Z_2^2$ & $\Z_2$ & \multicolumn{1}{c|}{$\Z$} & $0$ & $\cdots$ &&&& $0$ \\ \cline{8-8}
+    $k = 6$ & $0$ & $\Z_2$ & $\Z_3$ & $\Z_8 {\times} \Z_3^2$ & $\Z_2$ & $\Z_2$ & \multicolumn{1}{c|}{$\Z_2$} & $\Z_2$ & $\cdots$ &&& $\Z_2$ \\ \cline{9-9}
+    $k = 7$ & $0$ & $\Z_3$ & $\Z_3 {\times} \Z_5$ & $\Z_3 {\times} \Z_5$ & $\Z_2 {\times} \Z_3 {\times} \Z_5$ & $\Z_4 {\times} \Z_3 {\times} \Z_5$ & $\Z_8 {\times} \Z_3 {\times} \Z_5$ & \multicolumn{1}{c|}{$\Z {\times} \Z_8 {\times} \Z_3 {\times} \Z_5$} & $\Z_{16} {\times} \Z_3 {\times} \Z_5$ & $\cdots$ && $\Z_{16} {\times} \Z_3 {\times} \Z_5$ \\ \cline{10-10}
+    $k = 8$ & $0$ & $\Z_3 {\times} \Z_5$ & $\Z_2$ & $\Z_2$ & $\Z_2$ & $\Z_8 {\times} \Z_2 {\times} \Z_3$ & $\Z_2^3$ & $\Z_2^4$ & \multicolumn{1}{c|}{$\Z_2^3$} & $\Z_2^2$ & $\cdots$ & $\Z_2^2$ \\ \cline{11-11}
+    $k = 9$ & $0$ & $\Z_2$ & $\Z_2^2$ & $\Z_2^3$ & $\Z_2^3$ & $\Z_2^3$ & $\Z_2^4$ & $\Z_2^5$ & $\Z_2^4$ & \multicolumn{1}{c|}{$\Z {\times} \Z_2^3$} & $\Z_2^3$ & $\Z_2^3$ \\
+    %$k = 10$ & $0$ & $\Z_2^2$ & $\Z_4 {\times} \Z_2 {\times} \Z_3$ & $\Z_8 {\times} \Z_4 {\times} \Z_2 {\times} \Z_3^2 {\times} \Z_5$ & $\Z_8 {\times} \Z_2 {\times} \Z_9$ & $\Z_8 {\times} \Z_2 {\times} \Z_9$ & $\Z_8 {\times} \Z_3 {\times} \Z_2$ & $\Z_8^2 {\times} \Z_2 {\times} \Z_3^2$ & $\Z_8 {\times} \Z_3 {\times} \Z_2$ & $\Z_4 {\times} \Z_3 {\times} \Z_2$ & $\Z_2^2 {\times} \Z_3$ & $\Z_2 {\oplus} \Z_3$
   \end{tabular}
-\end{center}
+\end{center}\end{landscape}}
 
 Zusammengefasst wissen wir also
 \[
@@ -218,6 +232,7 @@ Zusammengefasst wissen wir also
   \end{cases}
 \]
 
+\iffalse
 \section{Faserungen}
 
 \begin{defn}
@@ -1569,6 +1584,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 \nocite{*}
 \addcontentsline{toc}{section}{Literatur}
 \printbibliography
+\fi
 
 % TODO für 31.7.2015:
 % * Erklären, woher man pi_i(S^n) für i <= n kennt (Einhängungssatz, simpliziale Approximation)
