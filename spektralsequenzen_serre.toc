@@ -1,0 +1,31 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {ngerman}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1}Homotopiegruppen der Sph\IeC {\"a}ren}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2}Faserungen}{4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3}Lokale Koeffizienten}{9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4}Spektralsequenzen}{10}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5}Die Spektralsequenz eines filtrierten Komplexes}{12}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6}Die Serre-Spektralsequenz}{14}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7}Multiplikative Struktur der Serre-Spektralsequenz}{14}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8}Die Serre-Spektralsequenz f\IeC {\"u}r Homologie}{15}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9}T\IeC {\"o}ten von Homotopiegruppen und Eilenberg-MacLane-R\IeC {\"a}ume}{15}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10}Das Hurewicz-Mod-$\mathcal {C}$-Theorem}{16}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {11}Rationale Kohomologie von R\IeC {\"a}umen vom Typ $K(\mathbb {Z}, n)$}{19}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {12}Beweis des Satzes von Serre}{20}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Literatur}{21}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Anhang: Tabelle der Homotopiegruppen der Sph\IeC {\"a}ren}{22}
