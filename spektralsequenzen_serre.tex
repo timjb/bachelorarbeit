@@ -13,8 +13,6 @@
 \usepackage{geometry}
 \geometry{margin=2.5cm}
 \usepackage{xfrac}
-%\usepackage{color} % \red
-%\usepackage{wrapfig} % Bild neben Text
 \usepackage{cutwin} % Bild neben Text
 \usepackage{mathabx} % \divides
 \usepackage{array} % für \setlength\extrarowheight{2pt}
@@ -22,18 +20,16 @@
 
 \usepackage[style=alphabetic-verb, backend=bibtex]{biblatex} % Literaturverzeichnis
 \bibliography{literatur.bib}
-%\usepackage[natbib=true,style=numeric]{biblatex}
-%\bibliography{bibliography}
 
 \theoremstyle{definition}
-%\newtheorem*{nota}{Notation}
-\newtheorem{bsp}{Beispiel}
-\newtheorem{satz}{Satz}
 \newtheorem{lem}{Lemma}
-\newtheorem{defn}{Definition}
-\newtheorem{beob}{Beobachtung}
-\newtheorem{bspe}{Beispiele}
-\newtheorem{kor}{Korollar}
+\newtheorem{bsp}[lem]{Beispiel}
+\newtheorem{satz}[lem]{Satz}
+\newtheorem{defn}[lem]{Definition}
+\newtheorem{beob}[lem]{Beobachtung}
+\newtheorem{bspe}[lem]{Beispiele}
+\newtheorem{kor}[lem]{Korollar}
+%\newtheorem*{nota}{Notation}
 
 \theoremstyle{remark}
 \newtheorem*{bem}{Bemerkung}
@@ -72,8 +68,6 @@
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % Absolutwert
 
 % Abkürzungen
-\newcommand{\ES}{Es sei} % Prof. Hanke schreibt das immer, mag das anscheinend lieber als ein bloßes "Sei"
-\newcommand{\ESn}{Es seien} % Prof. Hanke schreibt das immer, mag das anscheinend lieber als ein bloßes "Sei"
 \newcommand{\zB}{z.\,B.}
 \renewcommand{\dh}{d.\,h.} % das heißt
 
@@ -126,7 +120,7 @@
 
 Die Gruppenstruktur auf $\pi_n(X)$ wird induziert durch die Kogruppenstruktur auf $S^n$, welche durch die Abbildung $S^n \to S^n \vee S^n$ gegeben ist, die die Südkappe $D^n_+$ auf die erste $S^n$, die Nordkappe $D^n_{-}$ auf die zweite $S^n$ und den Äquator $D^n_{+} \cap D^n_{-}$ auf den Anklebepunkt von $S^n \vee S^n$ abbildet.
 Das neutrale Element der Homotopiegruppen wird repräsentiert durch die konstante Abbildung auf den Basispunkt $x_0$.
-Man kann zeigen, dass $\pi_n(X, x_0)$ für $n \geq 2$ abelsch ist (vgl. \cite{hatcher:at}).
+Man kann zeigen, dass $\pi_n(X, x_0)$ für $n \geq 2$ abelsch ist (vgl. \cite[340]{hatcher:at}).
 
 Eine basispunkterhaltende Abbildung $g : (X, x_0) \to (Y, y_0)$ induziert Abbildungen $g_* = \pi_i(g) : \pi_i(X, x_0) \to \pi_i(Y, y_0)$ durch Nachkomponieren mit $g$.
 Auf diese Weise wird $\pi_i$ zu einem Funktor von der Kategorie der punktierten topologischen Räume in die Kategorie der (abelschen) Gruppen.
@@ -141,7 +135,7 @@ Für nicht leere, wegzusammenhängende Räume $X$ kann man daher den Basispunkt 
 
 Für $i < n$ gilt $\pi_i(S^n) = 0$:
 Wir können die Sphären $S^i$ und $S^n$ als CW-Komplexe mit jeweils einer Nullzelle und einer $i$-Zelle bzw. $n$-Zelle realisieren.
-Das zelluläre Approximationstheorem \cite[4.8]{hatcher:at} besagt, dass jede Abbildung $f : S^i \to S^n$ homotop relativ Basispunkt zu einer zellulären Abbildung ist, \dh{} einer Abbildung $\tilde{f} : S^i \to S^n$, die das $i$-Skelett von $S^i$ (das ist ganz $S^i$) auf das $i$-Skelett von $S^n$ (das ist $\{ * \}$) abbildet.
+Das zelluläre Approximationstheorem \cite[\mbox{}4.8]{hatcher:at} besagt, dass jede Abbildung $f : S^i \to S^n$ homotop relativ Basispunkt zu einer zellulären Abbildung ist, \dh{} einer Abbildung $\tilde{f} : S^i \to S^n$, die das $i$-Skelett von $S^i$ (das ist ganz $S^i$) auf das $i$-Skelett von $S^n$ (das ist $\{ * \}$) abbildet.
 In anderen Worten ist jede Abbildung $S^i \to S^n$ homotop zur konstanten Abbildung und repräsentiert daher das neutrale Element in $\pi_i(S^n)$.
 % TODO: Hatcher zitieren
 
@@ -180,7 +174,7 @@ Da Einhängung mit den Kogruppenstruktur von $S^i$ und $S^{i+1}$ verträglich is
   Dann ist $E : \pi_i(X) \to \pi_{i+1}(\Sigma X)$ bijektiv für $0 \leq i \leq 2n$ und surjektiv für $i = 2n + 1$.
 \end{satz}
 
-Ein Beweis des Einhängungssatzes findet sich in \cite[4.24]{hatcher:at}.
+Ein Beweis des Einhängungssatzes findet sich in \cite[\mbox{}4.24]{hatcher:at}.
 
 Insbesondere ist die $j$-fach iterierte Einhängung $\Sigma^j X$ eines $n$-zusammenhängenden CW-Komplexes $X$ ein $(n{+}j)$-zusammenhängender CW-Komplex.
 
@@ -206,7 +200,7 @@ Im Anhang dieser Arbeit befindet sich eine Tabelle mit einigen bekannten Homotop
 Einige Regelmäßigkeiten sind dabei offensichtlich (z. B. die gleichen Einträge in den Spalten $n{=}2$ und $n{=}3$).
 Eine globale Systematik ist aber nicht erkennbar.
 Tatsächlich ist das explizite Ausrechnen von Homotopiegruppen selbst von so einfachen Räumen wie den Sphären ein schweres Problem.
-So sind die stabilen Homotopiegruppen $\pi_n^s$ berechnet nur für $n \leq 64$ und unbekannt für größere $n$ (vgl. \cite[S. 384]{hatcher:at}).
+So sind die stabilen Homotopiegruppen $\pi_n^s$ berechnet nur für $n \leq 64$ und unbekannt für größere $n$ (vgl. \cite[384]{hatcher:at}).
 
 Ziel dieser Arbeit ist es, folgenden Satz von Serre zu zeigen:
 
@@ -256,7 +250,7 @@ Der Aufbau dieser Arbeit orientiert sich an dem ersten Kapitel von \cite{hatcher
 \end{defn}
 
 \begin{lem}
-  \ES{} $p : E \to B$ eine stetige Abbildung. Dann sind äquivalent:
+  Es sei $p : E \to B$ eine stetige Abbildung. Dann sind äquivalent:
   \begin{enumerate}[label=\alph*)]
     \item $p$ ist eine Serre-Faserung
     \item $p$ besitzt die \emph{relative Homotopieliftungseigenschaft} für CW-Paare, \dh{} für alle CW-Paare $(X, A)$ und für alle $H_0$ und $H$ wie unten, sodass das äußere Quadrat kommutiert, gibt eine stetige Abbildung $\tilde{H}$, sodass die beiden Dreiecke kommutieren:
@@ -278,7 +272,7 @@ Der Aufbau dieser Arbeit orientiert sich an dem ersten Kapitel von \cite{hatcher
   "`b) $\implies$ a)"' \enspace Folgt sofort mit $(X, A) \coloneqq (D^n, \emptyset)$. \\[2pt]
   "`a) $\implies$ b)"' \enspace Wir behandeln zunächst den Fall $(X, A) = (D^n, S^{n-1})$, $n \in \N$. Dann ist $(D^n \times \I, D^n \times \{ 0 \} \cup S^{n-1} \cup \I) \approx (D^n)$ homöomorph als Raumpaar.
   Somit ist die relative Homotopieliftungseigenschaft in diesem Fall gleichbedeutend zur Homotopieliftungseigenschaft für die Scheibe $D^n$. \\
-  \ES{} nun $(X, A)$ ein beliebiges Raumpaar.
+  Es sei nun $(X, A)$ ein beliebiges Raumpaar.
   % TODO: Ausführlicher?
   Dann kann man induktiv die Homotopie $H$ auf die $i$-Zellen $e^i_\alpha$ von $X \setminus A$ fortsetzen.
   Dabei ist die Homotopie auf $S^{n-1} = \partial D^n$ durch die Komposition der bisher konstruierten Homotopie mit der anheftenden Abbildung $\phi_\alpha : S^{n-1} \to X^{n-1}$ vorgegeben.
@@ -287,7 +281,7 @@ Der Aufbau dieser Arbeit orientiert sich an dem ersten Kapitel von \cite{hatcher
 
 % Lemma 4.5 in http://www.math.washington.edu/~mitchell/Notes/serre.pdf
 \begin{lem}
-  \ESn{} $p : E \to B$ eine Serre-Faserung, $b_0 \in B$, $F \coloneqq p^{-1}(b_0)$ die Faser über $b_0$ und $f_0 \in F$.
+  Es sei $p : E \to B$ eine Serre-Faserung, $b_0 \in B$, $F \coloneqq p^{-1}(b_0)$ die Faser über $b_0$ und $f_0 \in F$.
   Dann gibt es eine lange exakte Sequenz
   \[ \ldots \to \pi_n(F, f_0) \xrightarrow{i_*} \pi_n(E, f_0) \xrightarrow{p_*} \pi_n(B, b_0) \xrightarrow{\partial} \pi_{n-1}(F, f_0) \to \ldots \to \pi_1(B, b_0) \]
   von Homotopiegruppen.
@@ -334,7 +328,7 @@ Der Aufbau dieser Arbeit orientiert sich an dem ersten Kapitel von \cite{hatcher
 \end{proof}
 
 \begin{defn}
-  \ESn{} $p : E \to B$ und $g : X \to B$ stetig.
+  Es seien $p : E \to B$ und $g : X \to B$ stetig.
   Der \emph{Pullback} von $p$ entlang $g$ ist die Abbildung $g^*(p) : g^*(E) \to X$, wobei $g^*(E) \coloneqq X \times_B E$ das Faserprodukt von $X$ und $E$ über $B$ vermöge $g$ und $p$ ist.
 \end{defn}
 
@@ -388,7 +382,8 @@ Der Aufbau dieser Arbeit orientiert sich an dem ersten Kapitel von \cite{hatcher
 \end{bsp}
 
 \begin{lem}
-  Die langen exakten Sequenzen der Homotopiegruppen von Faserungen sind natürlich: \ES{} $(g, \tilde{g}) : p' \to p$ ein Morphismus von Serre-Faserungen $p' : E' \to B'$ und $p : E \to B$, $b_0' \in B'$, $b_0 \coloneqq g(b_0')$, $F' \coloneqq p'^{-1}(b_0')$, $F \coloneqq p^{-1}(b_0)$, $f'_0 \in F'$, $f_0 \coloneqq \tilde{g}(f'_0)$. Dann gibt es eine "`Leiter"' bestehend aus kommutativen Quadraten zwischen den Homotopiesequenzen:
+  Die langen exakten Sequenzen der Homotopiegruppen von Faserungen sind natürlich:
+  Es sei $(g, \tilde{g}) : p' \to p$ ein Morphismus von Serre-Faserungen $p' : E' \to B'$ und $p : E \to B$, $b_0' \in B'$, $b_0 \coloneqq g(b_0')$, $F' \coloneqq p'^{-1}(b_0')$, $F \coloneqq p^{-1}(b_0)$, $f'_0 \in F'$, $f_0 \coloneqq \tilde{g}(f'_0)$. Dann gibt es eine "`Leiter"' bestehend aus kommutativen Quadraten zwischen den Homotopiesequenzen:
   \begin{centertikzcd}[row sep=0.8cm, column sep=0.6cm]
     \ldots \arrow[r] &
     \pi_n(F', f'_0) \arrow[r, "i'_*"] \arrow[d, "(\tilde{g}|_{F'})_*"] &
@@ -409,7 +404,7 @@ Der Aufbau dieser Arbeit orientiert sich an dem ersten Kapitel von \cite{hatcher
   Folgt aus der Natürlichkeit der langen exakten Homotopiesequenz von Raumpaaren.
 \end{proof}
 
-\ES{} $p : E \to B$ eine Serre-Faserung, $\gamma : \I \to B$ ein stetiger Weg.
+Es sei $p : E \to B$ eine Serre-Faserung, $\gamma : \I \to B$ ein stetiger Weg.
 Betrachte die lange exakte Sequenz
 % TODO: Aufpunkte, Zusammenhang, H_0?
 \[ \ldots \to \pi_n(F_{\gamma(0)}) \to \pi_n(\gamma^*(E)) \to \pi_n(\I) \to \pi_{n-1}(F_{\gamma(0)}) \to \ldots \]
@@ -555,85 +550,24 @@ Mit ganz ähnlicher Technik kann man zeigen:
   Für Details siehe \cite[4.44-4.47 und §4.B]{hatcher:at}.
 \end{bsp}
 
-% TODO: wohin?
-\begin{defn}
-  Der \emph{Pfadraum} eines punktierten topologischer Raum $(X, x_0)$ ist
-  \[ PX \coloneqq \Set{\gamma \in X^\I}{\gamma(0) = x_0} \subset X^I \]
-  mit der Unterraumtopologie des Raumes $X^I$, welcher die Kompakt-Offen-Topologie besitzt.
-  Der Basispunkt von $PX$ ist der konstante Weg $y_0 : \I \to X, \enspace t \mapsto x_0$.
-\end{defn}
-
-\begin{bem}
-  Der Raum $PX$ ist zusammenziehbar: Die Abbildung
-  \[
-    H : \I \times PX \to PX, \quad
-    (t, \gamma) \mapsto \gamma(t \cdot \blank)
-  \]
-  ist eine Homotopie zwischen der konstanten Abbildung mit Wert $\gamma_0$ und $\id_{PX}$.
-\end{bem}
-
-\begin{lem}
-  Die Abbildung
-  $
-    p : PX \to X, \enspace
-    \gamma \mapsto \gamma(1)
-  $
-  ist eine Hurewicz-Faserung.
-\end{lem}
-
-\begin{proof}
-  Es sei ein topologischer Raum $A$ und stetige Abbildungen $H_0 : A \to PX$, $H : \I \times A \to X$ mit $H \circ i_0 = p \circ H_0$ gegeben.
-  %Definiere $\tilde{H}$ durch
-  Dann ist eine Homotopieliftung gegeben durch
-  \begin{align*}
-    \tilde{H} : \I \times A & \to PX, \\
-    (s, a) & \mapsto \gamma_{s, a}, \quad
-    \gamma_{s, a}(t) \coloneqq \begin{cases}
-      H_0(a)(t \cdot (1+s)) & \text{falls $t \cdot (1+s) \leq 1$,} \\
-      H(t \cdot (1+s) - 1, a) & \text{falls $t \cdot (1+s) \geq 1$.}
-      \qedhere
-    \end{cases}
-  \end{align*}
-\end{proof}
-
-Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
-
-\begin{bem}
-  Die Faser von $p$ über $x_0$ ist
-  \[ \Omega X \coloneqq \Set{\gamma \in X^\I}{\gamma(0) = \gamma(1) = x_0}. \]
-  Der Raum $\Omega X$ heißt \emph{Schleifenraum} von $X$.
-\end{bem}
-
-% XXX: $\Sigma X$ definieren?
-
-\begin{bem}
-  Es seien $(X, x_0)$ und $(Y, y_0)$ punktierte Räume.
-  Es gibt eine in $X$ und $Y$ natürliche Bijektion
-  % XXX: Einschränkung auf Unterkategorie der topologischen Räume nötig?
-  \begin{alignat*}{4}
-    \Hom((\Sigma X, x_0), (Y, y_0)) & \enspace\cong\enspace && \Hom((X, x_0), (\Omega Y, \gamma_0)), \\
-    f & \enspace\mapsto\enspace && (x \mapsto t \mapsto f([(x, t)])), \\
-    ([(x, t)] \mapsto g(x)(t)) & \enspace\mapsfrom\enspace && g.
-  \end{alignat*}
-\end{bem}
-
 \begin{lem}\label{convert-to-fibration}
   Man kann jede stetige Abbildung $f : X \to Y$ schreiben als Komposition
   \[ X \xrightarrow{i} E_f \xrightarrow{p} Y \]
   einer Homotopieäquivalenz $i$ und einer Hurewicz-Faserung $p$.
   Genauer gilt
   \begin{align*}
-    E_f & \coloneqq \Set{(x, \gamma) \in X \times X^\I}{f(x) = \gamma(0)} \subset X \times Y^\I, \\
+    E_f & \coloneqq \Set{(x, \gamma) \in X \times Y^\I}{f(x) = \gamma(0)} \subset X \times Y^\I, \\
     i(x) & \coloneqq (x, t \mapsto f(x)), \\
-    p(x, \gamma) & \coloneqq \gamma(1).
+    p(x, \gamma) & \coloneqq \gamma(1),
   \end{align*}
+  wobei $Y^\I$ die Kompakt-Offen-Topologie trägt.
 \end{lem}
 
 % Notation wie in https://en.wikipedia.org/wiki/Homotopy_fiber
 \begin{proof}
   Offensichtlich sind $i$ und $p$ stetig und es gilt $p \circ i = f$.
   Das Homotopie-Inverse von $i$ ist $j : E_f \to X, \enspace (x, \gamma) \mapsto x$.
-  Es gilt $j \circ i = \id_X$ und eine Homotopie zwischen $i \circ j$ und $id_{E_f}$ ist gegeben durch
+  Es gilt $j \circ i = \id_X$ und eine Homotopie zwischen $i \circ j$ und $\id_{E_f}$ ist gegeben durch
   \[
     H : \I \times E_f \to E_f, \quad
     (s, (x, \gamma)) \mapsto (x, \gamma(s \cdot \blank)).
@@ -651,7 +585,28 @@ Die Faserung $p : PX \to X$ wird \emph{Pfadfaserung} genannt.
     \end{cases}
   \end{align*}
 \end{proof}
-% TODO: Die Homotopieliftung ist zweimal genau gleich als Abbildung. Kann man die Pfadfaserung als Spezialfall vom Lemma sehen und sich das einmal sparen?
+
+Wir betrachten die Inklusion $i : \{ x_0 \} \to X$ des Basispunktes.
+Durch Lemma~\ref{convert-to-fibration} erhalten wir eine Faserung $F \to E_i \xrightarrow{p} X$ mit $E_i \simeq \{ x_0 \}$ zusammenziehbar.
+
+\begin{defn}
+  Der Totalraum $PX \coloneqq E_i = \Set{\gamma \in X^\I}{\gamma(0) = x_0}$ heißt \emph{Pfadraum} von $(X, x_0)$.
+  Der Basispunkt von $PX$ ist der konstante Weg $y_0 : \I \to X, \enspace t \mapsto x_0$.
+  Die Faser von $p$ über $x_0$ ist der \emph{Schleifenraum}
+  $\Omega X \coloneqq \Set{\gamma \in X^\I}{\gamma(0) = \gamma(1) = x_0}$.
+  Die Faserung $\Omega X \to PX \xrightarrow{p} X$ heißt \emph{Pfadfaserung}.
+\end{defn}
+
+\begin{bem}
+  Es seien $(X, x_0)$ und $(Y, y_0)$ punktierte Räume.
+  Dann gibt es eine in $X$ und $Y$ natürliche Bijektion
+  % XXX: Einschränkung auf Unterkategorie der topologischen Räume nötig?
+  \begin{alignat*}{4}
+    \Hom((\Sigma X, x_0), (Y, y_0)) & \enspace\cong\enspace && \Hom((X, x_0), (\Omega Y, \gamma_0)), \\
+    f & \enspace\mapsto\enspace && (x \mapsto t \mapsto f([(x, t)])), \\
+    ([(x, t)] \mapsto g(x)(t)) & \enspace\mapsfrom\enspace && g.
+  \end{alignat*}
+\end{bem}
 
 \section{Lokale Koeffizienten}
 
@@ -724,7 +679,7 @@ Nun kann man sich fragen, ob es bei Faserungen auch einen Zusammenhang zwischen 
 Im Jahr 1951 hat Jean-Pierre Serre in seiner Dissertation \cite{serre:thesis} gezeigt, dass es einen solchen tatsächlich gibt.
 Dieser hat jedoch nicht die Form einer langen exakten Sequenz, sondern ist kodiert in einem komplizierten algebraischen Objekt, einer Spektralsequenz.
 
-\ES{} $A$ im Folgenden ein kommutativer Ring mit Eins.
+Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
 
 \begin{defn}
   Eine (kohomologische) \emph{Spektralsequenz} besteht aus
@@ -849,7 +804,7 @@ Dies werden wir tun, um die Homologie von Eilenberg-MacLane-Räumen mit Koeffizi
 % TODO: Morphismus von filtrierten Komplexen?
 
 \begin{lem}
-  \ES{} $C^\bullet$ ein filtrierter Kokettenkomplex.
+  Es sei $C^\bullet$ ein filtrierter Kokettenkomplex.
   Es gibt eine Spektralsequenz mit
   \[ E_1^{pq} = H^{p+q}(F^p C^\bullet / F^{p+1} C^\bullet). \]
   Angenommen, die Filtrierung ist
@@ -883,7 +838,7 @@ Wir haben als Spezialfälle
 \]
 
 \begin{lem}\label{differential-homomorphism}
-  \ES{} $z_1 \geq q_1 \geq p_1 = z_2 \geq b_1 = q_2 \geq p_2 \geq b_2$.
+  Es sei $z_1 \geq q_1 \geq p_1 = z_2 \geq b_1 = q_2 \geq p_2 \geq b_2$.
   Dann ist folgende Abbildung ein wohldefinierter Homomorphismus:
   \[
     d^* : S[z_2, q_2, p_2, b_2] \to S[z_1, q_1, p_1, b_1], \quad
@@ -992,7 +947,11 @@ Wir haben als Spezialfälle
   \TODO{}
 \end{proof}
 
-\section{Multiplikative Struktur der Serre-Spektralsequenz}
+%\section{Multiplikative Struktur der Serre-Spektralsequenz}
+
+Kohomologie besitzt gegenüber Homologie den Vorteil, dass die Kohomologiegruppen mit dem Cup-Produkt einen graduierten Ring bilden.
+Diese zusätzliche Struktur ermöglicht es, Räume zu unterscheiden, die die gleichen Homologie- und damit auch Kohomologiegruppen besitzen.
+Solch eine multiplikative Struktur existiert auch auf der Serre-Spektralsequenz in Kohomologie:
 
 \begin{satz}
   Es sei $R$ ein Ring, $p : E \to B$ eine Serre-Faserung.
@@ -1030,7 +989,7 @@ Wir haben als Spezialfälle
 % May/Ponto, More Concise AT: Allgemeine Serre-Spektralsequenz (mit lokalen Koeff'en); nur ein "sketch proof"
 % McCleary, User's Guide to SS: Lokale Koeffizienten, statement: p. 139, proof: p. 167ff
 
-\section{Die Serre-Spektralsequenz für Homologie}
+%\section{Die Serre-Spektralsequenz für Homologie}
 
 Es gibt eine Version des Satzes für Serre für Homologie anstatt Kohomologie.
 In Homologie wird eine andere Indizierung für Spektralsequenzen verwendet:
@@ -1067,6 +1026,72 @@ Falls $B$ einfach zusammenhängend ist oder allgemeiner $\pi_1(B)$ trivial auf d
 
 \section{Töten von Homotopiegruppen und Eilenberg-MacLane-Räume}
 
+Es sei $X$ ein zusammenhängender CW-Komplex.
+Wähle Erzeuger $\Set{\phi_\alpha : S^n \to X}{\alpha \in A}$ von $\pi_n(X)$.
+Benutze diese Abbildungen, um einen neuen CW-Komplex $X'$ auch $X$ durch Ankleben von $n{+}1$-Zellen $e_\alpha^{n+1}$ zu konstruieren.
+Das heißt folgendes Diagramm ist ein Pushout:
+
+\begin{centertikzcd}
+  S^n \times A \arrow[d, swap, "i \times \id_A"] \arrow[r, "\amalg \, \phi_\alpha"] &
+  X \arrow[d] \\
+  D^{n+1} \times A \arrow[r] &
+  X' \arrow[ul, phantom, "\lrcorner", very near start]
+\end{centertikzcd}
+
+\begin{lem}
+  Die Abbildungen $\pi_j(X \xrightarrow{i} X')$ sind Isomorphismen für $j < n$ und $\pi_n(X') = 0$.
+\end{lem}
+
+\begin{proof}
+  Aus zellulärer Approximation (siehe \cite[\mbox{}4.8]{hatcher:at}) folgt:
+  \begin{itemize}
+    \item Für alle $x \in \pi_j(X')$, $j \leq n$ gibt es eine Abbildung $f : S^n \to X$ mit $x = [i \circ f]$.
+    \item Falls für zwei Abbildungen $f, g : S^j \to X$, $j < n$ eine basispunkterhaltende Homotopie $H$ zwischen $i \circ f : S^j \to X'$ und $i \circ g$ existiert, so auch zwischen $f$ und $g$.
+  \end{itemize}
+  Somit ist $\pi_j(i)$ bijektiv für $j < n$ und surjektiv für $j = n$.
+  Um zu sehen, dass $\pi_n(X') = 0$, reicht es zu zeigen, dass $\pi_n(i)[f_\alpha] = [i \circ f_\alpha] = 0$ für alle $\alpha \in A$.
+  Das gilt nach Konstruktion, da die charakteristische Abbildung $\Phi : e^{n+1}_\alpha \to X'$ eine Fortsetzung von $i \circ f_\alpha$ auf $D^{n+1}$ ist.
+\end{proof}
+
+Wir haben jedoch keine Kontrolle über die höheren Homotopiegruppen $\pi_j(X)$, $j > n$.
+Diese können von der Wahl der Erzeuger abhängen.
+Wir können jedoch mit dem Verfahren fortfahren, und diese Gruppen ebenfalls zu Null machen.
+Dazu führen wir obige Konstruktion durch und erhalten eine Folge
+\[ \ldots = X_{n-2} = X_{n-1} \coloneqq X \subseteq X' =: X_n \subseteq X_{n+1} \subseteq X_{n+2} \subseteq \ldots \]
+von CW-Komplexen, für die gilt:
+\begin{itemize}
+  \item $X_m$ ensteht aus $X_{m-1}$ durch Ankleben von $(m{+}1)$-Zellen.
+  \item $\pi_j(X_m \hookrightarrow X_k)$ ist ein Isomorphismus für $j \leq m$.
+  \item $\pi_j(X_m) = 0$ für $n \leq j \leq m$
+\end{itemize}
+Wir setzen $\tau_{< n} \coloneqq \bigcup_{j=n}^\infty X_j$.
+
+\begin{lem}
+  Die Inklusion $i : X \to \tau_{< n} X$ induziert Isomorphismen $\pi_j(X) \to \pi_j(\tau_{< n} X)$ für $j < n$.
+  Es gilt $\pi_j(\tau_{< n} X) = 0$ für $j \geq n$.
+\end{lem}
+
+\begin{proof}
+  Aus zellulärer Approximation folgt:
+  \begin{itemize}
+    \item Jedes Element $x \in \pi_j(\tau_{< n} X)$ wird repräsentiert durch eine Abbildung $f : S^j \to X_j$.
+    \item Falls $i \circ f \sim i \circ g$ für $f, g : S^j \to X_j$, so gilt auch $f \sim g$.
+  \end{itemize}
+  Das zeigt die Behauptung, da $\pi_j(X_j) = 0$ für $j \geq n$.
+\end{proof}
+
+Der Raum $\tau_{< n} X$ hängt auch nicht (bis auf Homotopie) von den Wahlen der Erzeuger ab:
+Es seien dazu $Y, Y' \supset X$ zwei durch obiges Verfahren aus $X$ konstruierte Räume.
+Dann kann man die Inklusionsabbildung $i : X \hookrightarrow Y'$ fortsetzen zu einer Abbildung $f : Y \to Y'$, indem man induktiv $f$ auf das $j$-Skelett, $j > n$ fortsetzt.
+Dies ist möglich, da für eine $j$-Zelle $e_\beta^j$ die Einschränkung $f|_{\partial e_\beta^j}$ nullhomotop ist.
+Die Abbildung $f$ ist dann eine Homotopieäquivalenz nach dem Whitehead-Theorem.
+
+Nun können wir mit Lemma \ref{convert-to-fibration} die Abbildung $i : X \to \tau_{< n} X$ in eine Faserung $F \to E_i \to \tau_{< n} X$ mit $E_i \simeq X$ umwandeln.
+Anhand der langen exakten Sequenz von Homotopiegruppen sieht man, dass $\pi_j(F \to E_i)$ ein Isomorphismus ist für $j \geq n$ und dass $\pi_j(F) = 0$ für $j < n$.
+Wir haben es also geschafft, einen $(n{-}1)$-zusammenhängenden Raum $\tau_{\geq n} X \coloneqq F$ zu konstruieren, der im Grad $j \geq n$ diesselben Homotopiegruppen wie $X$ besitzt.
+Mit anderen Worten: Wir haben die Homtopiegruppen unterhalb Grad $n$ getötet.
+Die Faserung $\tau_{\geq n} X \to X' \to \tau_{< n} X$ mit $X' \coloneqq E_i \simeq X$ wird uns im Folgenden erlauben, (die Homotopiegruppen von) $X$ zu untersuchen, indem wir $\tau_{\geq n} X$ und $\tau_{< n} X$ studieren.
+
 \begin{defn}
   Sei $G$ eine Gruppe, $n \geq 1$.
   Ein \emph{Eilenberg-MacLane-Raum} vom Typ $K(G, n)$ ist ein punktierter, zusammenhängender topologischer Raum $(X, x_0)$ mit
@@ -1084,7 +1109,7 @@ Falls $B$ einfach zusammenhängend ist oder allgemeiner $\pi_1(B)$ trivial auf d
 \end{lem}
 
 \begin{proof}
-  \TODO{}
+  TODO
 \end{proof}
 
 % TODO: Eindeutigkeit von K(G, n)'s?
@@ -1116,9 +1141,9 @@ Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewä
   Insbesondere gilt $H_i(X; \Z) = 0$ für $0 < i < n$.
 \end{satz}
 
-Ein Beweis dieses Satzes wird in~\cite[S. 366ff]{hatcher:at} geführt.
+Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 
-\begin{defn}
+\begin{defn}\label{serre-class}
   Eine Klasse $\SC$ von abelschen Gruppen heißt \emph{Serre-Klasse}, falls
   \begin{enumerate}
     \item Für jede kurze exakte Sequenz $0 \to A \to B \to C \to 0$ von abelschen Gruppen gilt: $B \in \SC \iff A, B \in \SC$.
@@ -1140,21 +1165,27 @@ Ein Beweis dieses Satzes wird in~\cite[S. 366ff]{hatcher:at} geführt.
   Ein Morphismus $f : A \to B$ zwischen abelschen Gruppen heißt \emph{Isomorphimus modulo $\SC$}, falls $\ker(f), \coker(f) \in \SC$. \\
 \end{defn}
 
+\vspace{-0.5em}
 \begin{bem}
   Dies ist äquivalent zur Existenz einer exakten Sequenz $K \to A \xrightarrow{f} B \to C$ mit $K, C \in \SC$.
   Eine Gruppe, welche modulo-$\SC$-isomorph zu einer Gruppe aus $\SC$ ist, ist selbst in $\SC$.
 \end{bem}
 
 \begin{bspe}
-  Man kann leicht zeigen, dass folgende Klassen die Definition erfüllen:
+  Man kann leicht zeigen, dass folgende Klassen die Definition~\ref{serre-class} erfüllen:
   % XXX: Nummer der Definition
   \begin{itemize}
-    \item $\FG \coloneqq \{\, \text{endlich erzeugte Gruppen} \,\}$
-    \item $\F \coloneqq \{\, \text{endliche Gruppen} \,\}$
+    \item $\FG \coloneqq \{\, \text{endlich erzeugte ab. Gruppen} \,\}$
+    \item $\F \coloneqq \{\, \text{endliche ab. Gruppen} \,\}$
     % TODO: ist das tatsächlich leicht zu zeigen?
     % XXX: weitere Beispiele?
   \end{itemize}
 \end{bspe}
+
+\begin{proof}
+  Es sei $0 \to A \to B \to C \to 0$ eine kurze exakte Squenz von abelschen Gruppen.
+  Falls $B$ endlich ist, so
+\end{proof}
 
 
 % Hatcher, 1.8
@@ -1611,7 +1642,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
     Es folgt $H_i(F'; \Z) \otimes \Q \cong H_i(F'; \Q) = 0$ für $i < 2n-1$.
     Da die Homologiegruppen von $F'$ endlich erzeugt sind, ist $H_i(F'; \Z) \in \F$ für $i < 2n-1$ und $H_{2n-1}(F'; \Z) \cong \Z \oplus G$, wobei $G$ eine endliche Gruppe ist.
     Das Hurewicz-modulo-$\SC$-Theorem impliziert, dass damit auch die Homotopiegruppen $\pi_i(F')$ endlich sind für $i < 2n-1$ und dass $\pi_{2n-1}(F) \cong \Z \oplus G'$ für eine endliche Gruppe $G'$.
-    Indem wir höhere Homotopiegruppen killen, erhalten wir eine Abbildung $F' \to Y$, wobei $\pi_i(Y) = 0$ für $i \geq 2n-1$.
+    Indem wir höhere Homotopiegruppen töten, erhalten wir eine Abbildung $F' \to Y$, wobei $\pi_i(Y) = 0$ für $i \geq 2n-1$.
     Wir konvertieren diese Abbildung zu einer Faserung $F'' \to Y$ mit Faser $Z$.
     Anhand der langen exakten Homotopiesequenz dieser Faserung sehen wir, dass
     \[
@@ -1645,25 +1676,15 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 \end{landscape}
 
 % TODO für 31.7.2015:
-% * Erklären, woher man pi_i(S^n) für i <= n kennt (Einhängungssatz, simpliziale Approximation)
 % * Technik des Killens von Homotopiegruppen und Konstruktion von Eilenberg-MacLane-Räumen erklären
 % * TODOs wegmachen
 
 % TODO:
 % * Beweis der Existenz der Serre-Spektralsequenz
 % * Eilenberg-MacLane-Räume
-% simpliziale Approximation
-% pi_q(S^n) wobei q < n
-% pi_n(S^n) = Z (mit Freudenthal-Suspensionssatz?)
-% pi_n(S^1)
-% * Satz von Serre (1.21)
-% * Was hat die Hopf-Invariante mit dem ganzen Zeugs zu tun?
 % * Existenz der Homologie-Spektralsequenz
 % * Mehr Vorsicht bei Voraussetzungen an Existenz der Serre-Spektralsequenz: Z.B. ist Raum einfach zusammenhängend?
 % * Methode des Killens von unteren Homotopiegruppen separat beschreiben (und damit Beweise vereinfachen?)
 % Beweise umformulieren: "man" vermeiden
-
-% Theoreme, die benutzt werden, die man beweisen müsste:
-% * Zelluläre Approximation
 
 \end{document}
