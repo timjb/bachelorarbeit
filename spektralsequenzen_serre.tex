@@ -66,6 +66,7 @@
 \newcommand{\FG}{\mathcal{FG}} % Serre-Klasse der endlich erzeugten Gruppen
 \newcommand{\F}{\mathcal{F}} % Serre-Klasse der endlichen Gruppen
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % Absolutwert
+\DeclareMathOperator{\ggT}{ggT} % größter gemeinsamer Teiler
 
 % Abkürzungen
 \newcommand{\zB}{z.\,B.}
@@ -137,7 +138,6 @@ Für $i < n$ gilt $\pi_i(S^n) = 0$:
 Wir können die Sphären $S^i$ und $S^n$ als CW-Komplexe mit jeweils einer Nullzelle und einer $i$-Zelle bzw. $n$-Zelle realisieren.
 Das zelluläre Approximationstheorem \cite[\mbox{}4.8]{hatcher:at} besagt, dass jede Abbildung $f : S^i \to S^n$ homotop relativ Basispunkt zu einer zellulären Abbildung ist, \dh{} einer Abbildung $\tilde{f} : S^i \to S^n$, die das $i$-Skelett von $S^i$ (das ist ganz $S^i$) auf das $i$-Skelett von $S^n$ (das ist $\{ * \}$) abbildet.
 In anderen Worten ist jede Abbildung $S^i \to S^n$ homotop zur konstanten Abbildung und repräsentiert daher das neutrale Element in $\pi_i(S^n)$.
-% TODO: Hatcher zitieren
 
 Mit der universellen Überlagerung $p : \R \to S^1, \enspace t \mapsto e^{it}$ kann man die Homotopiegruppen von $S^1$ bestimmen:
 Die Fundamentalgruppe von $S^1$ ist isomorph zur Decktransformationsgruppe dieser Überlagerung, von der man leicht zeigen kann, dass diese isomorph zu $\Z$ ist.
@@ -985,7 +985,7 @@ Solch eine multiplikative Struktur existiert auch auf der Serre-Spektralsequenz 
 
 % Spanier, Algebraic Topology: SS zum filtrierten Komplex; nur triviale Wirkung; etwas genauer als Hatcher
 % Hatcher: nur triviale Wirkung
-% Switzer, Homology and Homotopy: nur triviale Wirkung, p. 350
+% Switzer, Homology and Homotopy: nur triviale Wirkung, nur Homologie genau beschrieben, p. 350
 % May/Ponto, More Concise AT: Allgemeine Serre-Spektralsequenz (mit lokalen Koeff'en); nur ein "sketch proof"
 % McCleary, User's Guide to SS: Lokale Koeffizienten, statement: p. 139, proof: p. 167ff
 
@@ -1090,7 +1090,10 @@ Nun können wir mit Lemma \ref{convert-to-fibration} die Abbildung $i : X \to \t
 Anhand der langen exakten Sequenz von Homotopiegruppen sieht man, dass $\pi_j(F \to E_i)$ ein Isomorphismus ist für $j \geq n$ und dass $\pi_j(F) = 0$ für $j < n$.
 Wir haben es also geschafft, einen $(n{-}1)$-zusammenhängenden Raum $\tau_{\geq n} X \coloneqq F$ zu konstruieren, der im Grad $j \geq n$ diesselben Homotopiegruppen wie $X$ besitzt.
 Mit anderen Worten: Wir haben die Homtopiegruppen unterhalb Grad $n$ getötet.
-Die Faserung $\tau_{\geq n} X \to X' \to \tau_{< n} X$ mit $X' \coloneqq E_i \simeq X$ wird uns im Folgenden erlauben, (die Homotopiegruppen von) $X$ zu untersuchen, indem wir $\tau_{\geq n} X$ und $\tau_{< n} X$ studieren.
+Die Faserung $\tau_{\geq n} X \to X' \to \tau_{< n} X$ mit $X' \coloneqq E_i \simeq X$ wird uns im Folgenden erlauben, $X$ zu untersuchen, indem wir $\tau_{\geq n} X$ und $\tau_{< n} X$ studieren.
+Wir werden insbesondere die Faserung $\tau_{\geq n+1} S^n \to S^n \to \tau_{< n+1} S^n$ verwenden, um die Homotopiegruppen von $S^n$ zu untersuchen.
+Der Raum $\tau_{< n+1} S^n$ besitzt nur eine nicht verschwindende Homotopiegruppe $\pi_n(\tau_{< n+1} S^n) \cong \Z$.
+Solche Räume spielen eine wichtige Rolle in der Homotopietheorie und haben deshalb einen eigenen Namen:
 
 \begin{defn}
   Sei $G$ eine Gruppe, $n \geq 1$.
@@ -1103,19 +1106,16 @@ Die Faserung $\tau_{\geq n} X \to X' \to \tau_{< n} X$ mit $X' \coloneqq E_i \si
   \]
 \end{defn}
 
-\begin{lem}
-  Sei $G$ eine abelsche Gruppe, $n \geq 2$.
+Mit anderen Worten ist $\tau_{< n+1} S^n$ also ein $K(\Z, n)$.  Man kann zeigen (siehe \cite[365-366]{hatcher:at}):
+
+\begin{satz}
+  Sei $n \geq 1$ und $G$ eine Gruppe, abelsch für $n \geq 2$.
   Dann existiert ein CW-Komplex $(X, x_0)$ vom Typ $K(G, n)$.
-\end{lem}
-
-\begin{proof}
-  TODO
-\end{proof}
-
-% TODO: Eindeutigkeit von K(G, n)'s?
+  Der CW-Komplex $X$ ist eindeutig bis auf Homotopieaquivalenz: Ist $X'$ ein weiterer CW-Komplex vom Typ $K(G, n)$, so gilt $X \simeq X'$.
+\end{satz}
 
 \begin{bem}
-  Sei $(X, x_0)$ ein $K(G, n)$. Dann ist $\Omega X$ ein $K(G, n-1)$, denn
+  Es sei $(X, x_0)$ ein $K(G, n)$. Dann ist $\Omega X$ ein $K(G, n-1)$, denn
 
   \begin{align*}
     \pi_q(\Omega X, \gamma_0) & \cong \Hom((S^q, *), (\Omega X, \gamma_0))
@@ -1123,10 +1123,9 @@ Die Faserung $\tau_{\geq n} X \to X' \to \tau_{< n} X$ mit $X' \coloneqq E_i \si
     \cong \pi_{q+1}(X, x_0) \\
     & \cong \begin{cases}
       G & \text{falls $q+1 = n \iff q = n-1$} \\
-      0 & \text{falls $q+1 \neq n$.}
+      0 & \text{falls $q+1 \neq n \iff q \neq n-1$.}
     \end{cases}
   \end{align*}
-  % XXX: Verträglichkeit mit Gruppenstruktur???
 \end{bem}
 
 \section{Das Hurewicz-Mod-$\SC$-Theorem}
@@ -1171,22 +1170,44 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
   Eine Gruppe, welche modulo-$\SC$-isomorph zu einer Gruppe aus $\SC$ ist, ist selbst in $\SC$.
 \end{bem}
 
-\begin{bspe}
-  Man kann leicht zeigen, dass folgende Klassen die Definition~\ref{serre-class} erfüllen:
-  % XXX: Nummer der Definition
-  \begin{itemize}
+\begin{lem}
+  Folgende Klassen erfüllen die Definition~\ref{serre-class}:
+  \begin{enumerate}[label=\alph*)]
     \item $\FG \coloneqq \{\, \text{endlich erzeugte ab. Gruppen} \,\}$
     \item $\F \coloneqq \{\, \text{endliche ab. Gruppen} \,\}$
-    % TODO: ist das tatsächlich leicht zu zeigen?
     % XXX: weitere Beispiele?
-  \end{itemize}
-\end{bspe}
+  \end{enumerate}
+\end{lem}
 
 \begin{proof}
-  Es sei $0 \to A \to B \to C \to 0$ eine kurze exakte Squenz von abelschen Gruppen.
-  Falls $B$ endlich ist, so
-\end{proof}
+  \emph{a)} \enspace Es sei $0 \xrightarrow{f} A \to B \xrightarrow{g} C \to 0$ eine kurze exakte Squenz von abelschen Gruppen.
+  Falls $B$ endlich ist, so sind $A$ und $B$ offensichtlich auch endlich.
+  Angenommen, $A$ und $C$ sind endlich.
+  Wir behaupten, dass $\abs{g^{-1}(c)} = \abs{A}$ für alle $c \in C$.
+  Für $c = 0$ gilt die Aussage wegen Exaktheit.
+  Sei nun $c \in C$ beliebig.
+  Wähle ein Urbild $a \in g^{-1}(c)$.
+  Dann ist Rechtsmultiplikation mit $a^{-1}$ ein Isomorphismus $x \mapsto x \cdot a^{-1} : g^{-1}(c) \to g^{-1}(0)$ eine Bijektion mit Umkehrabbildung $x \mapsto x \cdot a$.
+  Somit gilt $\abs{g^{-1}(c)} = \abs{g^{-1}(0)} = \abs{A}$.
+  Für $n, m > 0$ gilt $\Z_n \otimes \Z_m \cong \Z_d$ und $\Tor(\Z_n, \Z_m) \cong \Z_d$ mit $d \coloneqq \ggT(n, m)$.
+  Es seien nun $A = \Z_{n_1} \oplus \cdots \oplus \Z_{n_N}$, $B = \Z_{m_1} \oplus \cdots \oplus \Z_{m_M}$.
+  Dann ist $\Tor(A, B) \cong A \otimes B \cong \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$, also
+  \[ \abs{\Tor(A, B)} = \abs{A \otimes B} = \prod_{i=1}^N \prod_{j=1}^M \ggT(n_i, m_j) \leq \min(\abs{B}^N, \abs{A}^M). \]
 
+  \emph{b)} \enspace Wir betrachten nun wieder die kurze exakten Sequenz $0 \to A \to B \to C \to 0$ von abelschen Gruppen.
+  Falls $B$ endlich erzeugt ist, so ist $C$ offensichtlich endlich erzeugt und $A$ ist endlich erzeugt als Untergruppe einer endlich erzeugten abelschen Gruppe.
+  Es seien nun $A$ und $C$ endlich erzeugt, $A = \angles{a_1, \ldots, a_N}$ und $C = \angles{c_1, \ldots, c_M}$.
+  Dann ist $\ker(g) = \angles{f(a_1), \ldots, f(a_N)}$.
+  Wähle für $j = 1, \ldots, M$ ein Element $b_j \in g^{-1}(c_j)$.
+  Wir behaupten, dass $B = \angles{f(a_1), \ldots, f(a_N), b_1, \ldots, b_M}$.
+  Sei dazu $b \in B$ beliebig.
+  Schreibe $g(b) = m_1 \cdot c_1 + \ldots + m_M \cdot c_M$ mit $c_1, \ldots c_M \in \Z$.
+  Dann ist $\tilde{b} \coloneqq b - (m_1 \cdot b_1 + \ldots + m_M \cdot b_M) \in \ker(g)$, \dh{} es gibt $n_1, \cdot, n_N \in \Z$ mit $\tilde{b} = n_1 \cdot f(a_1) + \cdots + n_N \cdot f(a_N)$.
+  Somit $b = m_1 \cdot c_1 + \ldots + m_M c_M + n_1 \cdot a_1 + \ldots n_N a_N$.
+  Für endlich erzeugte abelsche Gruppen $A$ und $B$ gibt es $n, n_1, \ldots, n_N \in \N$ und $m, m_1, \ldots, m_M \in \N$ mit $A \cong \Z^n \oplus \Z_{n_1} \oplus \ldots \oplus \Z_{n_N}$ und $B \cong \Z^m \oplus \Z_{m_1} \oplus \ldots \oplus \Z_{m_M}$.
+  Es gilt $A \otimes B = \Z^{nm} \oplus \left( \Z_{m_1} \oplus \ldots \oplus \Z_{m_M} \right)^n \oplus \left( \Z_{n_1} \oplus \ldots \oplus \Z_{n_N} \right)^M \oplus \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$
+  und $\Tor(A, B) = \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$, es sind also $A \otimes B$ und $\Tor(A, B)$ ebenfalls endlich erzeugt.
+\end{proof}
 
 % Hatcher, 1.8
 \begin{satz}["`Hurewicz-mod-$\SC$-Theorem"']\label{hurewicz-mod-c}
@@ -1310,7 +1331,13 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   \end{defn}
 \end{cutout}
 
-\TODO{Bemerkung zur Konstruktion von Postnikov-Türmen}
+Postnikov-Türme kann man folgendermaßen konstruieren:
+Setze $X_n \coloneqq \tau_{< n+1} X$.
+Dabei hat man $\tau_{< n+1} X$ aus $X$ durch Ankleben von Zellen der Dimension $\geq n+2$ zum Töten der Homotopiegruppen in Grad $\geq n+1$ konstruiert.
+Die Abbildung $i : X \to X_n$ ist die Inklusion.
+Diese lässt sich nun fortsetzen zu einer Abbildung $f : X_{n+1} \to X_n$:
+Sei dazu induktiv eine Fortsetzung $f^k : X_{n+1}^k \cup X \to X_n$, $k \geq n+1$ von $i$ gegeben, wobei $X_{n+1}^k$ das $k$-Skelett von $X_{n+1}$ bezeichnet.
+Dann lässt sich die Abbildung auch auf $(k+1)$-Zellen $e^{k+1}_\alpha$ ausdehnen, denn $f^k|_{\partial \partial e^{k+1}_\alpha}$ ist nullhomotop, da $\pi_k(X_n) = 0$ für $k \geq n+1$.
 
 \begin{bem}
   Es sei ein Postnikov-Turm $\ldots \to X_2 \to X_1$ gegeben.
