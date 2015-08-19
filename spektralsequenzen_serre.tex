@@ -67,6 +67,7 @@
 \newcommand{\F}{\mathcal{F}} % Serre-Klasse der endlichen Gruppen
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % Absolutwert
 \DeclareMathOperator{\ggT}{ggT} % größter gemeinsamer Teiler
+\DeclareMathOperator{\Aut}{Aut} % Automorphismengruppe
 
 % Abkürzungen
 \newcommand{\zB}{z.\,B.}
@@ -1133,6 +1134,7 @@ Mit anderen Worten ist $\tau_{< n+1} S^n$ also ein $K(\Z, n)$.  Man kann zeigen 
 Sei $(X, x_0)$ ein punktierter topologischer Raum.
 Für $n \geq 1$ liefert der Hurewicz-Homomorphismus $h_n : \pi_n(X, x_0) \to H_n(X; \Z)$ einen Zusammenhang zwischen der $n$-ten Homotopiegruppe und der $n$-ten Homologiegruppe von $X$.
 Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewählten Erzeuger $\alpha \in H_n(S^n; \Z)$.
+In diesem Abschnitt werden wir folgenden klassischen Satz verallgemeinern:
 
 \begin{satz}[Hurewicz]
   Sei $(X, x_0)$ ein $(n{-}1)$-zusammenhängender topologischer Raum, \dh{} $\pi_i(X, x_0) = 0$ für $i < n$.
@@ -1145,7 +1147,7 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 \begin{defn}\label{serre-class}
   Eine Klasse $\SC$ von abelschen Gruppen heißt \emph{Serre-Klasse}, falls
   \begin{enumerate}
-    \item Für jede kurze exakte Sequenz $0 \to A \to B \to C \to 0$ von abelschen Gruppen gilt: $B \in \SC \iff A, B \in \SC$.
+    \item Für jede kurze exakte Seq. $0 \to A \to B \to C \to 0$ von ab. Gruppen gilt: $B \in \SC \Leftrightarrow A, C \in \SC$.
     \item Für $A, B \in \SC$, sind auch $A \otimes B \in \SC$ und $\Tor(A, B) \in \SC$.
   \end{enumerate}
 \end{defn}
@@ -1164,7 +1166,7 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
   Ein Morphismus $f : A \to B$ zwischen abelschen Gruppen heißt \emph{Isomorphimus modulo $\SC$}, falls $\ker(f), \coker(f) \in \SC$. \\
 \end{defn}
 
-\vspace{-0.5em}
+\vspace{-1.5em}
 \begin{bem}
   Dies ist äquivalent zur Existenz einer exakten Sequenz $K \to A \xrightarrow{f} B \to C$ mit $K, C \in \SC$.
   Eine Gruppe, welche modulo-$\SC$-isomorph zu einer Gruppe aus $\SC$ ist, ist selbst in $\SC$.
@@ -1173,9 +1175,8 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 \begin{lem}
   Folgende Klassen erfüllen die Definition~\ref{serre-class}:
   \begin{enumerate}[label=\alph*)]
-    \item $\FG \coloneqq \{\, \text{endlich erzeugte ab. Gruppen} \,\}$
-    \item $\F \coloneqq \{\, \text{endliche ab. Gruppen} \,\}$
-    % XXX: weitere Beispiele?
+    \item $\F \coloneqq \{\, \text{endliche abelsche Gruppen} \,\}$
+    \item $\FG \coloneqq \{\, \text{endlich erzeugte abelsche Gruppen} \,\}$
   \end{enumerate}
 \end{lem}
 
@@ -1256,7 +1257,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 
   \fall{Fall 1: $F$ und $B$ sind $\SC$-azyklisch}
   Die universelle Koeffizientenformel liefert
-  \[ E^2_{pq} \cong H_p(B; H_q(F; \Z)) \cong \left( H_p(B) \otimes H_q(F) \right) \oplus \Tor(H_{p-1}(B), H_q). \]
+  \[ E^2_{pq} \cong H_p(B; H_q(F; \Z)) \cong \left( H_p(B; \Z) \otimes H_q(F; \Z) \right) \oplus \Tor(H_{p-1}(B; \Z), H_q(F; \Z)). \]
   Man sieht durch Unterscheidung der Fälle $p=0$, $p=1$ und $p>1$ sowie $q=0$ und $q > 0$, dass $E^2_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
   Als Subquotient von $E^2_{pq}$, einer Gruppe aus $\SC$, ist dann auch $E^\infty_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
   Dies zeigt die Behauptung nach der Bemerkung am Anfang des Beweises.
@@ -1297,7 +1298,8 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Sei zunächst $n=1$.
   \begin{itemize}
     \item Falls $G = \Z$, so stimmt die Aussage, denn der Kreis $S^1$ ist ein $K(\Z, 1)$ und $H_*(S^1; \Z) \in \FG$.
-    \item Falls $G = \Z_m$, \TODO{begründen damit, dass der "`unendliche Linsenraum"' ein $K(\Z_m, 1)$ ist}
+    \item Falls $G = \Z_m$, so kann man einen $K(\Z_m, 1)$ als unendlich-dimensionalen Linsenraum $L_m$ konstruieren.\footnote{Sei dazu $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre. Es wirke $\Z_m$ auf jedem Faktor $\C$ von $\C^\infty$ durch Rotation $(m, x) \mapsto x \cdot e^{2 \pi i m}$. Dies induziert eine eigentlich diskontinuierliche Gruppenwirkung $\Z_m \to \Aut(S^\infty)$. Dann ist $L_m \coloneqq S^\infty / \Z_m$ ein $K(\Z_m, 1)$: Die Überlagerung $S^\infty \to S^\infty / \Z_m$ hat Decktransformationsgruppe $\Z_m$ ist universell, da $S^\infty$ zusammenziehbar ist (vgl. \cite[\mbox{}1B.3-1B.4]{hatcher:at}). Somit ist $\pi_1(L_m) \cong \Z_m$. Für die höheren Homotopiegruppen gilt $\pi_n(L_m) \cong \pi_n(S^\infty) = 0$.}
+    Dieser besitzt Homologiegruppen $\tilde{H}_i(L_m) \cong \Z_m$ für $i > 0$ ungerade und $\tilde{H}_i(L_m) \cong 0$ sonst (vgl. \cite[\mbox{}2.43]{hatcher:at}).
     \item Falls $G = G_1 \oplus G_2$, dann ist $K(G_1, 1) \times K(G_2, 1)$ ein $K(G, 1)$.
     Wenn die Aussage für $G_1$ und $G_2$ stimmt, so folgt aus dem letzten Lemma, angewendet auf die Produktfaserung $K(G_1, 1) \to K(G_1, 1) \times K(G_2, 1) \to K(G_2, 1)$, dass sie auch für $G$ gilt.
   \end{itemize}
@@ -1333,7 +1335,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 
 Postnikov-Türme kann man folgendermaßen konstruieren:
 Setze $X_n \coloneqq \tau_{< n+1} X$.
-Dabei hat man $\tau_{< n+1} X$ aus $X$ durch Ankleben von Zellen der Dimension $\geq n+2$ zum Töten der Homotopiegruppen in Grad $\geq n+1$ konstruiert.
+Dabei hat man $\tau_{< n+1} X$ aus $X$ durch Ankleben von Zellen der Dimension $\geq n+2$ konstruiert, sodass die Homotopiegruppen in Grad $\geq n+1$ verschwinden.
 Die Abbildung $i : X \to X_n$ ist die Inklusion.
 Diese lässt sich nun fortsetzen zu einer Abbildung $f : X_{n+1} \to X_n$:
 Sei dazu induktiv eine Fortsetzung $f^k : X_{n+1}^k \cup X \to X_n$, $k \geq n+1$ von $i$ gegeben, wobei $X_{n+1}^k$ das $k$-Skelett von $X_{n+1}$ bezeichnet.
@@ -1421,16 +1423,26 @@ Dann lässt sich die Abbildung auch auf $(k+1)$-Zellen $e^{k+1}_\alpha$ ausdehne
 \end{proof}
 
 \begin{bem}
-  Man kann in diesem Kapitel die Voraussetzung, dass $X$ einfach zusammenhängend ist, ersetzen durch die Forderung, dass $X$ wegzusammenhängend und abelsch ist, \dh{} die Wirkung der Fundamentalgruppe $\pi_1(X)$ auf den höheren Homotopiegruppen $\pi_n(X)$ trivial ist.
+  Man kann in diesem Abschnitt die Voraussetzung, dass $X$ einfach zusammenhängend ist, ersetzen durch die Forderung, dass $X$ wegzusammenhängend und abelsch ist, \dh{} die Wirkung der Fundamentalgruppe $\pi_1(X)$ auf den höheren Homotopiegruppen $\pi_n(X)$ trivial ist.
 \end{bem}
 
 \section{Rationale Kohomologie von Räumen vom Typ $K(\Z, n)$}
 
-% TODO: Etwas schreiben über rationale Homotopiegruppen
+Wir wollen zeigen, dass die Homotopiegruppen von gewissen Räumen $X$ alle endlich sind.
+Nach Korollar \ref{homotopy-in-c-iff-homology-in-c} können wir dazu zeigen, dass die Homologiegruppen in positiven Graden endlich sind.
+Angenommen, wir wissen bereits, dass die Homologiegruppen von $X$ endlich erzeugt sind.
+Dann ist $H_i(X; \Z)$ genau dann endlich, wenn $H_i(X; \Z) \otimes \Q = 0$.
+Allgemeiner ist die $i$-te Bettizahl $b_i \coloneqq \dim_\Q(H_i(X; \Z) \otimes \Q)$ die Dimension des freien Anteils von $H_i(X; \Z)$.
+Da $\Q$ flach ist, gilt $H_i(X; \Z) \otimes \Q \cong H_i(X; \Q)$.
+Außerdem gilt $H_i(X; \Q) \cong \Hom(H_i(X; \Q), \Q) \cong H^i(X; \Q)$, wenn die Homologiegruppen von $X$ endlich erzeugt sind.
+Das ist der Grund, warum wir uns für Homologie- und Kohomologiegruppen mit Koeffizienten in $\Q$ interessieren.
+Der Vorteil gegenüber Homologie- und Kohomologiegruppen mit Koeffizienten in $\Z$ besteht darin, dass diese Gruppen leichter zu bestimmen sind.
+Konkret haben wir für $X = K(\Z, n)$:
 
 % Hatcher, 1.20
 \begin{satz}\label{rational-homology-kzn}
   Für $n \geq 1$ gilt
+  \vspace{-1em}
   \[
     H^*(K(\Z, n); \Q) \cong \begin{cases}
       \Q[x], & \text{falls $n$ gerade}, \\
@@ -1577,7 +1589,7 @@ Dann lässt sich die Abbildung auch auf $(k+1)$-Zellen $e^{k+1}_\alpha$ ausdehne
     Das einzige potentiell nichttriviale Differential, das bei $E_r^{2n,0}$ ankommt, ist $d_n^{n,n-1}$.
     Dieses ist aber Null, da $\ker(d_n^{n,n-1}) = \im(d_n^{0,2n-2}) = E_n^{n,n-1}$.
     Also $H^{2n}(B; \Q) \cong E_2^{2n,0} \cong E_\infty^{2n,0} = 0$ und $E_2^{2n,k} = 0$ für alle $k \geq 0$.
-    Für $k > 2$ sieht man durch Induktion, dass alle Differentiale von und nach $E_r^{2n,0}$ verschwinden und daher $H^{kn}(B; \Q) = 0$.
+    Für $k > 2$ sieht man durch Induktion, dass alle Differentiale von und nach $E_r^{2n,0}$ verschwinden und daher $H^{kn}(B; \Q) = 0$. \qedhere
   \end{cutout}
 \end{proof}
 
@@ -1681,7 +1693,7 @@ Dann lässt sich die Abbildung auch auf $(k+1)$-Zellen $e^{k+1}_\alpha$ ausdehne
     Wir bemerken, dass alle Homotopiegruppen und somit auch Homologiegruppen von~$Y$ endlich sind.
     Daher gilt $\widetilde{H}^*(Y; \Q) = 0$.
     Da die Serre-Spektralsequenz zur Faserung $Z \to F'' \to Y$ mit Koeffizienten in~$\Q$ auf der $E_2$-Seite also nur Einträge in der Spalte $p=0$ besitzt, gilt $H^*(Z; \Q) \cong H^*(F''; \Q) \cong \Lambda[b]$.
-    Die Aussage folgt nun aus dem vorhergehenden Lemma mit $X \coloneqq Z$.
+    Die Aussage folgt nun aus dem vorhergehenden Lemma mit $X \coloneqq Z$. \qedhere
   \end{cutout}
 \end{proof}
 
