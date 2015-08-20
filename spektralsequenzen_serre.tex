@@ -683,19 +683,19 @@ Dieser hat jedoch nicht die Form einer langen exakten Sequenz, sondern ist kodie
 Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
 
 \begin{defn}
-  Eine (kohomologische) \emph{Spektralsequenz} besteht aus
+  Eine (homologische) \emph{Spektralsequenz} besteht aus
   \begin{itemize}
-    \item $A$-Moduln $E_r^{p,q}$ für alle $p, q \in \Z$ und $r \geq 1$,
-    \item $A$-Modul-Homomorphismen $d_r^{p,q} : E_r^{p,q} \to E_r^{p+r,q-r+1}$ mit $d_r^{p+r,q-r+1} \circ d_r^{p,q} = 0$
-    \item und Isomorphismen $\alpha_r^{p,q} : H^{p,q}(E_r) \!\coloneqq\! \ker(d_r^{p,q}) / \im(d_r^{p-r,q+r-1}) \xrightarrow{\cong} E_{r+1}^{p,q}$.
+    \item $A$-Moduln $E^r_{p,q}$ für alle $p, q \in \Z$ und $r \geq 1$,
+    \item $A$-Modul-Homomorphismen $d^r_{p,q} : E^r_{p,q} \to E^r_{p-r,q+r-1}$ mit $d^r_{p-r,q+r-1} \circ d^r_{p,q} = 0$
+    \item und Isomorphismen $\alpha^r_{p,q} : H_{p,q}(E^r) \!\coloneqq\! \ker(d ^r_{p,q}) / \im(d^r_{p+r,q-r+1}) \xrightarrow{\cong} E^{r+1}_{p,q}$.
   \end{itemize}
 \end{defn}
 
 \begin{bem}
   \begin{itemize}
     \item Die Homomorphismen $d^r_{p,q}$ heißen \emph{Differentiale}.
-    \item Die Gesamtheit der Moduln $E_r^{p,q}$ und Differentiale $d_r^{pq}$ mit $r \in \N$ fest heißt \emph{$r$-te Seite} $E_r$.
-    \item Die Isomorphismen $\alpha_r^{p,q}$ werden in der Notation  unterdrückt und so gerechnet, als wäre $E^{p,q}_{r+1}$ gleich $H^{p,q}(E_r)$.
+    \item Die Gesamtheit der Moduln $E^r_{p,q}$ und Differentiale $d^r_{pq}$ mit $r \in \N$ fest heißt \emph{$r$-te Seite} $E^r$.
+    \item Die Isomorphismen $\alpha^r_{p,q}$ werden in der Notation  unterdrückt und so gerechnet, als wäre $E^{r+1}_{p,q}$ gleich $H_{p,q}(E^r)$.
     Wenn man eine Seite einer Spektralsequenz kennt, kann man also die Einträge auf der nächsten Seite berechnen, die Differentiale jedoch im Allgemeinen nicht.
   \end{itemize}
   Man stellt Seiten für gewöhnlich in einem 2-dimensionalen Raster dar:
@@ -709,12 +709,12 @@ Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
         }
         \foreach \x in {-1,...,5}{
           \foreach \y in {-2,-1,...,3}{
-            \draw[->,gray] (\x-0.8,\y) -- (\x-0.2,\y);
+            \draw[->,gray] (\x-0.2,\y) -- (\x-0.8,\y);
           }
         }
         \draw[->] (-0.35,-0.35) -- (5.35,-0.35) node[below] {p};
         \draw[->] (-0.35,-0.35) -- (-0.35,4) node[left] {q};
-        \node at (5,4.5) {$E_1$};
+        \node at (5,4.5) {$E^1$};
       \end{scope}
       \begin{scope}[shift={(10,0)}]
         \foreach \x in {-1,...,4}{
@@ -724,12 +724,12 @@ Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
         }
         \foreach \x in {0,...,5}{
           \foreach \y in {-2,-1,...,3}{
-            \draw[->,gray] (\x-1.8,\y+0.9) -- (\x-0.2,\y+0.1);
+            \draw[->,gray] (\x-0.2,\y+0.1) -- (\x-1.8,\y+0.9);
           }
         }
         \draw[->] (-0.35,-0.35) -- (5.35,-0.35) node[below] {p};
         \draw[->] (-0.35,-0.35) -- (-0.35,4) node[left] {q};
-        \node at (5,4.5) {$E_2$};
+        \node at (5,4.5) {$E^2$};
       \end{scope}
       \begin{scope}[shift={(20,0)}]
         \foreach \x in {-1,...,4}{
@@ -739,57 +739,58 @@ Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
         }
         \foreach \x in {1,...,5}{
           \foreach \y in {-2,-1,...,2}{
-            \draw[->,gray] (\x-2.8,\y+1.9) -- (\x-0.2,\y+0.1);
+            \draw[->,gray] (\x-0.2,\y+0.1) -- (\x-2.8,\y+1.9);
           }
         }
         \draw[->] (-0.35,-0.35) -- (5.35,-0.35) node[below] {p};
         \draw[->] (-0.35,-0.35) -- (-0.35,4) node[left] {q};
-        \node at (5,4.5) {$E_3$};
+        \node at (5,4.5) {$E^3$};
       \end{scope}
     \end{tikzpicture}
   \end{center}
 \end{bem}
 
 \begin{defn}
-  Eine Spektralsequenz \emph{konvergiert}, falls für alle $p, q \in \Z$ ein $R \in \N$ existiert, sodass für alle $r \geq R$ die Differentiale von und nach $E_r^{p,q}$ verschwinden und damit $E^\infty_{p,q} \coloneqq E_R^{p,q} \cong E_{R+1}^{p,q} \cong \ldots$ \\[2pt]
-  Der Grenzwert der SS ist die Unendlich-Seite $E_\infty \coloneqq \{ E_\infty^{p,q} \}_{p,q}$.
+  Eine Spektralsequenz \emph{konvergiert}, falls für alle $p, q \in \Z$ ein $R \in \N$ existiert, sodass für alle $r \geq R$ die Differentiale von und nach $E^r_{p,q}$ verschwinden und damit
+  \[ E^\infty_{p,q} \coloneqq E^R_{p,q} \cong E^{R+1}_{p,q} \cong E^{R+2}_{p,q} \cong \ldots \]
+  Der Grenzwert der Spektralsequenz ist die Unendlich-Seite $E^\infty \coloneqq \{ E^\infty_{p,q} \}_{p,q}$.
 \end{defn}
 
 \begin{bem}
-  Viele Spektralsequenzen sind im ersten Quadranten konzentriert, \dh{} $E_r^{p,q}$ ist nur für $p, q \geq 0$ ungleich Null.
-  Solche Spektralsequenzen konvergieren immer, denn für alle $p, q \in \Z$ führen für $r \geq \max(p+1, q+2)$ alle Differentiale von $E_r^{p,q}$ aus dem ersten Quadranten heraus und alle dort eintreffenden Differentiale kommen von außerhalb des ersten Quadranten und sind daher Null.
+  Viele Spektralsequenzen sind im ersten Quadranten konzentriert, \dh{} $E^r_{p,q}$ ist nur für $p, q \geq 0$ ungleich Null.
+  Solche Spektralsequenzen konvergieren immer, denn für alle $p, q \in \Z$ führen für $r \geq \max(p+1, q+2)$ alle Differentiale von $E^r_{p,q}$ aus dem ersten Quadranten heraus und alle dort eintreffenden Differentiale kommen von außerhalb des ersten Quadranten und sind daher Null.
 \end{bem}
 
 \begin{defn}
-  Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine absteigende Folge
-  \[ M \supseteq \ldots \supseteq F^{p-1} M \supseteq F^p M \supseteq F^{p+1} M \supseteq \ldots \]
+  Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine aufsteigende Folge
+  \[ 0 \subseteq \ldots \subseteq F^{p-1} M \subseteq F^p M \subseteq F^{p+1} M \subseteq \ldots \subset M \]
   von Untermoduln von $M$, $p \!\in\! \Z$.
   Eine Filtrierung heißt
   \begin{itemize}
-    \item \emph{ausschöpfend}, falls $M = \bigcup_p F^p$,
+    \item \emph{ausschöpfend}, falls $M = \bigcup_p F^p M$,
     \item \emph{Hausdorffsch}, wenn $0 = \bigcap_p F^p M$ und
     \item \emph{regulär}, wenn sie ausschöpfend und Hausdorffsch ist.
   \end{itemize}
 \end{defn}
 
 \begin{defn}
-  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M^n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
-  \[ M^n \supseteq \ldots \supseteq F^{p-1} M^n \supseteq F^p M^n \supseteq F^{p+1} M^n \supseteq \ldots \]
-  existieren, sodass $E_\infty^{pq} \cong F^p M^{p+q} / F^{p+1} M^{p+q}$ für alle $p, q \in \Z$.
+  Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$ (notiert $E^r_{p,q} \Rightarrow M_{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
+  \[ 0 \subseteq \ldots \subseteq F^{p-1} M_n \subseteq F^p M_n \subseteq F^{p+1} M_n \subseteq \ldots \]
+  existieren, sodass $E^\infty_{pq} \cong F^p M_{p+q} / F^{p-1} M_{p+q}$ für alle $p, q \in \Z$.
 \end{defn}
 
-In der Anwendung von Spektralsequenzen kennt man oft die Einträge der $E_1$ oder $E_2$-Seite.
-Man versucht dann, die Einträge der $E_\infty$-Seite zu bestimmen, indem man sukzessive die Seiten $E_r$ ausrechnet.
+In der Anwendung von Spektralsequenzen kennt man oft die Einträge der $E^1$ oder $E^2$-Seite.
+Man versucht dann, die Einträge der $E^\infty$-Seite zu bestimmen, indem man sukzessive die Seiten $E^r$ ausrechnet.
 Das Problem dabei ist, dass die dazu benötigten Differentiale auf diesen Seiten im Allgemeinen nicht bekannt sind.
 In der Praxis hofft man darauf, dass Differentiale allein deswegen verschwinden, da ihre Quell- bzw. Zielgruppe die Nullgruppe ist.
-Man kann auch partielle Information über die $E_\infty$-Seite verwenden, um Aussagen über Differentiale zu treffen, z.\,B. dass ein Differential ein Isomorphismus ist.
+Man kann auch partielle Information über die $E^\infty$-Seite verwenden, um Aussagen über Differentiale zu treffen, z.\,B. dass ein Differential ein Isomorphismus ist.
 
-Angenommen, man hat auf diesem Weg die Seite $E_\infty$ einer Spektralsequenz, welche gegen $M$ konvergiert, berechnet.
-Dann kennt man immer noch nicht die Moduln $M^n$, sondern lediglich die Quotienten in einer Filtrierung von $M^n$.
-Im Fall, dass $A$ ein Körper ist, ist $M^n$ isomorph zur direkten Summe dieser Quotienten.
-Im Allgemeinen ist das aber nicht der Fall, wie das Beispiel der Filtrierung $\Z \supseteq 2 \Z \supseteq 0$ der abelschen Gruppe $\Z$ zeigt.
+Angenommen, man hat auf diesem Weg die Seite $E^\infty$ einer Spektralsequenz, welche gegen $M$ konvergiert, berechnet.
+Dann kennt man immer noch nicht die Moduln $M_n$, sondern lediglich die Quotienten in einer Filtrierung von $M_n$.
+Im Fall, dass $A$ ein Körper ist, ist $M_n$ isomorph zur direkten Summe dieser Quotienten.
+Im Allgemeinen ist das aber nicht der Fall, wie das Beispiel der Filtrierung $0 \subset 2 \Z \subset \Z$ der abelschen Gruppe $\Z$ zeigt.
 
-Anders herum kann man Spektralsequenzen auch verwenden, um von $E_\infty$ (oder den Moduln $M^n$) auf $E_2$ bzw. $E_1$ zu schließen.
+Anders herum kann man Spektralsequenzen auch verwenden, um von $E^\infty$ (oder den Moduln $M_n$) auf die Seite $E^2$ bzw. $E^1$ zu schließen.
 Dies werden wir tun, um die Homologie von Eilenberg-MacLane-Räumen mit Koeffizienten in $\Q$ zu bestimmen.
 
 \section{Die Spektralsequenz eines filtrierten Komplexes}
@@ -938,17 +939,59 @@ Wir haben als Spezialfälle
 \section{Die Serre-Spektralsequenz}
 
 \begin{satz}[Jean-Pierre Serre]
-  Es sei $G$ eine abelsche Gruppe.
-  Für jede Serre-Faserung $p : E \to B$ existiert eine Spektralsequenz mit
-  \[ E_2^{p,q} = H^p(B; \LH^q(F_p; G)), \]
-  welche gegen $H^*(E)$ konvergiert.
+  Es sei $G$ eine abelsche Gruppe und $p : E \to B$ eine Serre-Faserung.
+  Angenommen, $B$ ist wegzusammenhängend und $\pi_1(B)$ wirkt trivial auf $H_*(F_p)$.
+  Dann existiert eine (homologische) Spektralsequenz mit
+  \[ E^2_{p,q} = H_p(B; H_q(F_p; G)), \]
+  welche gegen $H_*(E)$ konvergiert.
 \end{satz}
 
-\begin{proof}
-  \TODO{}
-\end{proof}
+% Quellen:
+% Spanier, Algebraic Topology: SS zum filtrierten Komplex; nur triviale Wirkung; etwas genauer als Hatcher
+% Hatcher: nur triviale Wirkung
+% Switzer, Homology and Homotopy: nur triviale Wirkung, nur Homologie genau beschrieben, p. 350
+% May/Ponto, More Concise AT: Allgemeine Serre-Spektralsequenz (mit lokalen Koeff'en); nur ein "sketch proof"
+% McCleary, User's Guide to SS: Lokale Koeffizienten, statement: p. 139, proof: p. 167ff
 
-%\section{Multiplikative Struktur der Serre-Spektralsequenz}
+Ein Beweis findet sich in \cite[Abschnitt 1.1]{hatcher:ss}.
+
+Im Falle einer nichttrivialen Wirkung der Fundamentalgruppe existiert ebenfalls eine Serre-Spektralsequenz. Die Einträge auf der $E^2$-Seite haben dann die Form $E^2_{p,q} = H_p(B; \LH_q(F; G))$.
+Dabei ist $\LH_q(F; G)$ keine feste Gruppe, sondern ein sogenanntes \emph{lokales Koeffizientensystem}, was bedeutet, dass die Koeffizienten vom Punkt $b \in B$ abhängen können.
+Am Punkt $b \in B$ ist $\LH_q(F; G)_b = H_q(p^{-1}(b))$.
+Ein stetiger Weg $\gamma$ zwischen Punkten $b_0, b_1 \in B$ induziert einen Isomorphismus $\gamma_* : \LH_q(F; G)_{b_0} \to \LH_q(F; G)_{b_1}$.
+Dieser Isomorphismus hängt nur von der Homotopieklasse von $\gamma$ ab.
+Wenn $\pi_1(B)$ trivial auf der Homologie der Faser wirkt, so hängt der Isomorphismus überhaupt nicht vom gewählten Weg ab.
+Dann ist $H_p(B; \LH_q(F; G)) \cong H_p(B; \LH_q(F; G))$.
+Im Falle einer nichttrivialen Wirkung von $\pi_1(B)$ gibt es geschlossene Wege $\gamma$, für die $\gamma_* : \LH_q(F; G)_b \to \LH_q(F; G)_b$ nicht die Identität ist.
+Für Details siehe \cite[133-185]{mccleary:ss}
+
+Es gibt eine Version des Satzes für Serre für Kohomologie anstatt Homologie.
+In Kohomologie wird eine andere Indizierung für Spektralsequenzen verwendet:
+
+\begin{defn}
+  Eine kohomologische \emph{Spektralsequenz} besteht aus
+  \begin{itemize}
+    \item $A$-Moduln $E_r^{p,q}$ für alle $p, q \in \Z$ und $r \geq 1$,
+    \item $A$-Modul-Homomorphismen $d_r^{p,q} : E_r^{p,q} \to E_r^{p+r,q-r+1}$ mit $d_r^{p+r,q-r+1} \circ d_r^{p,q} = 0$
+    \item und Isomorphismen $\alpha_r^{p,q} : H^{p,q}(E_r) \!\coloneqq\! \ker(d_r^{p,q}) / \im(d_r^{p-r,q+r-1}) \xrightarrow{\cong} E_{r+1}^{p,q}$.
+  \end{itemize}
+\end{defn}
+
+Jede homologische Spektralsequenz $E$ liefert eine kohomologische Spektralsequenz, wenn man $E_r^{p,q} \coloneqq E^r_{-p,-q}$ setzt.
+
+\begin{defn}
+  Eine kohomologische Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M^n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
+  \[ M^n \supseteq \ldots \supseteq F^{p-1} M^n \supseteq F^p M^n \supseteq F^{p+1} M^n \supseteq \ldots \]
+  existieren, sodass $E_\infty^{pq} \cong F^p M^{p+q} / F^{p+1} M^{p+q}$ für alle $p, q \in \Z$.
+\end{defn}
+
+\begin{satz}[Jean-Pierre Serre]
+  Es sei $G$ eine abelsche Gruppe und $p : E \to B$ eine Serre-Faserung.
+  Angenommen, $B$ ist wegzusammenhängend und $\pi_1(B)$ wirkt trivial auf $H_*(F_p)$.
+  Dann existiert eine kohomologische Spektralsequenz mit
+  \[ E_2^{p,q} = H^p(B; H^q(F_p; G)), \]
+  welche gegen $H^*(E)$ konvergiert.
+\end{satz}
 
 Kohomologie besitzt gegenüber Homologie den Vorteil, dass die Kohomologiegruppen mit dem Cup-Produkt einen graduierten Ring bilden.
 Diese zusätzliche Struktur ermöglicht es, Räume zu unterscheiden, die die gleichen Homologie- und damit auch Kohomologiegruppen besitzen.
@@ -980,50 +1023,7 @@ Solch eine multiplikative Struktur existiert auch auf der Serre-Spektralsequenz 
   \end{enumerate}
 \end{satz}
 
-\begin{proof}
-  \TODO{}
-\end{proof}
-
-% Spanier, Algebraic Topology: SS zum filtrierten Komplex; nur triviale Wirkung; etwas genauer als Hatcher
-% Hatcher: nur triviale Wirkung
-% Switzer, Homology and Homotopy: nur triviale Wirkung, nur Homologie genau beschrieben, p. 350
-% May/Ponto, More Concise AT: Allgemeine Serre-Spektralsequenz (mit lokalen Koeff'en); nur ein "sketch proof"
-% McCleary, User's Guide to SS: Lokale Koeffizienten, statement: p. 139, proof: p. 167ff
-
-%\section{Die Serre-Spektralsequenz für Homologie}
-
-Es gibt eine Version des Satzes für Serre für Homologie anstatt Kohomologie.
-In Homologie wird eine andere Indizierung für Spektralsequenzen verwendet:
-
-\begin{defn}
-  Eine homologische \emph{Spektralsequenz} besteht aus
-  \begin{itemize}
-    \item $A$-Moduln $E^r_{p,q}$ für alle $p, q \in \Z$ und $r \geq 1$,
-    \item $A$-Modul-Homomorphismen $d^r_{p,q} : E^r_{p,q} \to E^r_{p-r,q+r-1}$ mit $d^r_{p-r,q+r-1} \circ d^r_{p,q} = 0$
-    \item und Isomorphismen $\alpha^r_{p,q} : H_{p,q}(E^r) \!\coloneqq\! \ker(d ^r_{p,q}) / \im(d^r_{p+r,q-r+1}) \xrightarrow{\cong} E^{r+1}_{p,q}$.
-  \end{itemize}
-\end{defn}
-
-Jede homologische Spektralsequenz $E$ liefert eine kohomologische Spektralsequenz, wenn man $E_r^{p,q} \coloneqq E^r_{-p,-q}$ setzt.
-
-\begin{defn}
-  Eine homologische Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$ (notiert $E^r_{p,q} \Rightarrow M_{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
-  \[ 0 \subseteq \ldots \subseteq F^{p-1} M_n \subseteq F^p M_n \subseteq F^{p+1} M_n \subseteq \ldots \]
-  existieren, sodass $E^\infty_{pq} \cong F^p M_{p+q} / F^{p-1} M_{p+q}$ für alle $p, q \in \Z$.
-\end{defn}
-
-\begin{satz}[Jean-Pierre Serre]
-  Es sei $G$ eine abelsche Gruppe.
-  Für jede Serre-Faserung $p : E \to B$ existiert eine (homologische) Spektralsequenz mit
-  \[ E^2_{p,q} = H_p(B; \LH_q(F_p; G)), \]
-  welche gegen $H_*(E)$ konvergiert.
-\end{satz}
-
-% TODO: Verweis auf Beweis in irgendeinem Buch.
-
-Dabei bilden die $q$-ten Homologiegruppen der Fasern ein lokales Koeffizientensystem mit $\LH_q(F_p; G)_b = H_q(p^{-1}(b))$.
-Homologie mit einem Koeffizientensystem $\underline{A}$ ist analog zu Kohomologie mit Koeffizientensystem definiert.
-Falls $B$ einfach zusammenhängend ist oder allgemeiner $\pi_1(B)$ trivial auf den Homologiegruppen der Faser wirkt, so gilt $H_p(B; \LH_q(F_p; G)) \cong H_p(B; H_q(F_p; G))$.
+Ein Beweis dieses Satzes wird in \cite[Abschnitt 5.3]{mccleary:ss} geführt.
 
 \section{Töten von Homotopiegruppen und Eilenberg-MacLane-Räume}
 
