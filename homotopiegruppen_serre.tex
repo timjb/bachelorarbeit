@@ -68,6 +68,8 @@
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % Absolutwert
 \DeclareMathOperator{\ggT}{ggT} % größter gemeinsamer Teiler
 \DeclareMathOperator{\Aut}{Aut} % Automorphismengruppe
+\newcommand{\trunc}[2]{\tau_{#1} #2} % Truncation/Postnikov-Section
+\DeclareMathOperator{\sk}{sk} % Skelett
 
 % Abkürzungen
 \newcommand{\zB}{z.\,B.}
@@ -135,7 +137,7 @@ Wir schreiben $\pi_0(X, x_0) = 0$, falls die einzige Wegzusammenhangskomponente 
 Falls ein Weg von $x_0$ nach $x'_0$ in $X$ existiert, so sind $\pi_n(X, x_0)$ und $\pi_n(X, x'_0)$ isomorph.
 Für nicht leere, wegzusammenhängende Räume $X$ kann man daher den Basispunkt in der Notation weglassen und von der Homotopiegruppe $\pi_n(X)$ von $X$ sprechen.
 
-% TODO: Motivation für Studium der Homotopiegruppen der Sphären
+\TODO{Motivation für Studium der Homotopiegruppen der Sphären}
 
 Für $i < n$ gilt $\pi_i(S^n) = 0$:
 Wir können die Sphären $S^i$ und $S^n$ als CW-Komplexe mit jeweils einer Nullzelle und einer $i$-Zelle bzw. $n$-Zelle realisieren.
@@ -148,7 +150,7 @@ Die höheren Homotopiegruppen $\pi_i(S^1)$ mit $i > 1$ sind Null.
 Dies folgt aus der Zusammenziehbarkeit von~$\R$ und aus der allgemeinen Tatsache, dass eine Überlagerung~$p : \widetilde{X} \to X$ Isomorphismen $\pi_i(p) : \pi_i(\widetilde{X}, \widetilde{x}_0) \to \pi_i(X, x_0)$ auf den höheren Homotopiegruppen induziert (siehe \cite[\mbox{}Prop 4.1]{hatcher:at}).
 
 \begin{defn}
-  Die \emph{(reduzierte) Einhängung} $\Sigma X$ eines punktierten Raumes $(X, x_0)$ ist
+  Die \emph{(reduzierte) Einhängung} $(\Sigma X, *)$ eines punktierten Raumes $(X, x_0)$ ist
   \[ \Sigma X \coloneqq (X \times I) / (X \times \{ 0, 1 \} \cup \{ x_0 \} \times I). \]
   Der Basispunkt $*$ von $\Sigma X$ ist der auf einen Punkt zusammengezogene Teilraum.
 \end{defn}
@@ -160,9 +162,8 @@ Für $f : (X, x_0) \to (Y, y_0)$ ist
   [(x, t)] \mapsto [(f(x), t)].
 \]
 
-Die Einhängung eines CW-Komplexes ist wieder ein CW-Komplex.
 Man sieht leicht, dass $\Sigma S^i \approx S^{i+1}$.
-Somit induziert Einhängung eine Abbildung $E : \pi_i(X, x_0) \to \pi_i(\Sigma X, *)$.
+Somit induziert Einhängung eine Abbildung $E : \pi_i(X, x_0) \to \pi_{i+1}(\Sigma X, *)$.
 Da Einhängung mit den Kogruppenstruktur von $S^i$ und $S^{i+1}$ verträglich ist, ist $E$ sogar ein Gruppenhomomorphismus.
 
 \begin{defn}
@@ -176,19 +177,19 @@ Da Einhängung mit den Kogruppenstruktur von $S^i$ und $S^{i+1}$ verträglich is
 
 Ein Beweis des Einhängungssatzes findet sich in \cite[\mbox{}4.24]{hatcher:at}.
 
-Insbesondere ist die $j$-fach iterierte Einhängung $\Sigma^j X$ eines $n$-zusammenhängenden CW-Komplexes $X$ ein $(n{+}j)$-zusammenhängender CW-Komplex.
+Insbesondere ist die $j$-fach iterierte Einhängung $\Sigma^j X$ eines $n$-zusammenhängenden CW-Komplexes $X$ ein $(n{+}j)$-zusammenhängender CW-Komplex. (Um den Einhängungssatz mehrfach anwenden zu können, muss man sich klar machen, dass die Einhängung eines CW-Komplexes wieder ein CW-Komplex ist.)
 
 Für einen beliebigen CW-Komplex $X$ ist $\Sigma^j X$ ein $(j{-}1)$-zusammenhängender CW-Komplex und es gilt $\pi_{n+j}(\Sigma^j X) \cong \pi_{n+j+1}(\Sigma^{j+1} X)$ für $n + j \leq 2(j-1) \Leftrightarrow n+2 \leq j$.
 Somit ist
 \[ \pi_{2n+2}(\Sigma^{n+2} X) \cong \pi_{2n+3}(\Sigma^{n+3} X) \cong \pi_{2n+4}(\Sigma^{n+4} X) \cong \ldots \cong \colim \pi_{n+j}(\Sigma^j X). \]
-Diese Gruppe heißt \emph{$n$-te stabile Homotopiegruppe} von $X$.
+Die Gruppe $\colim \pi_{n+j}(\Sigma^j X)$ heißt \emph{$n$-te stabile Homotopiegruppe} von $X$.
 Im Fall der Sphären haben wir mit $X = S^0$:
 \[ \pi_{2n+2}(S^{n+2}) \cong \pi_{2n+3}(S^{n+3}) \cong \pi_{2n+4}(S^{n+4}) \cong \ldots \cong \colim_j \pi_{n+j}(S^j) =: \pi^s_n. \]
 Wir behaupten, dass $E : \pi_1(S^1) \to \pi_2(S^2)$ ein Isomorphismus ist.
 Aus dem Einhängungssatz folgt, dass diese Abbildung surjektiv ist.
 Somit ist $\pi_2(S^2)$ ein zyklische Gruppe mit Erzeuger $\id_{S^2}$.
 Es sei nun $k \in \Z$.
-Dann ist $H_2(k \cdot \id_{S^2}) : H_2(S^2) \to H^2(S^2)$ gegeben durch Multiplikation mit $k$.
+Dann ist $H_2(k \cdot \id_{S^2}) : H_2(S^2) \to H_2(S^2)$ gegeben durch Multiplikation mit $k$.
 Angenommen, $k \cdot \id_{S^2}$ ist nullhomotop.
 Dann ist auch $H_2(k \cdot \id_{S^2}) = 0$ und somit $k = 0$.
 Somit ist $E$ injektiv.
@@ -215,10 +216,10 @@ Zusammengefasst werden wir also gezeigt haben, dass
   \vspace{-1.4em}
   \[
     \pi_i(S^n, *) \cong \begin{cases}
-      0, & \text{für $i < n$ und $i > n = 1$} \\
-      \Z, & \text{für $i = n$,} \\
-      \Z \oplus \text{endliche Gruppe}, & \text{für $i=2n-1$ und $n$ gerade,} \\
-      \text{endliche Gruppe}, & \text{sonst.}
+      0 & \text{für $i < n$ und $i > n = 1$,} \\
+      \Z & \text{für $i = n$,} \\
+      \Z \oplus \text{endliche Gruppe} & \text{für $i=2n-1$ und $n$ gerade,} \\
+      \text{endliche Gruppe} & \text{sonst.}
     \end{cases}
   \]
 \end{kor}
@@ -329,8 +330,8 @@ Allgemein sind bei Faserungen über wegzusammenhängenden Basisräumen alle Fase
   \fall{Zu (iii)} Die Behauptung folgt daraus, dass man
   \[
     \tilde{H}_{\gamma \cdot \epsilon}(f, t) \coloneqq \begin{cases}
-      \tilde{H}_\gamma(f, 2t), & \text{falls } 0 \leq t \leq \tfrac{1}{2}, \\
-      \tilde{H}_\epsilon(\tilde{H}_\gamma(f, 1), 2t - 1), & \text{falls } \tfrac{1}{2} \leq t \leq 1
+      \tilde{H}_\gamma(f, 2t) & \text{falls } 0 \leq t \leq \tfrac{1}{2}, \\
+      \tilde{H}_\epsilon(\tilde{H}_\gamma(f, 1), 2t - 1) & \text{falls } \tfrac{1}{2} \leq t \leq 1
     \end{cases}
   \]
   wählen kann. \\[2pt]
@@ -500,17 +501,19 @@ Durch Lemma~\ref{convert-to-fibration} erhalten wir eine Faserung $F \to E_i \xr
   Die Faserung $\Omega X \to PX \xrightarrow{p} X$ heißt \emph{Pfadfaserung}.
 \end{defn}
 
-\begin{bem}
-  Es seien $(X, x_0)$ und $(Y, y_0)$ punktierte Räume.
-  Dann gibt es eine in $X$ und $Y$ natürliche Bijektion
-  % XXX: Einschränkung auf Unterkategorie der topologischen Räume nötig?
-  \begin{alignat*}{4}
-    \Hom((\Sigma X, x_0), (Y, y_0)) & \enspace\cong\enspace && \Hom((X, x_0), (\Omega Y, \gamma_0)), \\
-    f & \enspace\mapsto\enspace && (x \mapsto t \mapsto f([(x, t)])), \\
-    ([(x, t)] \mapsto g(x)(t)) & \enspace\mapsfrom\enspace && g.
-  \end{alignat*}
-\end{bem}
+Die Randoperatoren aus der langen exakten $F \to PX \xrightarrow{p} X$ sind Isomorphismen $\pi_{i+1}(Y, y_0) \cong \pi_i(\Omega Y, \gamma_0)$ für $i \geq 0$, da die Homotopiegruppen von $PX$ null sind.
+Die Einhängung bewirkt also eine Gradverschiebung der Homotopiegruppen.
 
+%\begin{bem}
+%  Es seien $(X, x_0)$ und $(Y, y_0)$ punktierte Räume.
+%  Dann gibt es eine in $X$ und $Y$ natürliche Bijektion
+%  \begin{alignat*}{4}
+%    \Hom((\Sigma X, x_0), (Y, y_0)) & \enspace\cong\enspace && \Hom((X, x_0), (\Omega Y, \gamma_0)), \\
+%    f & \enspace\mapsto\enspace && (x \mapsto t \mapsto f([(x, t)])), \\
+%    ([(x, t)] \mapsto g(x)(t)) & \enspace\mapsfrom\enspace && g.
+%  \end{alignat*}
+%  Diese Bijektion stiftet auch eine Bijektion zwischen den Mengen von Abbildungen modulo basispunkterhaltender Homotopie.
+%\end{bem}
 
 \section{Spektralsequenzen}
 
@@ -520,12 +523,12 @@ Wenn man genügend viele dieser Gruppen kennt, so kann man oft rein algebraisch 
 Ein Beispiel ist die lange exakte Homotopiesequenz einer Faserung.
 Nun kann man sich fragen, ob es bei Faserungen auch einen Zusammenhang zwischen den Homologie- und Kohomologiegruppen von Basisraum, Totalraum und Faser gibt.
 Im Jahr 1951 hat Jean-Pierre Serre in seiner Dissertation \cite{serre:thesis} gezeigt, dass es einen solchen tatsächlich gibt.
-Dieser hat jedoch nicht die Form einer langen exakten Sequenz, sondern ist kodiert in einem komplizierten algebraischen Objekt, einer Spektralsequenz.
+Dieser hat jedoch nicht die Form einer langen exakten Sequenz, sondern ist kodiert in einem komplexerem algebraischen Objekt, einer Spektralsequenz.
 
 Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
 
 \begin{defn}
-  Eine (homologische) \emph{Spektralsequenz} besteht aus
+  Eine (homologische) \emph{Spektralsequenz} $E$ besteht aus
   \begin{itemize}
     \item $A$-Moduln $E^r_{p,q}$ für alle $p, q \in \Z$ und $r \geq 1$,
     \item $A$-Modul-Homomorphismen $d^r_{p,q} : E^r_{p,q} \to E^r_{p-r,q+r-1}$ mit $d^r_{p-r,q+r-1} \circ d^r_{p,q} = 0$
@@ -536,9 +539,10 @@ Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
 \begin{bem}
   \begin{itemize}
     \item Die Homomorphismen $d^r_{p,q}$ heißen \emph{Differentiale}.
-    \item Die Gesamtheit der Moduln $E^r_{p,q}$ und Differentiale $d^r_{pq}$ mit $r \in \N$ fest heißt \emph{$r$-te Seite} $E^r$.
+    \item Die Gesamtheit der Moduln $E^r_{p,q}$ und Differentiale $d^r_{p,q}$ mit $r \in \N$ fest heißt \emph{$r$-te Seite} $E^r$.
     \item Die Isomorphismen $\alpha^r_{p,q}$ werden in der Notation  unterdrückt und so gerechnet, als wäre $E^{r+1}_{p,q}$ gleich $H_{p,q}(E^r)$.
-    Wenn man eine Seite einer Spektralsequenz kennt, kann man also die Einträge auf der nächsten Seite berechnen, die Differentiale jedoch im Allgemeinen nicht.
+    \item Wenn man eine Seite einer Spektralsequenz kennt, kann man also die Einträge auf der nächsten Seite berechnen, die Differentiale jedoch im Allgemeinen nicht.
+    \item Der Eintrag $E^r_{p,q}$ ist ein \emph{Subquotient} (\dh{} ein Quotientenmodul eines Untermoduls) von $E^s_{p,q}$ falls $s \leq r$.
   \end{itemize}
   Man stellt Seiten für gewöhnlich in einem 2-dimensionalen Raster dar:
   \begin{center}
@@ -595,17 +599,15 @@ Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
 \begin{defn}
   Eine Spektralsequenz \emph{konvergiert}, falls für alle $p, q \in \Z$ ein $R \in \N$ existiert, sodass für alle $r \geq R$ die Differentiale von und nach $E^r_{p,q}$ verschwinden und damit
   \[ E^\infty_{p,q} \coloneqq E^R_{p,q} \cong E^{R+1}_{p,q} \cong E^{R+2}_{p,q} \cong \ldots \]
-  Der Grenzwert der Spektralsequenz ist die Unendlich-Seite $E^\infty \coloneqq \{ E^\infty_{p,q} \}_{p,q}$.
+  Der Grenzwert der Spektralsequenz ist die Unendlich-Seite $E^\infty \coloneqq \{ E^\infty_{p,q} \}_{p,q \in \Z}$.
 \end{defn}
 
-\begin{bem}
-  Viele Spektralsequenzen sind im ersten Quadranten konzentriert, \dh{} $E^r_{p,q}$ ist nur für $p, q \geq 0$ ungleich Null.
-  Solche Spektralsequenzen konvergieren immer, denn für alle $p, q \in \Z$ führen für $r \geq \max(p+1, q+2)$ alle Differentiale von $E^r_{p,q}$ aus dem ersten Quadranten heraus und alle dort eintreffenden Differentiale kommen von außerhalb des ersten Quadranten und sind daher Null.
-\end{bem}
+Viele Spektralsequenzen sind im ersten Quadranten konzentriert, \dh{} $E^r_{p,q}$ ist nur für $p, q \geq 0$ ungleich null.
+Solche Spektralsequenzen konvergieren immer, denn für alle $p, q \in \Z$ führen für $r \geq \max(p+1, q+2)$ alle Differentiale von $E^r_{p,q}$ aus dem ersten Quadranten heraus und alle dort eintreffenden Differentiale kommen von außerhalb des ersten Quadranten und sind daher null.
 
 \begin{defn}
   Eine \emph{Filtrierung} eines $A$-Moduls $M$ ist eine aufsteigende Folge
-  \[ 0 \subseteq \ldots \subseteq F^{p-1} M \subseteq F^p M \subseteq F^{p+1} M \subseteq \ldots \subset M \]
+  \[ 0 \subseteq \ldots \subseteq F^{p-1} M \subseteq F^p M \subseteq F^{p+1} M \subseteq \ldots \subseteq M \]
   von Untermoduln von $M$, $p \!\in\! \Z$.
   Eine Filtrierung heißt
   \begin{itemize}
@@ -617,15 +619,15 @@ Es sei $A$ im Folgenden ein kommutativer Ring mit Eins.
 
 \begin{defn}
   Eine Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M_n$ (notiert $E^r_{p,q} \Rightarrow M_{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
-  \[ 0 \subseteq \ldots \subseteq F^{p-1} M_n \subseteq F^p M_n \subseteq F^{p+1} M_n \subseteq \ldots \]
-  existieren, sodass $E^\infty_{pq} \cong F^p M_{p+q} / F^{p-1} M_{p+q}$ für alle $p, q \in \Z$.
+  \[ 0 \subseteq \ldots \subseteq F^{p-1} M_n \subseteq F^p M_n \subseteq F^{p+1} M_n \subseteq \ldots \subseteq M_n \]
+  existieren, sodass $E^\infty_{p,q} \cong F^p M_{p+q} / F^{p-1} M_{p+q}$ für alle $p, q \in \Z$.
 \end{defn}
 
 In der Anwendung von Spektralsequenzen kennt man oft die Einträge der $E^1$ oder $E^2$-Seite.
 Man versucht dann, die Einträge der $E^\infty$-Seite zu bestimmen, indem man sukzessive die Seiten $E^r$ ausrechnet.
 Das Problem dabei ist, dass die dazu benötigten Differentiale auf diesen Seiten im Allgemeinen nicht bekannt sind.
 In der Praxis hofft man darauf, dass Differentiale allein deswegen verschwinden, da ihre Quell- bzw. Zielgruppe die Nullgruppe ist.
-Man kann auch partielle Information über die $E^\infty$-Seite verwenden, um Aussagen über Differentiale zu treffen, z.\,B. dass ein Differential ein Isomorphismus ist.
+Man kann auch bereits bekannte Information über die $E^\infty$-Seite verwenden, um Aussagen über Differentiale zu treffen, z.\,B. dass ein Differential ein Isomorphismus ist.
 
 Angenommen, man hat auf diesem Weg die Seite $E^\infty$ einer Spektralsequenz, welche gegen $M$ konvergiert, berechnet.
 Dann kennt man immer noch nicht die Moduln $M_n$, sondern lediglich die Quotienten in einer Filtrierung von $M_n$.
@@ -637,12 +639,12 @@ Dies werden wir tun, um die Homologie von Eilenberg-MacLane-Räumen mit Koeffizi
 
 \section{Die Serre-Spektralsequenz}
 
-\begin{satz}[Jean-Pierre Serre]
-  Es sei $G$ eine abelsche Gruppe und $p : E \to B$ eine Faserung.
-  Angenommen, $B$ ist wegzusammenhängend und $\pi_1(B)$ wirkt trivial auf $H_*(F_p)$.
+\begin{satz}
+  Es sei $F \to E \xrightarrow{p} B$ eine Faserung mit wegzusammenhängendem Basisraum $B$ und $G$ eine abelsche Gruppe.
+  Angenommen, $\pi_1(B)$ wirkt trivial auf $H_*(F; G)$.
   Dann existiert eine (homologische) Spektralsequenz mit
   \[ E^2_{p,q} = H_p(B; H_q(F_p; G)), \]
-  welche gegen $H_*(E)$ konvergiert.
+  welche gegen $H_*(E; G)$ konvergiert.
 \end{satz}
 
 % Quellen:
@@ -652,23 +654,27 @@ Dies werden wir tun, um die Homologie von Eilenberg-MacLane-Räumen mit Koeffizi
 % May/Ponto, More Concise AT: Allgemeine Serre-Spektralsequenz (mit lokalen Koeff'en); nur ein "sketch proof"
 % McCleary, User's Guide to SS: Lokale Koeffizienten, statement: p. 139, proof: p. 167ff
 
-Ein Beweis findet sich in \cite[Abschnitt 1.1]{hatcher:ss}.
+Die Existenz dieser Spektralsequenz wurde von Jean-Pierre Serre in seiner Doktorarbeit~\cite{serre:thesis} gezeigt.
+Sie wird daher ihm zu Ehren \emph{Serre-Spektralsequenz} mit Koeffizienten in $G$ genannt.
+Serre verwendet für den Beweis eine Definition von singulärer Homologie mittels Kuben anstatt von Simplizes.
+Ein Beweis, der ohne dieses technische Hilfsmittel auskommt, findet sich in \cite[Thm 1.3]{hatcher:ss}.
 
-Im Falle einer nichttrivialen Wirkung der Fundamentalgruppe existiert ebenfalls eine Serre-Spektralsequenz. Die Einträge auf der $E^2$-Seite haben dann die Form $E^2_{p,q} = H_p(B; \LH_q(F; G))$.
-Dabei ist $\LH_q(F; G)$ keine feste Gruppe, sondern ein sogenanntes \emph{lokales Koeffizientensystem}, was bedeutet, dass die Koeffizienten vom Punkt $b \in B$ abhängen können.
+Im Falle einer nichttrivialen Wirkung der Fundamentalgruppe existiert ebenfalls eine Serre-Spektralsequenz.
+Die Einträge auf der $E^2$-Seite haben dann die Form $E^2_{p,q} = H_p(B; \LH_q(F; G))$.
+Dabei ist $\LH_q(F; G)$ keine feste Gruppe, sondern ein sogenanntes \emph{lokales Koeffizientensystem}.
+Dies ist eine Familie von Gruppen $(G_b)_{b \in B}$, welche in einem gewissen Sinn stetig vom Punkt $b \in B$ abhängen können.
 Am Punkt $b \in B$ ist $\LH_q(F; G)_b = H_q(p^{-1}(b))$.
 Ein stetiger Weg $\gamma$ zwischen Punkten $b_0, b_1 \in B$ induziert einen Isomorphismus $\gamma_* : \LH_q(F; G)_{b_0} \to \LH_q(F; G)_{b_1}$.
 Dieser Isomorphismus hängt nur von der Homotopieklasse von $\gamma$ ab.
 Wenn $\pi_1(B)$ trivial auf der Homologie der Faser wirkt, so hängt der Isomorphismus überhaupt nicht vom gewählten Weg ab.
-Dann ist $H_p(B; \LH_q(F; G)) \cong H_p(B; \LH_q(F; G))$.
-Im Falle einer nichttrivialen Wirkung von $\pi_1(B)$ gibt es geschlossene Wege $\gamma$, für die $\gamma_* : \LH_q(F; G)_b \to \LH_q(F; G)_b$ nicht die Identität ist.
+Dann ist $H_p(B; \LH_q(F; G)) \cong H_p(B; H_q(F; G))$.
 Für Details siehe \cite[133-185]{mccleary:ss}
 
 Es gibt eine Version des Satzes für Serre für Kohomologie anstatt Homologie.
 In Kohomologie wird eine andere Indizierung für Spektralsequenzen verwendet:
 
 \begin{defn}
-  Eine kohomologische \emph{Spektralsequenz} besteht aus
+  Eine kohomologische \emph{Spektralsequenz} $E$ besteht aus
   \begin{itemize}
     \item $A$-Moduln $E_r^{p,q}$ für alle $p, q \in \Z$ und $r \geq 1$,
     \item $A$-Modul-Homomorphismen $d_r^{p,q} : E_r^{p,q} \to E_r^{p+r,q-r+1}$ mit $d_r^{p+r,q-r+1} \circ d_r^{p,q} = 0$
@@ -680,24 +686,29 @@ Jede homologische Spektralsequenz $E$ liefert eine kohomologische Spektralsequen
 
 \begin{defn}
   Eine kohomologische Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M^n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
-  \[ M^n \supseteq \ldots \supseteq F^{p-1} M^n \supseteq F^p M^n \supseteq F^{p+1} M^n \supseteq \ldots \]
-  existieren, sodass $E_\infty^{pq} \cong F^p M^{p+q} / F^{p+1} M^{p+q}$ für alle $p, q \in \Z$.
+  \[ M^n \supseteq \ldots \supseteq F^{p-1} M^n \supseteq F^p M^n \supseteq F^{p+1} M^n \supseteq \ldots \supset 0 \]
+  existieren, sodass $E_\infty^{p,q} \cong F^p M^{p+q} / F^{p+1} M^{p+q}$ für alle $p, q \in \Z$.
 \end{defn}
 
-\begin{satz}[Jean-Pierre Serre]
-  Es sei $G$ eine abelsche Gruppe und $p : E \to B$ eine Faserung.
-  Angenommen, $B$ ist wegzusammenhängend und $\pi_1(B)$ wirkt trivial auf $H_*(F_p)$.
+\begin{satz}
+  Es sei $F \to E \xrightarrow{p} B$ eine Faserung mit wegzusammenhängendem Basisraum $B$ und $G$ eine abelsche Gruppe.
+  Angenommen, $\pi_1(B)$ wirkt trivial auf $H^*(F; G)$.
   Dann existiert eine kohomologische Spektralsequenz mit
-  \[ E_2^{p,q} = H^p(B; H^q(F_p; G)), \]
-  welche gegen $H^*(E)$ konvergiert.
+  \[ E_2^{p,q} = H^p(B; H^q(F; G)), \]
+  welche gegen $H^*(E; G)$ konvergiert.
 \end{satz}
+
+Dieser Satz wird bewiesen in \cite[Thm 1.14]{hatcher:ss}.
+Eine Version mit lokalen Koeffizienten findet sich in \cite[Thm 5.2]{mccleary:ss}.
 
 Kohomologie besitzt gegenüber Homologie den Vorteil, dass die Kohomologiegruppen mit dem Cup-Produkt einen graduierten Ring bilden.
 Diese zusätzliche Struktur ermöglicht es, Räume zu unterscheiden, die die gleichen Homologie- und damit auch Kohomologiegruppen besitzen.
 Solch eine multiplikative Struktur existiert auch auf der Serre-Spektralsequenz in Kohomologie:
 
 \begin{satz}
-  Es sei $R$ ein Ring, $p : E \to B$ eine Faserung.
+  Es sei $F \to E \xrightarrow{p} B$ eine Faserung mit wegzusammenhängendem Basisraum $B$ und $R$ ein Ring.
+  Angenommen, $\pi_1(B)$ wirkt trivial auf $H^*(F; R)$.
+  Es sei $E$ die Serre-Spektralsequenz der Faserung in Kohomologie mit Koeffizienten in $R$.
   Dann gibt es bilineare Abbildungen
   \[
     m_r = m_r^{p,q,s,t} \enspace:\enspace E^{p,q}_r \times E^{s,t}_r \to E^{p+s,q+t}_r, \quad
@@ -708,17 +719,20 @@ Solch eine multiplikative Struktur existiert auch auf der Serre-Spektralsequenz 
     \item $d_r$ ist derivativ: $d_r^{p+s,q+t}(xy) = (d_r^{p,q} x) y + (-1)^{p+q} x (d_r^{s,t} y)$ für alle $x \in E^{p,q}_r$ und $y \in E^{s,t}_r$
     \item Es gilt $m_{r+1}([x], [y]) = [m_r(x, y)]$ für alle $x \in \ker(d_r^{p,q})$ und $y \in \ker(d_r^{s,t})$. \\
     Dabei ist $m_r(x, y) \in \ker(d_r^{p+s,q+t})$ wegen (i).
-    \item Auf der $E_2$-Seite ist $m_2 : E_2^{p,q} \!\times\! E_2^{r,s} \!\to\! E_2^{p+s,q+t}$ das $(-1)^{qs}$-fache des Cup-Produkts
+    \item Auf der $E_2$-Seite ist $m_2 : E_2^{p,q} \!\times\! E_2^{s,t} \!\to\! E_2^{p+s,q+t}$ das $(-1)^{qs}$-fache des Cup-Produkts
     \[
-      H^p(B; \LH^q(F; R)) \times H^s(B; \LH^t(F; R)) \to H^{p+s}(B; \LH^{q+t}(F; R)),
+      H^p(B; H^q(F; R)) \times H^s(B; H^t(F; R)) \to H^{p+s}(B; \LH^{q+t}(F; R)),
     \]
-    welches für $a = [(a_\sigma)_{\sigma \in \Delta_m(B)}] \in H^p(B; \LH^q(F; R))$ und $b = [(b_\sigma)_{\sigma \in \Delta_n(B)}] \in H^s(B; \LH^t(F; R))$ definiert ist durch
+    welches für $a = [(a_\sigma)_{\sigma \in \Delta_p(B)}] \in H^p(B; H^q(F; R))$ und $b = [(b_\sigma)_{\sigma \in \Delta_s(B)}] \in H^s(B; H^t(F; R))$ definiert ist durch
     \[
       (a \cup b)_{\sigma \in \Delta_{p+s}(B)} \coloneqq
-      a_{\sigma_{\angles{e_1, \ldots, e_m}}} \cup T_{\sigma_{0m}}^{-1}(b_{\sigma_{\angles{e_m, \ldots, e_{m+n}}}}).
+      a_{\sigma_{\angles{e_0, \ldots, e_p}}} \cup b_{\sigma_{\angles{e_p, \ldots, e_{p+s}}}}.
     \]
-    \item Das Cup-Produkt auf $H^*(B; R)$ respektiert die Filtrierungen von $H^n(B; R)$ und schränkt daher ein zu Abbildungen $F_p^m \times F_s^n \to F_{p+s}^{m+n}$.
-    Die induzierte Abbildung auf dem Quotienten $F^m_p/F^m_{p+1} \times F^n_s/F^n_{s+1} \to F^{m+n}_{p+s} / F^{m+n}_{p+s+1}$ entspricht dem Grenzwert $m_\infty : E_\infty^{p,m-p} \times E_\infty^{s,n-s} \to E_\infty^{p+s,m+n-p-s}$ der Multiplikationen $m_r$.
+    \item Das Cup-Produkt auf $H^*(B; R)$ respektiert die Filtrierungen
+    \[ H^n \coloneqq H^n(B; R) \supset \ldots \supset F^{p-1} H^n \supset F^p H^n \supset F^{p+1} H^n \supset \ldots \supset 0 \]
+    und schränkt daher ein zu Abbildungen $F^p H^m \times F^s H^n \to F^{p+s} H^{m+n}$.
+    Die induzierte Abbildung auf dem Quotienten $F^p H^m/F^{p+1} H^m \times F^s H^n/F^{s+1} H^n \to F^{p+s} H^{m+n} / F^{p+s+1} H^{m+n}$ entspricht dem Grenzwert $m_\infty^{p,m-p,s,n-s} : E_\infty^{p,m-p} \times E_\infty^{s,n-s} \to E_\infty^{p+s,m+n-p-s}$ der Multiplikationen $m_r^{p,m-p,s,n-s}$.
+    Dieser Grenzwert existiert aufgrund von (ii).
   \end{enumerate}
 \end{satz}
 
@@ -726,20 +740,24 @@ Ein Beweis dieses Satzes wird in \cite[Abschnitt 5.3]{mccleary:ss} geführt.
 
 \section{Töten von Homotopiegruppen und Eilenberg-MacLane-Räume}
 
-Es sei $X$ ein zusammenhängender CW-Komplex.
+Beim Studium von topologischen Räumen ist es oft sinnvoll, den betrachteten Raum etwas abzuändern, sodass er leichter zu untersuchen sind, indem man z.\,B. bestimmte Sätze anwendet, und dann die Ergebnisse auf den ursprünglichen Raum überträgt.
+Eine Möglichkeit einen Raum abzuändern ist es, bestimmte Homotopiegruppen zu null zu machen, zu "`töten"'.
+Der Raum wird damit aus Sicht der Homotopietheorie einfacher, aber geometrisch und aus Sicht der Homologietheorie komplexer.
+
+Es sei dazu $X$ ein zusammenhängender CW-Komplex.
 Wähle Erzeuger $\Set{\phi_\alpha : S^n \to X}{\alpha \in A}$ von $\pi_n(X)$.
-Benutze diese Abbildungen, um einen neuen CW-Komplex $X'$ auch $X$ durch Ankleben von $n{+}1$-Zellen $e_\alpha^{n+1}$ zu konstruieren.
-Das heißt folgendes Diagramm ist ein Pushout:
+Benutze diese Abbildungen, um einen neuen CW-Komplex $X'$ aus $X$ durch Ankleben von $n{+}1$-Zellen $e_\alpha^{n+1}$ zu konstruieren.
+Mit anderen Worten ist folgendes Diagramm ist ein Pushout:
 
 \begin{centertikzcd}
-  S^n \times A \arrow[d, swap, "i \times \id_A"] \arrow[r, "\amalg \, \phi_\alpha"] &
-  X \arrow[d] \\
+  S^n \times A \arrow[d, swap, hook, "i \times \id_A"] \arrow[r, "\amalg \, \phi_\alpha"] &
+  X \arrow[d, hook, "i"] \\
   D^{n+1} \times A \arrow[r] &
-  X' \arrow[ul, phantom, "\lrcorner", very near start]
+  X' \arrow[ul, phantom, "\ulcorner", very near start]
 \end{centertikzcd}
 
 \begin{lem}
-  Die Abbildungen $\pi_j(X \xrightarrow{i} X')$ sind Isomorphismen für $j < n$ und $\pi_n(X') = 0$.
+  Die Abbildungen $\pi_j(X \xhookrightarrow{i} X')$ sind Isomorphismen für $j < n$ und $\pi_n(X') = 0$.
 \end{lem}
 
 \begin{proof}
@@ -748,55 +766,55 @@ Das heißt folgendes Diagramm ist ein Pushout:
     \item Für alle $x \in \pi_j(X')$, $j \leq n$ gibt es eine Abbildung $f : S^n \to X$ mit $x = [i \circ f]$.
     \item Falls für zwei Abbildungen $f, g : S^j \to X$, $j < n$ eine basispunkterhaltende Homotopie $H$ zwischen $i \circ f : S^j \to X'$ und $i \circ g$ existiert, so auch zwischen $f$ und $g$.
   \end{itemize}
-  Somit ist $\pi_j(i)$ bijektiv für $j < n$ und surjektiv für $j = n$.
-  Um zu sehen, dass $\pi_n(X') = 0$, reicht es zu zeigen, dass $\pi_n(i)[f_\alpha] = [i \circ f_\alpha] = 0$ für alle $\alpha \in A$.
-  Das gilt nach Konstruktion, da die charakteristische Abbildung $\Phi : e^{n+1}_\alpha \to X'$ eine Fortsetzung von $i \circ f_\alpha$ auf $D^{n+1}$ ist.
+  Somit ist $\pi_j(X \xhookrightarrow{i} X')$ bijektiv für $j < n$ und surjektiv für $j = n$.
+  Um zu sehen, dass $\pi_n(X') = 0$, reicht es zu zeigen, dass $\pi_n(i)[\phi_\alpha] = [i \circ \phi_\alpha] = 0$ für alle $\alpha \in A$.
+  Das gilt nach Konstruktion, da die charakteristische Abbildung $\Phi : e^{n+1}_\alpha \to X'$ eine Fortsetzung von $i \circ \phi_\alpha$ auf $D^{n+1}$ ist.
 \end{proof}
 
 Wir haben jedoch keine Kontrolle über die höheren Homotopiegruppen $\pi_j(X)$, $j > n$.
-Diese können von der Wahl der Erzeuger abhängen.
-Wir können jedoch mit dem Verfahren fortfahren, und diese Gruppen ebenfalls zu Null machen.
+Diese können von der Wahl der Erzeuger $\phi_\alpha$ abhängen.
+Wir können aber mit dem Verfahren fortfahren, und diese Gruppen ebenfalls zu Null machen.
 Dazu führen wir obige Konstruktion durch und erhalten eine Folge
 \[ \ldots = X_{n-2} = X_{n-1} \coloneqq X \subseteq X' =: X_n \subseteq X_{n+1} \subseteq X_{n+2} \subseteq \ldots \]
 von CW-Komplexen, für die gilt:
 \begin{itemize}
-  \item $X_m$ ensteht aus $X_{m-1}$ durch Ankleben von $(m{+}1)$-Zellen.
-  \item $\pi_j(X_m \hookrightarrow X_k)$ ist ein Isomorphismus für $j \leq m$.
+  \item $X_m$ entsteht aus $X_{m-1}$ durch Ankleben von $(m{+}1)$-Zellen.
+  \item $\pi_j(X_m \hookrightarrow X_k) : \pi_j(X_m) \to \pi_j(X_k)$ ist ein Isomorphismus für $j \leq m \leq k$.
   \item $\pi_j(X_m) = 0$ für $n \leq j \leq m$
 \end{itemize}
-Wir setzen $\tau_{< n} \coloneqq \bigcup_{j=n}^\infty X_j$.
+Wir setzen $\trunc{< n}{X} \coloneqq \trunc{\leq n+1}{X} \bigcup_{j=n}^\infty X_j$.
 
 \begin{lem}
-  Die Inklusion $i : X \to \tau_{< n} X$ induziert Isomorphismen $\pi_j(X) \to \pi_j(\tau_{< n} X)$ für $j < n$.
-  Es gilt $\pi_j(\tau_{< n} X) = 0$ für $j \geq n$.
+  Die Inklusion $i : X \to \trunc{< n}{X}$ induziert Isomorphismen $\pi_j(X) \to \pi_j(\trunc{< n}{X})$ für $j < n$.
+  Es gilt $\pi_j(\trunc{< n}{X}) = 0$ für $j \geq n$.
 \end{lem}
 
 \begin{proof}
-  Aus zellulärer Approximation folgt:
+  Der Satz über zelluläre Approximation impliziert:
   \begin{itemize}
-    \item Jedes Element $x \in \pi_j(\tau_{< n} X)$ wird repräsentiert durch eine Abbildung $f : S^j \to X_j$.
+    \item Jedes Element $x \in \pi_j(\trunc{< n}{X})$ wird repräsentiert durch eine Abbildung $f : S^j \to X_j$.
     \item Falls $i \circ f \sim i \circ g$ für $f, g : S^j \to X_j$, so gilt auch $f \sim g$.
   \end{itemize}
   Das zeigt die Behauptung, da $\pi_j(X_j) = 0$ für $j \geq n$.
 \end{proof}
 
-Der Raum $\tau_{< n} X$ hängt auch nicht (bis auf Homotopie) von den Wahlen der Erzeuger ab:
+Der Raum $\trunc{< n}{X}$ hängt auch nicht (bis auf Homotopie) von den Wahlen der Erzeuger ab:
 Es seien dazu $Y, Y' \supset X$ zwei durch obiges Verfahren aus $X$ konstruierte Räume.
-Dann kann man die Inklusionsabbildung $i : X \hookrightarrow Y'$ fortsetzen zu einer Abbildung $f : Y \to Y'$, indem man induktiv $f$ auf das $j$-Skelett, $j > n$ fortsetzt.
-Dies ist möglich, da für eine $j$-Zelle $e_\beta^j$ die Einschränkung $f|_{\partial e_\beta^j}$ nullhomotop ist.
-Die Abbildung $f$ ist dann eine Homotopieäquivalenz nach dem Whitehead-Theorem.
+Dann kann man die Inklusionsabbildung $i : X \hookrightarrow Y'$ fortsetzen zu einer Abbildung $f : Y \to Y'$, indem man induktiv $f$ auf das $j$-Skelett von $Y$, $j > n$ fortsetzt.
+Dies ist möglich, da für eine $j$-Zelle $e_\beta^j \subset Y$ die Einschränkung $f|_{\partial e_\beta^j}$ nullhomotop ist.
+Die Abbildung $f$ ist dann eine Homotopieäquivalenz nach dem Whitehead-Theorem (siehe \cite[Thm 4.5]{hatcher:at}), da sie Isomorphismen auf allen Homotopiegruppen induziert.
 
-Nun können wir mit Lemma \ref{convert-to-fibration} die Abbildung $i : X \to \tau_{< n} X$ in eine Faserung $F \to E_i \to \tau_{< n} X$ mit $E_i \simeq X$ umwandeln.
-Anhand der langen exakten Sequenz von Homotopiegruppen sieht man, dass $\pi_j(F \to E_i)$ ein Isomorphismus ist für $j \geq n$ und dass $\pi_j(F) = 0$ für $j < n$.
-Wir haben es also geschafft, einen $(n{-}1)$-zusammenhängenden Raum $\tau_{\geq n} X \coloneqq F$ zu konstruieren, der im Grad $j \geq n$ diesselben Homotopiegruppen wie $X$ besitzt.
+Nun können wir mit Lemma \ref{convert-to-fibration} die Abbildung $i : X \to \trunc{< n}{X}$ in eine Faserung $F \to E_i \to \trunc{< n}{X}$ mit $E_i \simeq X$ umwandeln.
+Anhand der langen exakten Sequenz von Homotopiegruppen sieht man, dass $\pi_j(F \to E_i)$ für $j \geq n$ ein Isomorphismus ist und dass $\pi_j(F) = 0$ für $j < n$.
+Wir haben es also geschafft, einen $(n{-}1)$-zusammenhängenden Raum $\trunc{\geq n}{X} \coloneqq \trunc{> n-1}{X} \coloneqq F$ zu konstruieren, der im Grad $j \geq n$ diesselben Homotopiegruppen wie $X$ besitzt.
 Mit anderen Worten: Wir haben die Homtopiegruppen unterhalb Grad $n$ getötet.
-Die Faserung $\tau_{\geq n} X \to X' \to \tau_{< n} X$ mit $X' \coloneqq E_i \simeq X$ wird uns im Folgenden erlauben, $X$ zu untersuchen, indem wir $\tau_{\geq n} X$ und $\tau_{< n} X$ studieren.
-Wir werden insbesondere die Faserung $\tau_{\geq n+1} S^n \to S^n \to \tau_{< n+1} S^n$ verwenden, um die Homotopiegruppen von $S^n$ zu untersuchen.
-Der Raum $\tau_{< n+1} S^n$ besitzt nur eine nicht verschwindende Homotopiegruppe $\pi_n(\tau_{< n+1} S^n) \cong \Z$.
+Die Faserung $\trunc{\geq n}{X} \to X' \to \trunc{< n}{X}$ mit $X' \coloneqq E_i \simeq X$ wird uns im Folgenden erlauben, $X$ zu untersuchen, indem wir $\trunc{\geq n}{X}$ und $\trunc{< n}{X}$ getrennt studieren.
+Wir werden insbesondere die Faserung $\trunc{> n}{S^n} \to S^n \to \trunc{\leq n}{S^n}$ verwenden, um die Homotopiegruppen von $S^n$ zu untersuchen.
+Der Raum $\trunc{\leq n}{S^n}$ besitzt nur eine nicht verschwindende Homotopiegruppe, nämlich $\pi_n(\trunc{\leq n}{S^n}) \cong \pi_n(S^n) \cong \Z$.
 Solche Räume spielen eine wichtige Rolle in der Homotopietheorie und haben deshalb einen eigenen Namen:
 
 \begin{defn}
-  Sei $G$ eine Gruppe, $n \geq 1$.
+  Es sei $G$ eine Gruppe und $n \geq 1$.
   Ein \emph{Eilenberg-MacLane-Raum} vom Typ $K(G, n)$ ist ein punktierter, zusammenhängender topologischer Raum $(X, x_0)$ mit
   \[
     \pi_q(X, x_0) = \begin{cases}
@@ -806,32 +824,32 @@ Solche Räume spielen eine wichtige Rolle in der Homotopietheorie und haben desh
   \]
 \end{defn}
 
-Mit anderen Worten ist $\tau_{< n+1} S^n$ also ein $K(\Z, n)$.  Man kann zeigen (siehe \cite[365-366]{hatcher:at}):
+Mit anderen Worten ist $\trunc{\leq n}{S^n}$ ein $K(\Z, n)$.
+Man kann zeigen (siehe \cite[365-366]{hatcher:at}):
 
 \begin{satz}
   Sei $n \geq 1$ und $G$ eine Gruppe, abelsch für $n \geq 2$.
   Dann existiert ein CW-Komplex $(X, x_0)$ vom Typ $K(G, n)$.
-  Der CW-Komplex $X$ ist eindeutig bis auf Homotopieaquivalenz: Ist $X'$ ein weiterer CW-Komplex vom Typ $K(G, n)$, so gilt $X \simeq X'$.
+  Der CW-Komplex $X$ ist eindeutig bis auf Homotopieäquivalenz, \dh{} ist $X'$ ein weiterer CW-Komplex vom Typ $K(G, n)$, so gilt $X \simeq X'$.
 \end{satz}
 
 \begin{bem}
   Es sei $(X, x_0)$ ein $K(G, n)$. Dann ist $\Omega X$ ein $K(G, n-1)$, denn
-
-  \begin{align*}
-    \pi_q(\Omega X, \gamma_0) & \cong \Hom((S^q, *), (\Omega X, \gamma_0))
-    \cong \Hom((\Sigma S^q, *), (X, x_0))
-    \cong \pi_{q+1}(X, x_0) \\
-    & \cong \begin{cases}
-      G & \text{falls $q+1 = n \iff q = n-1$} \\
+  \[
+    \pi_q(\Omega X, \gamma_0) \cong
+    \pi_{q+1}(X, x_0) \cong
+    \begin{cases}
+      G & \text{falls $q+1 = n \iff q = n-1$,} \\
       0 & \text{falls $q+1 \neq n \iff q \neq n-1$.}
     \end{cases}
-  \end{align*}
+  \]
+  Die Homologiegruppen von Räumen vom Typ $K(G, n)$ kann man über die Pfadfaserung $K(G, n{-}1) \to P K(G, n) \to K(G, n)$ untersuchen.
 \end{bem}
 
 \section{Das Hurewicz-Mod-$\SC$-Theorem}
 
-Sei $(X, x_0)$ ein punktierter topologischer Raum.
-Für $n \geq 1$ liefert der Hurewicz-Homomorphismus $h_n : \pi_n(X, x_0) \to H_n(X; \Z)$ einen Zusammenhang zwischen der $n$-ten Homotopiegruppe und der $n$-ten Homologiegruppe von $X$.
+Es sei $(X, x_0)$ ein punktierter topologischer Raum.
+Der Hurewicz-Homomorphismus $h_n : \pi_n(X, x_0) \to H_n(X; \Z)$ verläuft zwischen der $n$-ten Homotopiegruppe und der $n$-ten Homologiegruppe von $X$.
 Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewählten Erzeuger $\alpha \in H_n(S^n; \Z)$.
 In diesem Abschnitt werden wir folgenden klassischen Satz verallgemeinern:
 
@@ -847,7 +865,7 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
   Eine Klasse $\SC$ von abelschen Gruppen heißt \emph{Serre-Klasse}, falls
   \begin{enumerate}
     \item Für jede kurze exakte Seq. $0 \to A \to B \to C \to 0$ von ab. Gruppen gilt: $B \in \SC \Leftrightarrow A, C \in \SC$.
-    \item Für $A, B \in \SC$, sind auch $A \otimes B \in \SC$ und $\Tor(A, B) \in \SC$.
+    \item Für $A, B \in \SC$ sind auch $A \otimes B \in \SC$ und $\Tor(A, B) \in \SC$.
   \end{enumerate}
 \end{defn}
 
@@ -857,7 +875,7 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
   Durch Induktion kann man zeigen, dass für eine Gruppe $A$ mit endlicher Filtrierung
   $A = F^0 A \supseteq F^1 A \supseteq \ldots \supseteq F^k A = 0$
   gilt: $A \in \SC \iff F^0 A / F^1 A, \ldots, F^{k-1} A / F^k A \in \SC$.
-  Außerdem ist die direkte Summe zweier Gruppen aus $\SC$ wieder in $\SC$.
+  Außerdem liegt die direkte Summe zweier Gruppen aus $\SC$ wieder in $\SC$.
 \end{bem}
 
 \begin{defn}
@@ -872,7 +890,7 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 \end{bem}
 
 \begin{lem}
-  Folgende Klassen erfüllen die Definition~\ref{serre-class}:
+  Folgende Klassen sind Serre-Klassen:
   \begin{enumerate}[label=\alph*)]
     \item $\F \coloneqq \{\, \text{endliche abelsche Gruppen} \,\}$
     \item $\FG \coloneqq \{\, \text{endlich erzeugte abelsche Gruppen} \,\}$
@@ -880,31 +898,34 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 \end{lem}
 
 \begin{proof}
-  \emph{a)} \enspace Es sei $0 \xrightarrow{f} A \to B \xrightarrow{g} C \to 0$ eine kurze exakte Squenz von abelschen Gruppen.
+  \emph{a)} \enspace Es sei $0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0$ eine kurze exakte Sequenz von abelschen Gruppen.
   Falls $B$ endlich ist, so sind $A$ und $B$ offensichtlich auch endlich.
   Angenommen, $A$ und $C$ sind endlich.
   Wir behaupten, dass $\abs{g^{-1}(c)} = \abs{A}$ für alle $c \in C$.
   Für $c = 0$ gilt die Aussage wegen Exaktheit.
   Sei nun $c \in C$ beliebig.
   Wähle ein Urbild $a \in g^{-1}(c)$.
-  Dann ist Rechtsmultiplikation mit $a^{-1}$ ein Isomorphismus $x \mapsto x \cdot a^{-1} : g^{-1}(c) \to g^{-1}(0)$ eine Bijektion mit Umkehrabbildung $x \mapsto x \cdot a$.
-  Somit gilt $\abs{g^{-1}(c)} = \abs{g^{-1}(0)} = \abs{A}$.
-  Für $n, m > 0$ gilt $\Z_n \otimes \Z_m \cong \Z_d$ und $\Tor(\Z_n, \Z_m) \cong \Z_d$ mit $d \coloneqq \ggT(n, m)$.
-  Es seien nun $A = \Z_{n_1} \oplus \cdots \oplus \Z_{n_N}$, $B = \Z_{m_1} \oplus \cdots \oplus \Z_{m_M}$.
-  Dann ist $\Tor(A, B) \cong A \otimes B \cong \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$, also
-  \[ \abs{\Tor(A, B)} = \abs{A \otimes B} = \prod_{i=1}^N \prod_{j=1}^M \ggT(n_i, m_j) \leq \min(\abs{B}^N, \abs{A}^M). \]
+  Dann ist Rechtsmultiplikation mit $a^{-1}$ eine Bijektion $x \mapsto x \cdot a^{-1} : g^{-1}(c) \to g^{-1}(0)$ mit Umkehrabbildung $x \mapsto x \cdot a$.
+  Somit ist $\abs{g^{-1}(c)} = \abs{g^{-1}(0)} = \abs{A}$.
+  Damit ist die Behauptung gezeigt. Es folgt, dass $\abs{B} = \abs{A} \cdot \abs{B} < \infty$.
+  Es bleibt, den zweiten Teil der Definition zu zeigen.
+  Für $n, m > 0$ gilt $\Z_n \otimes \Z_m \cong \Tor(\Z_n, \Z_m) \cong \Z_{\ggT(n, m)}$.
+  Wegen des Hauptsatzes über endlich erzeugte abelsche Gruppen kann jede endliche abelsche Gruppe als endliche direkte Summe von zyklischen Gruppen schreiben.
+  Es seien daher nun $A = \bigoplus_{i=1}^N \Z_{n_i}$ und $B = \bigoplus_{j=1}^M \Z_{m_j}$.
+  Dann ist $\Tor(A, B) \cong A \otimes B \cong \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$ ebenfalls endlich.
 
-  \emph{b)} \enspace Wir betrachten nun wieder die kurze exakten Sequenz $0 \to A \to B \to C \to 0$ von abelschen Gruppen.
-  Falls $B$ endlich erzeugt ist, so ist $C$ offensichtlich endlich erzeugt und $A$ ist endlich erzeugt als Untergruppe einer endlich erzeugten abelschen Gruppe.
+  \emph{b)} \enspace Wir betrachten nun wieder die kurze exakten Sequenz $0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0$ von abelschen Gruppen.
+  Falls $B$ endlich erzeugt ist, so ist $C$ offensichtlich endlich erzeugt und $A$ ist ebenfalls endlich erzeugt als Untergruppe einer endlich erzeugten abelschen Gruppe.
   Es seien nun $A$ und $C$ endlich erzeugt, $A = \angles{a_1, \ldots, a_N}$ und $C = \angles{c_1, \ldots, c_M}$.
   Dann ist $\ker(g) = \angles{f(a_1), \ldots, f(a_N)}$.
   Wähle für $j = 1, \ldots, M$ ein Element $b_j \in g^{-1}(c_j)$.
   Wir behaupten, dass $B = \angles{f(a_1), \ldots, f(a_N), b_1, \ldots, b_M}$.
   Sei dazu $b \in B$ beliebig.
-  Schreibe $g(b) = m_1 \cdot c_1 + \ldots + m_M \cdot c_M$ mit $c_1, \ldots c_M \in \Z$.
-  Dann ist $\tilde{b} \coloneqq b - (m_1 \cdot b_1 + \ldots + m_M \cdot b_M) \in \ker(g)$, \dh{} es gibt $n_1, \cdot, n_N \in \Z$ mit $\tilde{b} = n_1 \cdot f(a_1) + \cdots + n_N \cdot f(a_N)$.
-  Somit $b = m_1 \cdot c_1 + \ldots + m_M c_M + n_1 \cdot a_1 + \ldots n_N a_N$.
-  Für endlich erzeugte abelsche Gruppen $A$ und $B$ gibt es $n, n_1, \ldots, n_N \in \N$ und $m, m_1, \ldots, m_M \in \N$ mit $A \cong \Z^n \oplus \Z_{n_1} \oplus \ldots \oplus \Z_{n_N}$ und $B \cong \Z^m \oplus \Z_{m_1} \oplus \ldots \oplus \Z_{m_M}$.
+  Schreibe $g(b) = m_1 \cdot c_1 + \ldots + m_M \cdot c_M$ mit $m_1, \ldots, m_M \in \Z$.
+  Dann ist $\tilde{b} \coloneqq b - (m_1 \cdot b_1 + \ldots + m_M \cdot b_M) \in \ker(g)$, \dh{} es gibt $n_1, \ldots, n_N \in \Z$ mit $\tilde{b} = n_1 \cdot f(a_1) + \cdots + n_N \cdot f(a_N)$.
+  Somit $b = m_1 \cdot c_1 + \ldots + m_M \cdot c_M + n_1 \cdot a_1 + \ldots n_N \cdot a_N$.
+  Damit ist der erste Teil der Definition gezeigt.
+  Für den zweiten Teil seien $A$ und $B$ endlich erzeugte abelsche Gruppen und $n, n_1, \ldots, n_N \in \N$ und $m, m_1, \ldots, m_M \in \N$ mit $A \cong \Z^n \oplus \Z_{n_1} \oplus \ldots \oplus \Z_{n_N}$ und $B \cong \Z^m \oplus \Z_{m_1} \oplus \ldots \oplus \Z_{m_M}$.
   Es gilt $A \otimes B = \Z^{nm} \oplus \left( \Z_{m_1} \oplus \ldots \oplus \Z_{m_M} \right)^n \oplus \left( \Z_{n_1} \oplus \ldots \oplus \Z_{n_N} \right)^M \oplus \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$
   und $\Tor(A, B) = \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$, es sind also $A \otimes B$ und $\Tor(A, B)$ ebenfalls endlich erzeugt.
 \end{proof}
@@ -919,6 +940,7 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 \end{satz}
 
 Mit $\SC \coloneqq \{ 0 \}$ ist die Aussage des Satzes gerade die des gewöhnlichen Hurewicz-Theorem.
+Durch Induktion kann man zeigen:
 
 % Hatcher, 1.7 (etwas allgemeiner)
 \begin{kor}\label{homotopy-in-c-iff-homology-in-c}
@@ -932,10 +954,6 @@ Mit $\SC \coloneqq \{ 0 \}$ ist die Aussage des Satzes gerade die des gewöhnlic
   \]
 \end{kor}
 
-\begin{proof}
-  Die Aussage folgt aus Satz \ref{hurewicz-mod-c} durch Induktion über $N$.
-\end{proof}
-
 Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erzeugt sind, da die Homologiegruppen der Sphären endlich erzeugt sind.
 
 \begin{defn}
@@ -944,21 +962,20 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 \end{defn}
 
 \begin{lem}\label{two-of-three}
-  Es sei $F \to X \to B$ eine Faserung und die Räume $F$, $X$ und $B$ wegzusammenhängend.
-  % TODO: Wirkung beschreiben (bisher nur für Kohomologie getan)
-  Wirke $\pi_1(B)$ trivial auf $H_*(F)$.
+  Es sei $F \to X \to B$ eine Faserung von wegzusammenhängenden Räumen $F$, $X$ und $B$.
+  Es wirke $\pi_1(B)$ trivial auf $H_*(F)$.
   Dann gilt folgende $2$-aus-$3$-Eigenschaft: Falls zwei der Räume $F$, $X$ und $B$ $\SC$-azyklisch sind, so auch der dritte.
 \end{lem}
 
 \begin{proof}
   Wir betrachten die Serre-Spektralsequenz zu der Faserung mit Koeffizienten in $\Z$.
-  Die Aussage, dass die Homologiegruppe $H_n(X)$ in $\SC$ liegt, ist äquivalent dazu, dass die Gruppen $E^\infty_{i,n-i}$ für $i = 0, \ldots, n$ in $\SC$ liegen, denn diese Gruppen sind die Quotienten einer endlichen Filtrierung von $H_n(X)$.
+  Zunächst gilt $H_n(X) \in \SC$ genau dann, wenn die Gruppen $E^\infty_{i,n-i}$ für $i = 0, \ldots, n$ alle in $\SC$ liegen, denn diese Gruppen sind die Quotienten einer endlichen Filtrierung von $H_n(X)$ (vgl. Bemerkung nach Definition~\ref{serre-class}).
 
   \fall{Fall 1: $F$ und $B$ sind $\SC$-azyklisch}
   Die universelle Koeffizientenformel liefert
-  \[ E^2_{pq} \cong H_p(B; H_q(F; \Z)) \cong \left( H_p(B; \Z) \otimes H_q(F; \Z) \right) \oplus \Tor(H_{p-1}(B; \Z), H_q(F; \Z)). \]
-  Man sieht durch Unterscheidung der Fälle $p=0$, $p=1$ und $p>1$ sowie $q=0$ und $q > 0$, dass $E^2_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
-  Als Subquotient von $E^2_{pq}$, einer Gruppe aus $\SC$, ist dann auch $E^\infty_{pq} \in \SC$ für $(p, q) \neq (0, 0)$.
+  \[ E^2_{p,q} \cong H_p(B; H_q(F; \Z)) \cong \left( H_p(B; \Z) \otimes H_q(F; \Z) \right) \oplus \Tor(H_{p-1}(B; \Z), H_q(F; \Z)). \]
+  Man sieht durch Unterscheidung der Fälle $p=0$, $p=1$ und $p>1$ sowie $q=0$ und $q > 0$, dass $E^2_{p,q} \in \SC$ für $(p, q) \neq (0, 0)$.
+  Als Subquotient von $E^2_{p,q}$ liegt nun auch $E^\infty_{p,q}$ in $\SC$ für $(p, q) \neq (0, 0)$.
   Dies zeigt die Behauptung nach der Bemerkung am Anfang des Beweises.
 
   \fall{Fall 2: $F$ und $X$ sind $\SC$-azyklisch}
@@ -966,7 +983,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   %Dies gilt trivialerweise für $k = 1$.
   Gelte dies für $k \geq 1$.
   Wir wollen zeigen, dass dann auch $H_k(B)$ in $\SC$ liegt.
-  %Zunächst sieht man wie im Fall 1, dass $E^2_{pq}$ und somit auch $E^r_{pq}$ in $\SC$ für $(p, q) \neq (0, 0)$ und $p < k$.
+  %Zunächst sieht man wie im Fall 1, dass $E^2_{p,q}$ und somit auch $E^r_{p,q}$ in $\SC$ für $(p, q) \neq (0, 0)$ und $p < k$.
   Für alle $r \geq 2$ gibt es eine kurze exakte Sequenz
   \begin{centertikzcd}[column sep=0.4cm, row sep=0.35cm]
     0 \arrow[r] &
@@ -977,8 +994,9 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
     & E^{r+1}_{k,0} &&
     E^r_{k-r,r-1}
   \end{centertikzcd}
-  Man sieht unter Verwendung der Induktionsannahme und der universellen Koeffizientenformel, dass $E^2_{k-r,r-1}$ und somit auch $E^r_{k-r,r-1}$ in $\SC$ liegen.
-  Folglich gilt auch $\im(d^r_{k,0}) \in \SC$, also $E^r_{k,0} \in \SC \iff E^{r+1}_{k,0} \in \SC$.
+  Man sieht unter Verwendung der Induktionsannahme und der universellen Koeffizientenformel wie in Fall~1, dass $E^2_{k-r,r-1}$ und somit auch $E^r_{k-r,r-1}$ in $\SC$ liegen.
+  Damit gilt auch $\im(d^r_{k,0}) \in \SC$.
+  Aus der ersten Eigenschaft von Serre-Klassen folgt $E^r_{k,0} \in \SC \iff E^{r+1}_{k,0} \in \SC$ für alle $r \geq 1$.
   Da aber $E^R_{k,0} \cong E^\infty_{k,0} \in \SC$ für $R$ groß genug, gilt $E^r_{k,0} \in \SC$ für alle $r \geq 2$.
   Insbesondere $H_k(B; \Z) \cong H_k(B; H_0(F; \Z)) \cong E^2_{k,0} \in \SC$.
 
@@ -994,7 +1012,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 \end{lem}
 
 \begin{proof}
-  Sei zunächst $n=1$.
+  Es sei zunächst $n=1$.
   \begin{itemize}
     \item Falls $G = \Z$, so stimmt die Aussage, denn der Kreis $S^1$ ist ein $K(\Z, 1)$ und $H_*(S^1; \Z) \in \FG$.
     \item Falls $G = \Z_m$, so kann man einen $K(\Z_m, 1)$ als unendlich-dimensionalen Linsenraum $L_m$ konstruieren.\footnote{Sei dazu $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre. Es wirke $\Z_m$ auf jedem Faktor $\C$ von $\C^\infty$ durch Rotation $(m, x) \mapsto x \cdot e^{2 \pi i m}$. Dies induziert eine eigentlich diskontinuierliche Gruppenwirkung $\Z_m \to \Aut(S^\infty)$. Dann ist $L_m \coloneqq S^\infty / \Z_m$ ein $K(\Z_m, 1)$: Die Überlagerung $S^\infty \to S^\infty / \Z_m$ hat Decktransformationsgruppe $\Z_m$ ist universell, da $S^\infty$ zusammenziehbar ist (vgl. \cite[\mbox{}1B.3-1B.4]{hatcher:at}). Somit ist $\pi_1(L_m) \cong \Z_m$. Für die höheren Homotopiegruppen gilt $\pi_n(L_m) \cong \pi_n(S^\infty) = 0$.}
@@ -1004,11 +1022,12 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   \end{itemize}
   Da man jede endlich erzeugte abelsche Gruppe als direkte Summe von endlich vielen Summanden der Form $\Z$ und $\Z_m$ schreiben kann, gilt die Aussage für $n=1$.
 
-  Induktiv zeigen wir nun, dass die Aussage für $n$ beliebig gilt.
-  Dazu verwenden wir die Pfadraumfaserung $K(G, n) \to P \to K(G, n{+}1)$.
-  Es gilt $H_k(P) = 0 \in \SC$ und $H_k(K(G, n)) \in \SC$ für $k \geq 1$ nach Induktionshypothese, also $H_k(K(G, n{+}1)) \in \SC$ für alle $k \geq 1$ nach dem vorherigen Lemma.
+  Induktiv zeigen wir nun, dass die Aussage für beliebiges $n$ gilt.
+  Dazu verwenden wir die Pfadfaserung $K(G, n) \to P \to K(G, n{+}1)$.
+  Es gilt $H_k(P) = 0 \in \SC$ und $H_k(K(G, n)) \in \SC$ für $k \geq 1$ nach Induktionshypothese, also $H_k(K(G, n{+}1)) \in \SC$ für alle $k \geq 1$ nach dem vorhergehenden Lemma.
 \end{proof}
 
+Für den Beweis des nächsten Lemmas benötigen wir einen weiteren Begriff.
 
 \renewcommand\windowpagestuff{
   \vspace{1cm}
@@ -1025,7 +1044,6 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   \begin{defn}
     Ein \emph{Postnikov-Turm} eines wegzusammenhängenden Raumes $X$ ist ein kommutatives Diagramm wie rechts, für das gilt: \\[3pt]
     %\begin{itemize}
-    %\item
     \quad$\bullet$\enspace $\pi_i(X \to X_n)$ ist ein Isomorphismus für $i \leq n$ und \\
     \quad$\bullet$\enspace $\pi_i(X_n) = 0$ für $i > n$.
     %\end{itemize}
@@ -1033,18 +1051,22 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 \end{cutout}
 
 Postnikov-Türme kann man folgendermaßen konstruieren:
-Setze $X_n \coloneqq \tau_{< n+1} X$.
-Dabei hat man $\tau_{< n+1} X$ aus $X$ durch Ankleben von Zellen der Dimension $\geq n+2$ konstruiert, sodass die Homotopiegruppen in Grad $\geq n+1$ verschwinden.
+Setze $X_n \coloneqq \trunc{\leq n}{X}$.
+Dabei wird $\trunc{\leq n}{X}$ wie im letzten Abschnitt beschrieben aus $X$ durch Ankleben von Zellen der Dimension $\geq n+2$ konstruiert, sodass die Homotopiegruppen in Grad $> n$ verschwinden.
 Die Abbildung $i : X \to X_n$ ist die Inklusion.
 Diese lässt sich nun fortsetzen zu einer Abbildung $f : X_{n+1} \to X_n$:
-Sei dazu induktiv eine Fortsetzung $f^k : X_{n+1}^k \cup X \to X_n$, $k \geq n+1$ von $i$ gegeben, wobei $X_{n+1}^k$ das $k$-Skelett von $X_{n+1}$ bezeichnet.
-Dann lässt sich die Abbildung auch auf $(k+1)$-Zellen $e^{k+1}_\alpha$ ausdehnen, denn $f^k|_{\partial \partial e^{k+1}_\alpha}$ ist nullhomotop, da $\pi_k(X_n) = 0$ für $k \geq n+1$.
+Sei dazu induktiv eine Fortsetzung $f^k : \sk_k X_{n+1} \cup X \to X_n$, $k \geq n+1$ von $i$ gegeben.
+Dann lässt sich die Abbildung auch auf $(k{+}1)$-Zellen $e^{k+1}_\alpha$ ausdehnen, denn $f^k|_{\partial e^{k+1}_\alpha}$ ist nullhomotop, da $\pi_k(X_n) = 0$ für $k > n$.
 
 \begin{bem}
   Es sei ein Postnikov-Turm $\ldots \to X_2 \to X_1$ gegeben.
   Dann kann man durch wiederholtes Anwenden der in Lemma~\ref{convert-to-fibration} beschriebenen Konstruktion einen neuen Postnikovturm $\ldots \to X_2' \to X_1'$ und Homotopieäquivalenzen $X_i \simeq X_i'$ konstruieren, sodass die Abbildungen $X_{i+1}' \to X_i'$ Faserungen sind.
   Man sieht anhand der langen exakten Sequenz von Homotopiegruppen, dass die Faser von $X_{i+1}' \to X_i'$ ein $K(\pi_{n+1}(X), n{+}1)$ ist.
 \end{bem}
+
+Man kann daher einen Postnikov-Turm als eine Zerlegung eines topologischen Raumes als Eilenberg-MacLane-Räume betrachten.
+Dadurch wird es möglich, induktiv über den Raum $X$ zu argumentieren oder seine Homologie zu bestimmen, wenn man Kenntnis über die Bestandteile $K(\pi(n), n)$ besitzt.
+Das wird im Beweis des nächsten Lemmas deutlich.
 
 \begin{lem}\label{homotopy-in-c-implies-homology-in-c}
   Es sei $\SC \in \{ \FG, \F \}$ und
@@ -1055,17 +1077,17 @@ Dann lässt sich die Abbildung auch auf $(k+1)$-Zellen $e^{k+1}_\alpha$ ausdehne
 \begin{proof}
   Es sei $\ldots \to X_{i+1} \to X_i \to \ldots \to X_1$ ein Postnikov-Turm von $X$, dessen Abbildungen $X_{i+1} \to X_i$ Faserungen sind.
   Wir zeigen, dass $H_i(X_k; \Z) \in \SC$ für alle $i, k > 0$.
-  Die Aussage stimmt für $k = 1$, da alle Homotopiegruppen und somit auch Homologiegruppen von $X_1$ gleich Null sind.
+  Die Aussage stimmt für $k = 1$, da alle Homotopiegruppen und nach dem Satz von Hurewicz auch Homologiegruppen von $X_1$ null sind.
   %Beachte, dass $X_2$ ein $K(\pi_2(X); 2)$, denn $\pi_1(X_2) \cong \pi_1(X) = 0$.
   %Da $X_2$ ist ein  ist, stimmt die Aussage nach Lemma \ref{homology-kgn-in-c} für $k=2$.
-  Gelte die Aussage nun für ein $k \geq 1$.
+  Gelte die Aussage nun für $k \geq 1$.
   Wir verwenden die Faserung $K(\pi_{k+1}(X), k{+}1) \to X_{k+1} \to X_k$.
-  Nach Lemma \ref{homology-kgn-in-c} sind die Homologiegruppen der Faser in $\SC$.
-  Gleiches gilt für den Basisraum nach Induktionsvoraussetzung,
-  und somit auch für $X_k$ nach Lemma \ref{two-of-three}.
+  Nach Lemma \ref{homology-kgn-in-c} liegen die Homologiegruppen der Faser in~$\SC$.
+  Gleiches gilt für den Basisraum $X_k$ nach Induktionsvoraussetzung,
+  und somit auch für $X_{k+1}$ nach Lemma \ref{two-of-three}.
 
   Es gilt $H_i(X; \Z) \cong H_i(X_k; \Z) \in \SC$ für $k \geq i$, da $\pi_i(X \to X_k)$ und nach einem Korollar der relativen Version des Hurewicz-Theorems damit auch $H_i(X \to X_k)$ ein Isomorphismus für $i \leq k$ ist.
-  % TODO: Fußnote zu dem letzten Satz?
+  \TODO{Verweis oder Beweis zu dem letzten Satz}
 \end{proof}
 
 
@@ -1079,7 +1101,7 @@ Dann lässt sich die Abbildung auch auf $(k+1)$-Zellen $e^{k+1}_\alpha$ ausdehne
   \end{centertikzcd}
   Es genügt daher zu zeigen, dass $h_n : \pi_n(X_n) \to H_n(X_n; \Z)$ ein Isomorphismus modulo $\SC$ ist.
   Wir betrachten die Serre-Spektralsequenz zur Faserung $F_n \to X_n \to X_{n-1}$.
-  \[ E^2_{pq} \cong H_p(X_{n-1}; \underbrace{H_q(K(\pi_n(X), n); \Z)}_{= 0 \text{ für } 0 < q < n}), \]
+  \[ E^2_{p,q} \cong H_p(X_{n-1}; \underbrace{H_q(K(\pi_n(X), n); \Z)}_{= 0 \text{ für } 0 < q < n}), \]
   % TODO: Begründung für das Verschwinden dieser Homologiegruppen
   Es verschwinden also alle Einträge zwischen der 0-ten und der $n$-ten Zeile. Für diese gilt
   Wir betrachten die exakte Sequenz
@@ -1144,8 +1166,8 @@ Konkret haben wir für $X = K(\Z, n)$:
   \vspace{-1em}
   \[
     H^*(K(\Z, n); \Q) \cong \begin{cases}
-      \Q[x], & \text{falls $n$ gerade}, \\
-      \Lambda_\Q[x], & \text{falls $n$ ungerade}
+      \Q[x] & \text{falls $n$ gerade}, \\
+      \Lambda_\Q[x] & \text{falls $n$ ungerade}
     \end{cases}
   \]
   als graduierte Ringe mit Erzeuger $x \in H^n(K(\Z, n); \Q)$.
@@ -1155,7 +1177,7 @@ Konkret haben wir für $X = K(\Z, n)$:
 \begin{proof}
   Durch Induktion über $n$.
   Der Satz gilt für $n = 1$, denn der Kreis $S^1$ ist ein $K(\Z, 1)$ und es gilt bekanntermaßen $H^*(S^1; R) \cong \Lambda_R[x]$ für $R = \Z$ und somit auch für $R = \Q$. \\
-  Im Induktionsschritt nutzen wir die Pfadraumfaserung $F \coloneqq K(\Z, n{-}1) \to P \to B \coloneqq K(\Z, n)$. Da $K(\Z, n)$ für $n \geq 2$ einfach zusammenhängend ist, gilt für deren zugehörige Serre-Spektralsequenz
+  Im Induktionsschritt nutzen wir die Pfadfaserung $F \coloneqq K(\Z, n{-}1) \to P \to B \coloneqq K(\Z, n)$. Da $K(\Z, n)$ für $n \geq 2$ einfach zusammenhängend ist, gilt für deren zugehörige Serre-Spektralsequenz
   $E_2^{p,q} \cong H^p(B; H^q(F))$.
 
   \vspace{0.5cm}
@@ -1204,12 +1226,12 @@ Konkret haben wir für $X = K(\Z, n)$:
   \begin{cutout}{0}{\dimexpr\linewidth-8cm\relax}{0pt}{8}
     \emph{Falls $n$ gerade:} \enspace
     Dann sieht die Spektralsequenz auf der Seite $E_r$, $r \leq n$ aus wie rechts skizziert (dabei stehen die Gitterpunkte für die Nullgruppe).
-    Das sieht man folgendermaßen: Zunächst ist $E_2^{pq} = 0$ und somit $E_r^{pq} = 0$ außer für $q \in \{ 0, n{-}1 \}$, denn nach Induktionsvoraussetzung gilt $H^*(F; \Q) \cong \Lambda_\Q[x]$.
+    Das sieht man folgendermaßen: Zunächst ist $E_2^{p,q} = 0$ und somit $E_r^{p,q} = 0$ außer für $q \in \{ 0, n{-}1 \}$, denn nach Induktionsvoraussetzung gilt $H^*(F; \Q) \cong \Lambda_\Q[x]$.
     Es folgt, dass nur auf der $n$-ten Seite $E_n$ nicht verschwindende Differentiale existieren können und $E_2 \cong E_n$ und $E_{n+1} \cong E_\infty$ gilt.
     Außerdem ist $E_n^{0,0} \cong E_2^{0,0} \cong \Q$ und $E_n^{0,n-1} \cong E_2^{0,n-1} \cong \Q$, da $B$ zusammenhängend ist.
     Die Spektralsequenz konvergiert gegen $H^*(P; \Q)$.
     Da $P$ zusammenziehbar ist, gilt $H^0(P; \Q) = \Q$ und $H^n(P; \Q) = 0$ für $n > 0$.
-    Folglich ist $E_{n+1}^{pq} \cong E_\infty^{pq} = 0$ außer für $p = q = 0$.
+    Folglich ist $E_{n+1}^{p,q} \cong E_\infty^{p,q} = 0$ außer für $p = q = 0$.
     Insbesondere gilt $E_{n+1}^{0,n-1} \cong E_\infty^{0,n-1} = 0$.
     %Es gilt $E_n^{0,n-1} \cong E_2^{0,n-1} \cong \Q$, da die von $E_r^{0,n-1}$ ausgehenden Differentiale $d_r^{0,n-1}$ für $r < n$ Null und die dort eintreffenden Differentiale für alle $r$ Null sind.
     Das eingezeichnete Differential $d_n^{0,n-1} : E_n^{0,n-1} \to E_n^{n,0}$ ist nun injektiv, denn $\ker(d_n^{0,n-1}) \cong E_{n+1}^{0,n-1} = 0$.
@@ -1306,8 +1328,8 @@ Konkret haben wir für $X = K(\Z, n)$:
   Anhand der langen exakten Sequenz dieser Faserung sehen wir, dass
   \[
     \pi_i(F) \cong \begin{cases}
-      0, & \text{für $i \leq n$}, \\
-      \pi_i(X') \cong \pi_i(X), & \text{für $i > n$.}
+      0 & \text{für $i \leq n$}, \\
+      \pi_i(X') \cong \pi_i(X) & \text{für $i > n$.}
     \end{cases}
   \]
   Wir wenden diesselbe Konstruktion auf die Inklusion $F \hookrightarrow X'$ an und bekommen einen zu $F$ homotopieäquivalenten Raum $F'$ und eine Faserung $q : F' \to X'$.
@@ -1320,10 +1342,10 @@ Konkret haben wir für $X = K(\Z, n)$:
   Wir sehen nun an der Serre-Spektralsequenz der Produktfaserung $K(G, n{-}1) \to K(\pi_n(X), n{-}1) \to K(\Z, n{-}1)$ und Lemma \ref{rational-homology-kzn}, dass $H^*(K(\pi_n(X), n{-}1); \Q) \cong H^*(K(\Z, n{-}1); \Q) \cong \Q[x]$ mit Erzeuger $x \in H^{n-1}(K(\pi_n(X), n{-}1); \Q)$.
   Für den Basisraum folgt aus der universellen Koeffizientenformel, dass die rationale Kohomologie von~$X'$ gleich~$\Q$ ist in Grad~$0$ und in Grad~$n$, und Null sonst.
 
-  Wir wissen nun, dass $E_2^{pq} = 0$ außer falls $p \in \{ 0, n \}$ und $n{-}1 \divides q$ gilt.
+  Wir wissen nun, dass $E_2^{p,q} = 0$ außer falls $p \in \{ 0, n \}$ und $n{-}1 \divides q$ gilt.
   Die Spektralsequenz besitzt also auf der $E_2$-Seite und damit auch auf der $E_n$-Seite die gleichen Einträge wie die Spektralsequenz aus dem zweiten Fall ($n$ ungerade) des vorhergehenden Lemmas.
   Genau wie dort schließen wir, dass $d_n^{0,n-1}$ ein Isomorphismus ist (denn $H^n(X'; \Q) = 0$) und dass aufgrund der multiplikativen Struktur der Spektralsequenz auch die Differentiale $d_n^{0,k(n-1)}$ für $k \geq 1$ Isomorphismen sind.
-  Somit ist $E_{n+1}^{pq} = 0$ außer für $p = q = 0$.
+  Somit ist $E_{n+1}^{p,q} = 0$ außer für $p = q = 0$.
   Es folgt, dass $H^n(F'; \Q) = 0$ für $n > 0$.
   Somit gilt auch $H_n(F'; \Z) \times \Q \cong H_n(F'; \Q) \cong H^n(F'; \Q) = 0$, es ist also $H_n(F'; \Z)$ eine Torsionsgruppe.
   Da $X' \simeq X$ und $K(\pi_n(X), n)$ $\FG$-azyklisch sind, ist auch $F' \simeq F$ $\FG$-azyklisch, \dh{} die Homologiegruppen $H_n(F'; \Z)$,~$n > 0$ sind endlich erzeugt.
@@ -1373,7 +1395,7 @@ Konkret haben wir für $X = K(\Z, n)$:
   \begin{cutout}{0}{\dimexpr\linewidth-5cm\relax}{0pt}{8}
     Wir wenden diesselbe Konstruktion wie im Beweis des vorhergehenden Lemmas für den Raum $X = S^n$ an.
     Da $n$ gerade ist, haben wir aber $H^*(K(\pi_n(X), n{-}1)) \cong H^*(K(\pi_n(X), n{-}1)) \cong \Lambda[x]$.
-    %Also $E_2^{pq} = 0$ außer für $(p, q) \in \{ 0, n \} \times \{ 0, n-1 \}$.
+    %Also $E_2^{p,q} = 0$ außer für $(p, q) \in \{ 0, n \} \times \{ 0, n-1 \}$.
     Die $E_n$-Seite der Serre-Spektralsequenz der Faserung $K(\pi_n(X), n{-}1) \to F' \to X'$ ist daher wie rechts abgebildet.
     Der Eintrag $\Q$ auf Position $E_2^{n,n-1}$ überlebt die Spektralsequenz.
     Somit ist $H^*(F'; \Q) \cong \Lambda[b]$ mit $b \in H^{2n-1}(F'; \Q)$.
@@ -1385,8 +1407,8 @@ Konkret haben wir für $X = K(\Z, n)$:
     Anhand der langen exakten Homotopiesequenz dieser Faserung sehen wir, dass
     \[
       \pi_m(Z) = \begin{cases}
-        0, & \text{für $m < 2n-1$,} \\
-        \pi_m(F'') \cong \pi_m(F) \cong \pi_m(S^n), & \text{für $m \geq 2n-1$.}
+        0 & \text{für $m < 2n-1$,} \\
+        \pi_m(F'') \cong \pi_m(F) \cong \pi_m(S^n) & \text{für $m \geq 2n-1$.}
       \end{cases}
     \]
     Wir bemerken, dass alle Homotopiegruppen und somit auch Homologiegruppen von~$Y$ endlich sind.
@@ -1414,15 +1436,11 @@ Konkret haben wir für $X = K(\Z, n)$:
 \end{landscape}
 
 % TODO:
-% * Technik des Killens von Homotopiegruppen und Konstruktion von Eilenberg-MacLane-Räumen erklären
-% * Bei der Technik, wie man Abbildungen in Faserungen umwandelt: Ist die Wirkung immer trivial?
-% * Eilenberg-MacLane-Räume
-% * Existenz der Homologie-Spektralsequenz
-% * Mehr Vorsicht bei Voraussetzungen an Existenz der Serre-Spektralsequenz: Z.B. ist Raum einfach zusammenhängend?
 % * Methode des Killens von unteren Homotopiegruppen separat beschreiben (und damit Beweise vereinfachen?)
 % Beweise umformulieren: "man" vermeiden
+% * Irgendwo schreiben, dass der Grund für die triviale Wirkung in der ganzen Arbeit der ist, dass die Fundamentalgruppe schon verschwindet.
 % * Vergleich mit dem Ansatz von Serre in seiner Dissertation
 % * Motivation für Studium der Homotopiegruppen der Sphären beschreiben
-% * Switzer zu Pontryagin-Thom zitieren
+% * Switzer/anderen zu Pontryagin-Thom zitieren
 
 \end{document}
