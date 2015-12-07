@@ -17,6 +17,7 @@
 \usepackage{mathabx} % \divides
 \usepackage{array} % für \setlength\extrarowheight{2pt}
 \usepackage{lscape} % Für Querformat
+\newcommand{\ceil}[1]{\lceil #1 \rceil} % Aufrunden
 
 \usepackage[style=alphabetic-verb, backend=bibtex]{biblatex} % Literaturverzeichnis
 \bibliography{literatur.bib}
@@ -1359,8 +1360,7 @@ Konkret haben wir für $X = K(\Z, n)$:
   Die Aussage folgt nun mit der langen exakten Sequenz von Homologiegruppen.
 \end{proof}
 
-% TODO: Effekt von Tensorieren mit $\Z_{(p)}$ beschreiben
-Sei $G$ eine abelsche Gruppe, $p \in \N$ eine Primzahl.
+Es sei $G$ eine abelsche Gruppe, $p \in \N$ eine Primzahl.
 Die \emph{$p$-primäre Torsionskomponente} von $G$ ist die Menge aller $g \in G$, deren Ordnung eine $p$-Potenz ist.
 Sei $\Z_{(p)}$ die Lokalisierung von $\Z$ nach dem Primideal $(p)$ oder äquivalent der Unterring von $\Q$ bestehend aus den Brüchen, deren Nenner nicht durch $p$ teilbar ist.
 Wir können die $p$-Torsionsgruppe einer endlich erzeugten abelschen Gruppe $G$ an $G \otimes \Z_{(p)}$ ablesen, denn es gilt:
@@ -1369,27 +1369,31 @@ Wir können die $p$-Torsionsgruppe einer endlich erzeugten abelschen Gruppe $G$ 
   \item $\Z_{p^n} \otimes \Z_{(p)} \cong \Z_{p^n}$ und
   \item $\Z_m \otimes \Z_{(p)} = 0$, falls $m$ nicht durch $p$ teilbar ist.
 \end{itemize}
-Sei $X$ nun ein topologischer Raum.
+
+Es sei $X$ nun ein topologischer Raum.
 Da $\Z_{(p)}$ torsionsfrei ist, gilt
 $H_i(X; \Z) \otimes \Z_{(p)} \cong H_i(X; \Z_{(p)})$ nach dem universellen Koeffiziententheorem.
 Falls die Kohomologiegruppen von $X$ endlich erzeugt sind, so gilt
 $H^i(X; \Z) \otimes \Z_{(p)} \cong H^i(X; \Z_{(p)})$
 nach \cite[\mbox{} Thm 5.5.10]{spanier:at}.
-Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie durch bestimmen, indem wir die Homologie- und Kohomologiegruppen mit Koeffizienten mit $\Z_{(p)}$ berechnen.
+Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie bestimmen, indem wir die Homologie- und Kohomologiegruppen mit Koeffizienten mit $\Z_{(p)}$ berechnen.
 
 % 1.29 in Hatcher SS1
 \begin{lem}
   Es sei $n \geq 3$ und $p$ prim.
-  Dann gilt $\Z_{(p)} \otimes H^i(K(\Z, n); \Z) = 0$ für $i < 2p + n - 1$ und $\Z_{(p)} \otimes H^i(K(\Z, n); \Z) \cong \Z_{(p)}$.
+  Dann gilt $\Z_{(p)} \otimes H^i(K(\Z, n); \Z) = 0$ für $i < 2p + n - 1$ und $\Z_{(p)} \otimes H^{2p + n - 1}(K(\Z, n); \Z) \cong \Z_{(p)}$.
 \end{lem}
 
 \begin{proof}
-  Wir verwenden wieder die Faserung $K(\Z, n-1) \to K(\Z, n)$ und die dazugehörige Serre-Spektralsequenz, diesmal mit Koeffizienten in $\Z_{(p)}$.
-  \emph{Falls $n = 3$:} \enspace
-  Wir können die Faser, einen $K(\Z, 2)$-Raum, als unendlich-dimensionalen komplexen projektiven Raum realisieren.\footnote{Sei $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre mit der Äquivalenzrelation $a \sim b :\!\iff \exists \, \lambda \in S^1 \subset \C \,:\, a = \lambda \cdot b$. Setze $\C P^\infty \coloneqq S^\infty / {\sim}$. Anhand der langen exakten Sequenz zur Faserung $S^1 \to S^\infty \to \C P^\infty$ erkennt man, dass $\C P^\infty$ ein $K(\Z, 2)$ ist.}
-  Dieser besitzt eine CW-Struktur bestehend aus je einer Zelle in geraden Dimensionen und keiner Zelle in ungeraden Dimensionen (siehe \cite[\mbox{} Bsp 0.6]{hatcher:at}).
-  Daher gilt $H^{2i}(\C P^\infty) = \Z$ und $H^{2i+1}(\C P^\infty) = 0$.
+  Durch Induktion über $n$.
+  Wir verwenden wieder die Pfadfaserung $K(\Z, n-1) \to P \to K(\Z, n)$ und die dazugehörige Serre-Spektralsequenz, diesmal mit Koeffizienten in $\Z_{(p)}$.
   
+  \emph{Falls $n = 3$:} \enspace
+  Wir können die Faser, einen $K(\Z, 2)$-Raum, als unendlich-dimensionalen komplexen projektiven Raum~$\C P^\infty$ realisieren.\footnote{Sei $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre mit der Äquivalenzrelation $a \sim b :\!\iff \exists \, \lambda \in S^1 \subset \C \,:\, a = \lambda \cdot b$. Setze $\C P^\infty \coloneqq S^\infty / {\sim}$. Anhand der langen exakten Sequenz zur Faserung $S^1 \to S^\infty \to \C P^\infty$ erkennt man, dass $\C P^\infty$ ein $K(\Z, 2)$ ist.}
+  Dieser besitzt eine CW-Struktur bestehend aus je einer Zelle in geraden Dimensionen und keiner Zelle in ungeraden Dimensionen (siehe \cite[\mbox{} Bsp 0.6]{hatcher:at}).
+  Daher ist $H^{2i}(\C P^\infty) \cong \Z$ und $H^{2i+1}(\C P^\infty) = 0$.
+  Genauer gilt $H^*(\C P^\infty; \Z) \cong \Z[a]$ mit Erzeuger $a \in H^2(\C P^\infty; \Z)$ \cite[\mbox{} Thm 3.12]{hatcher:at}.
+
   \begin{center}
     \begin{tikzpicture}[x=32pt,y=16pt]
       \foreach \x in {1,2,4,5,7,8}{
@@ -1451,65 +1455,26 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie du
       \node[below] at (9,-0.6) {$2p+2$};
     \end{tikzpicture}
   \end{center}
+
+  Die $0$-Spalte der $E_2$-Seite ist daher wie abgebildet.
+  Die nächsten beiden Spalten verschwinden, da $H^1(K(\Z, 3)) = H^2(K(\Z, 3)) = 0$. Für die $3$-Spalte gilt $E_2^{3,2i} \cong \Z_{(p)}$ erzeugt von~$a^i x$, wobei~$x$ ein Erzeuger von $E_2^{3,0} \cong H^3(K(\Z, 3); \Z_{(p)}) \cong \Z_{(p)}$ ist.
+  Der Einträge an Position~$(0, 2)$ und~$(3, 0)$ überleben bis auf die $E_3$-Seite, müssen aber auf der $E_4$-Seite verschwinden.
+  Daher ist $d_3^{0,2} : E_3^{0,2} \to E_3^{3,0}$ ein Isomorphismus.
+  Wir können ohne Einschränkung davon ausgehen, dass $d_3(a) = x$.
+  Aus der Cup-Produkt-Struktur der Spektralsequenz folgt nun $d_3^{0,2k}(a^k) = k a^{k-1} x$.
+  Somit ist~$d_3^{0,2k}$ ein Isomorphismus für $k < p$.
+  Für~$k = p$ ist~$d_3^{0,2p}$ immer noch injektiv, besitzt aber einen nichttrivialen Kokern $\Z_{(p)} / p \Z_{(p)} \cong \Z_p$.
+  Die Spalten mit Dimension $m = 4, \ldots, 2p+1$ verschwinden, denn alle Differentiale mit Ziel $E_r^{m,0}$ sind null.
+  Damit muss bereits $E_2^{m,0}$ und somit die ganze $m$-te Spalte verschwinden.
+  Folglich ist $E_{2p-1}^{0,2p} \cong E_4^{0,2p} \cong \Z_p$ und $E_{2p-1}^{2p+2,0} \cong E_2^{2p+2,0}$.
+  Das Differential $d_{2p-1}^{0,2p}$ ist ein Isomorphismus zwischen diesen beiden Einträgen, da sonst mindestens ein Eintrag die die Spektralsequenz überleben würde.
+  Somit ist
+  \begin{align*}
+    H^{2p+2}(K(\Z, 3)) \otimes \Z_{(p)} & \cong H^{2p+2}(K(\Z, 3); \Z_{(p)}) \cong H^{2p+2}(K(\Z, 3); H^0(K(\Z, 2); \Z_{(p)})) \\
+    & \cong E_2^{2p+2,0} \cong E_{2p-1}^{2p+2,0} \cong \Z_p.
+  \end{align*}
   
-  
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  
-  \begin{center}
-    \begin{tikzpicture}[x=32pt,y=16pt]
-      \foreach \x in {1,2,4,6}{
-        \foreach \y in {0,1,...,7}{
-          \zeroDot{\x}{\y}
-        }
-      }
-      \foreach \y in {0,...,7}{
-        %\node at (5,\y) {$\cdots$};
-        \zeroDot{5}{\y}
-      }
-      \node at (0,0) {\small $\Z_{(p)} 1$};
-      \zeroDot{0}{1}
-      \node at (0,2) {\small $\Z_{(p)} a$};
-      \zeroDot{0}{3}
-      \node at (0,4) {\small $\Z_{(p)} a^2$};
-      \zeroDot{0}{5}
-      \node at (0,6.2) {$\vdots$};
-      \node at (0,7) {$\Z_p b$};
-      \node at (3,0) {\small $\Z_{(p)} x$};
-      \zeroDot{3}{1}
-      \node at (3,2) {\small $\Z_{(p)} ax$};
-      \zeroDot{3}{3}
-      \node at (3,4.2) {$\vdots$};
-      \zeroDot{3}{5}
-      \node at (3,6.2) {$\vdots$};
-      \node at (3,7) {\small $\Z_{p} bx$};
-      \node at (7,0) {\small $\Z_{p} y$};
-      \zeroDot{7}{1}
-      \node at (7,2) {\small $\Z_p a y$};
-      \zeroDot{7}{3}
-      \node at (7,4.2) {$\vdots$};
-      \zeroDot{7}{5}
-      \node at (7,6.2) {$\vdots$};
-      \node at (7,7) {$*$};
-      \draw[->,gray] (0.6,1.6) -- (2.4,0.4);
-      \draw[->,gray] (0.6,3.6) -- (2.4,2.4);
-      \draw[->,gray] (0.6,5.6) -- (2.4,4.4);
-      \draw[->,gray] (0.6,7.6) -- (2.4,6.4);
-      \draw[->,gray] (0.5,6.7) -- (6.5,0.4);
-      \draw[->] (-0.7,-0.6) -- (7.5,-0.6); %node[below] {p};
-      \draw[->] (-0.7,-0.6) -- (-0.7,7.5); %node[left] {q};
-      \node[left] at (-0.7,0) {$0$};
-      \node[left] at (-0.8,1.2) {$\vdots$};
-      \node[left] at (-0.7,2) {$n-1$};
-      \node[left] at (-0.7,4) {$2(n-1)$};
-      \node[left] at (-0.8,6.2) {$\vdots$};
-      \node[left] at (-0.7,7) {$2p + n - 2$};
-      \node[below] at (0,-0.6) {$0$};
-      \node[below] at (1.5,-0.6) {$\cdots$};
-      \node[below] at (3,-0.6) {$n$};
-      \node[below] at (5,-0.7) {$\cdots$};
-      \node[below] at (7,-0.6) {$2p+n-1$};
-    \end{tikzpicture}
-  \end{center}
+  \emph{Falls $n > 3$, $n$ gerade:} \enspace
   
   \begin{center}
     \begin{tikzpicture}[x=28pt,y=16pt]
@@ -1574,6 +1539,95 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie du
       \node[below] at (8,-0.6) {$2p+n-1$};
     \end{tikzpicture}
   \end{center}
+  
+  Aus der Induktionsannahme sowie Satz~\ref{rational-homology-kzn} folgt, dass die $0$-te Spalte wie abgebildet ist.
+  Das Muster in der $0$-ten und der $(n-1)$-ten Zeile begründet sich wie im Beweis von Satz~\ref{rational-homology-kzn}.
+  Insbesondere ist der Kohomologiering $H^{< 2p + n - 1}(K(\Z, n); \Z_{(p)}) \coloneqq \oplus_{i=0}^{2p + n - 2} H^i(K(\Z, n); \Z_{(p)})$ von $K(\Z, n)$ im Grad kleiner $2p + n - 2$ isomorph zu $(\Z_{(p)}[a]) / (a^l)$ mit Generator $a \in H^n(K(\Z, n); \Z_{(p)})$ und $l \coloneqq \ceil{\tfrac{2p + n - 1}{n}}$ ist.
+  Dies werden wir im nächsten Fall benötigen.
+  Wir behaupten, dass $E_{2p + n - 1}^{0, 2p + n - 2} \cong E_2^{0, 2p + n - 2} \cong \Z_p$. %das eingezeichnete Differential $d_{2p + n - 1}^{0, 2p + n - 2} : E_{2p + n - 1}^{0, 2p + n - 2} \to E_{2p + n - 1}^{2p + n - 1, 0}$ ein Isomorphismus ist.
+  Dies folgt daraus, dass das Ziel der Differentiale $E_r^{0, 2p + n - 2}$ für $r < 2p + n - 1$ die Nullgruppe ist, mit einer Ausnahme:
+  Für $n = 2p$ könnte $d_n^{0, 2p + n - 2} : E_n^{0, 2p + n - 2} \to E_n^{n, n - 1}$ nichttrivial sein.
+  Das ist aber nicht der Fall, denn $\im(d_n^{0, 2p + n - 2}) \subseteq \ker(d_n^{n, n-1}) = 0$.
+  Man sieht außerdem leicht, dass $E_{2p + n - 1}^{2p + n - 1, 0} \cong E_2^{2p + n - 1, 0}$.
+  Das Differential $d_{2p + n - 1}^{0, 2p + n - 2}$ ist wie eben ein Isomorphismus.
+  Somit gilt
+  \begin{align*}
+    H^{2p + n - 1}(K(\Z, n)) \otimes \Z_{(p)} & \cong H^{2p + n - 1}(K(\Z, n); \Z_{(p)}) \cong H^{2p + n - 1}(K(\Z, n); H^0(K(\Z, n-1); \Z_{(p)})) \\
+    & \cong E_2^{2p + n - 1, 0} \cong E_{2p + n - 1}^{2p + n - 1, 0} \cong E_{2p + n - 1}^{0, 2p + n - 2} \cong E_2^{0, 2p + n - 2} \cong \Z_p.
+  \end{align*}
+  
+  \emph{Falls $n > 3$, $n$ ungerade:} \enspace
+  
+  \begin{center}
+    \begin{tikzpicture}[x=32pt,y=16pt]
+      \foreach \x in {1,2,4,6}{
+        \foreach \y in {0,1,...,7}{
+          \zeroDot{\x}{\y}
+        }
+      }
+      \foreach \y in {0,...,7}{
+        %\node at (5,\y) {$\cdots$};
+        \zeroDot{5}{\y}
+      }
+      \node at (0,0) {\small $\Z_{(p)} 1$};
+      \zeroDot{0}{1}
+      \node at (0,2) {\small $\Z_{(p)} a$};
+      \zeroDot{0}{3}
+      \node at (0,4) {\small $\Z_{(p)} a^2$};
+      \zeroDot{0}{5}
+      \node at (0,6.2) {$\vdots$};
+      \node at (0,7) {$\Z_p b$};
+      \node at (3,0) {\small $\Z_{(p)} x$};
+      \zeroDot{3}{1}
+      \node at (3,2) {\small $\Z_{(p)} ax$};
+      \zeroDot{3}{3}
+      \node at (3,4.2) {$\vdots$};
+      \zeroDot{3}{5}
+      \node at (3,6.2) {$\vdots$};
+      \node at (3,7) {\small $\Z_{p} bx$};
+      \node at (7,0) {\small $\Z_{p} y$};
+      \zeroDot{7}{1}
+      \node at (7,2) {\small $\Z_p a y$};
+      \zeroDot{7}{3}
+      \node at (7,4.2) {$\vdots$};
+      \zeroDot{7}{5}
+      \node at (7,6.2) {$\vdots$};
+      \node at (7,7) {$*$};
+      \draw[->,gray] (0.6,1.6) -- (2.4,0.4);
+      \draw[->,gray] (0.6,3.6) -- (2.4,2.4);
+      \draw[->,gray] (0.6,5.6) -- (2.4,4.4);
+      \draw[->,gray] (0.6,7.6) -- (2.4,6.4);
+      \draw[->,gray] (0.5,6.7) -- (6.5,0.4);
+      \draw[->] (-0.7,-0.6) -- (7.5,-0.6); %node[below] {p};
+      \draw[->] (-0.7,-0.6) -- (-0.7,7.5); %node[left] {q};
+      \node[left] at (-0.7,0) {$0$};
+      \node[left] at (-0.8,1.2) {$\vdots$};
+      \node[left] at (-0.7,2) {$n-1$};
+      \node[left] at (-0.7,4) {$2(n-1)$};
+      \node[left] at (-0.8,6.2) {$\vdots$};
+      \node[left] at (-0.7,7) {$2p + n - 2$};
+      \node[below] at (0,-0.6) {$0$};
+      \node[below] at (1.5,-0.6) {$\cdots$};
+      \node[below] at (3,-0.6) {$n$};
+      \node[below] at (5,-0.7) {$\cdots$};
+      \node[below] at (7,-0.6) {$2p+n-1$};
+    \end{tikzpicture}
+  \end{center}
+  
+  In diesem Fall argumentieren wir ähnlich wie im Fall $n = 3$.
+  Wir haben eben im geraden Fall gezeigt, dass die erste Spalte wie abgebildet ist.
+  Wie im Fall $n = 3$ sieht man, dass $H^n(K(\Z, n); \Z_{(p)}) \cong E_2^{n,0} \cong \Z_{(p)}$.
+  Die Morphismen $d_n^{0,k (n-1)} : E_n^{0, k (n-1)} \to E_n^{n, (k-1) (n-1)}$ sind Isomorphismen falls erstens $k (n-1) < 2p + n - 2$ und zweitens $k < p$ gilt.
+  Die zweite Bedingung folgt dabei aus der ersten, denn dann ist
+  \[ k < \tfrac{2p}{n-1} + \tfrac{n - 2}{n-1} < \tfrac{2p}{4} + 1 \leq p. \]
+  Wir sehen somit, dass auf der $E_{n+1}$-Seite alle Einträge in der $0$-ten Spalte unterhalb der $(2p + n - 2)$-ten Zeile und alle Einträge in der $n$-ten Spalte unterhalb der $(2p - 1)$-ten Zeile verschwinden.
+  Die Spalten mit Dimension $m = n+1, \ldots, 2p + n - 2$ verschwinden bereits auf der $E_2$-Seite, da es kein nichttriviales Differential gibt, welches ihren Eintrag in der $0$-ten Zeile trifft.
+  Folglich ist $E_{2p + n - 1}^{0, 2p + n - 1} \cong E_{2}^{0, 2p + n - 1}$ und das eingezeichnete Differential $d_{2p + n - 1}^{0, 2p + n - 1} : E_{2p + n - 1}^{0, 2p + n - 1} \to E_{2p + n - 1}^{2p + n - 1, 0}$ ein Isomorphismus.
+  Somit ist
+  \begin{align*}
+    H^{2p + n - 1}(K(\Z, n)) \otimes \Z_{(p)} & \cong H^{2p + n - 1}(K(\Z, n); \Z_{(p)}) \cong H^{2p + n - 1}(K(\Z, n); H^0(K(\Z, n-1); \Z_{(p)})) \\
+    & \cong E_2^{2p + n - 1, 0} \cong E_{2p + n - 1}^{2p + n - 1, 0} \cong \Z_p.
+  \end{align*}
   
 \end{proof}
 
