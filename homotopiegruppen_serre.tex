@@ -1150,6 +1150,75 @@ Das wird im Beweis des nächsten Lemmas deutlich.
   Somit ist auch der rechte Morphismus im Diagramm ein Isomorphismus modulo $\SC$.
 \end{proof}
 
+\begin{satz}[Relatives Mod-$\SC$-Hurewicz-Theorem]\label{relative-hurewicz-mod-c}
+  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
+  Angenommen, $\pi_i(X, A) \in \SC$ für $0 < i < n$.
+  Dann ist $h_i : \pi_i(X, A) \to H_i(X, A; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
+  Insbesondere gilt $H_i(X, A; \Z) \in \SC$ für $0 < i < n$.
+\end{satz}
+
+% nach Vorlage des Beweises des relativen gewöhnlichen Hurewicz-Theorems aus dem absoluten gewöhnlichen Hurewicz-Theorem, siehe hatcher:at, Seite 367
+\begin{proof}
+  Durch CW-Approximation erhält man ein CW-Paar $(X', A')$ und eine Abbildung $f : (X', A') \to (X, A)$, welche Isomorphismen in relativen und absoluten Homotopiegruppen induziert (vgl. \cite[\mbox{} Ex 4.14]{hatcher:at}).
+  Insbesondere ist auch $A'$ einfach zusammenhängend.
+  Da~$(X', A')$ ein gutes Raumpaar ist, induziert $p : (X', A') \to (X'/A', *)$ Isomorphismen in allen positiven Homologiegruppen.
+  In Homotopie ist $p_* : \pi_i(X', A') \to \pi_i(X'/A')$ für $i \leq n$ ein Isomorphismus (siehe \cite[\mbox{} Prop 4.28]{hatcher:at}).
+  Somit ist $X'/A'$ $(n {-} 1)$-zusammenhängend.
+  Betrachte nun
+  \begin{center}
+    \begin{tikzcd}[row sep=1.2cm, column sep=1.6cm]
+      \pi_i(X'/A') \arrow{d}{}{h_i} &
+      \pi_i(X', A') \arrow{d}{}{h_i} \arrow{l}{\cong}[swap]{p_*} \arrow{r}{f_*}[swap]{\cong} &
+      \pi_i(X, A) \arrow{d}{h_i} \\
+      H_i(X'/A') &
+      H_i(X', A') \arrow{l}{\cong}[swap]{p_*} \arrow{r}{f_*}[swap]{\cong} &
+      H_i(X, A)
+    \end{tikzcd}
+  \end{center}
+  Aufgrund der absoluten Version des Theorems (Satz~\ref{hurewicz-mod-c}) ist also der linke Pfeil im folgenden Diagramm ein Isomorphismus modulo~$\SC$ für $i \leq n$.
+  Gleiches gilt somit für den rechten Pfeil.
+\end{proof}
+
+Wir erhalten eine relative Version von Korollar~\ref{homotopy-in-c-iff-homology-in-c}:
+
+\begin{kor}\label{homotopy-in-c-iff-homology-in-c-relative}
+  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
+  Dann gilt für alle $N \in \N \cup \{ \infty \}$:
+  \[
+    \pushQED{\qed} 
+    \fa{0 \leq n < N} \pi_n(X, A, x_0) \in \SC
+    \quad \iff \quad
+    \fa{1 \leq n < N} H_n(X, A; \Z) \in \SC.
+    \qedhere
+    \popQED
+  \]
+\end{kor}
+
+\begin{kor}\label{homotopy-homology-equivalence-mod-c}
+  Es sei $\SC \in \{ \FG, \F \}$, $f : A \to B$ stetig, $f_* : \pi_1(A) \to \pi_1(B)$ surjektiv und $A$ einfach zusammenhängend.
+  Dann sind äquivalent:
+  \begin{enumerate}[label=(\alph*)]
+    \item $f_* : \pi_i(A) \to \pi_i(B)$ ist ein Isomorphismus modulo~$\SC$ für $1 \leq i < n$ und ein Epimorphismus modulo~$\SC$ für $i = n$.
+    \item $f_* : H_i(A) \to H_i(B)$ ein Isomorphismus modulo~$\SC$ für $1 \leq i < n$ und ein Epimorphismus modulo~$\SC$ für $i = n$.
+  \end{enumerate}
+\end{kor}
+
+\begin{proof}
+  Betrachte den Abbildungszylinder~$M_f$ von~$f$.
+  Die Abbildung~$f$ entspricht der Inklusion~$A \hookrightarrow M_f$ von $A$ als Deckel des Abbildungzylinder, wenn man $X$ als Deformationsretrakt von $M_f$ auffasst.
+  Es gilt nun
+  \[
+    \text{(a)}
+    \stackrel{\text{l.\,e.\,S.}}{\iff}
+    \pi_i(M_f, A) \in \SC \text{ für } 0 \leq i \leq n
+    \stackrel{\text{Kor \ref{homotopy-in-c-iff-homology-in-c-relative}}}{\iff}
+    H_i(M_f, A) \in \SC \text{ für } 1 \leq i \leq n
+    \stackrel{\text{l.\,e.\,S.}}{\iff}
+    \text{(b)}.
+    \qedhere
+  \]
+\end{proof}
+
 \begin{bem}
   Man kann in diesem Abschnitt die Voraussetzung, dass $X$ einfach zusammenhängend ist, ersetzen durch die Forderung, dass $X$ wegzusammenhängend und abelsch ist, \dh{} die Wirkung der Fundamentalgruppe $\pi_1(X)$ auf den höheren Homotopiegruppen $\pi_n(X)$ trivial ist.
 \end{bem}
@@ -1321,76 +1390,55 @@ Konkret haben wir für $X = K(\Z, n)$:
   \end{cutout}
 \end{proof}
 
+\section{Homologie der Stiefel-Mannigfaltigkeit $\V{2}{m}$}
+
+% Die Homologie dieser Stiefel-Mannigfaltigkeit wird auch in Hatcher, §3.D berechnet
+Die Stiefel-Mannigfaltigkeit $\V{2}{m}$ ist die aller orthonormalen $2$-Tupel $(u, v)$ im $\R^m$ mit dem euklidischen Skalarprodukt.
+Die Dimension dieser Mannigfaltigkeit ist $(m-1) + (m-2) = 2m - 3$.
+Man kann einen Punkt $(u, v)$ auf dieser Mannigfaltigkeit auch als Einheitstangentialvektor an die Sphäre~$S^{m-1}$ (mit der kanonischen Metrik) am Punkt~$u \in S^{m-1}$ ansehen, wenn man sich den Startpunkt von~$v$ an den Punkt~$u$ verschoben vorstellt.
+Die Abbildung $p : \V{2}{m} \to S^{m-1}, \enspace (u, v) \mapsto u$ ist die Projektionsabbildung eines \emph{Faser-Bündels}, d.\,h. sie erfüllt eine lokale Trivialitätsbedingung.
+Die Menge aller Einheitstangentialvektoren in einem Punkt~$u$ ist homöomorph zur $S^{m-2}$.
+Die Faser dieses Bündels ist daher eine $S^{m-2}$.
+Da jedes Faser-Bündel auch eine Serre-Faserung ist (vgl. \cite[\mbox{} Prop 4.48]{hatcher:at}), gibt es eine Faserung $S^{m-2} \to \V{2}{m} \xrightarrow{p} S^{m-1}$.
+
+\TODO{Zeigen oder zitieren: Es gilt $H_i(\V{2}{2k+1}) \cong \begin{cases}
+  \Z & \text{für } i = 0, 2k-1, \\
+  \Z_2 & \text{für } i = k-1, \\
+  0 & \text{sonst.}
+\end{cases}$.
+Es gibt eine stetige Abbildung $q : \V{2}{m} \to X^{2m-3} / X^{2m-4} \approx S^{2m-3}$, die in $H_{2m-3}$ einen Isomorphismus induziert.}
+
 \section{Beweis des Satzes von Serre}
 
-\begin{satz}[Relatives Mod-$\SC$-Hurewicz-Theorem]\label{relative-hurewicz-mod-c}
-  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
-  Angenommen, $\pi_i(X, A) \in \SC$ für $0 < i < n$.
-  Dann ist $h_i : \pi_i(X, A) \to H_i(X, A; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
-  Insbesondere gilt $H_i(X, A; \Z) \in \SC$ für $0 < i < n$.
-\end{satz}
+\begin{proof}[Beweis des Satzes von Serre]
+  Ist $n$ ungerade, so ist die Abbildung $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$ nach Satz~\ref{rational-homology-kzn} eine Homologieäquivalenz modulo~$\F$.
+  Aus Korollar~\ref{homotopy-homology-equivalence-mod-c} folgt, dass~$i$ auch auf allen Homotopiegruppen Isomorphismen modulo~$\F$ induziert.
+  Somit sind alle Homotopiegruppen von~$S^n$ im Grad $> n$ endlich.
 
-% nach Vorlage des Beweises des relativen gewöhnlichen Hurewicz-Theorems aus dem absoluten gewöhnlichen Hurewicz-Theorem, siehe hatcher:at, Seite 367
-\begin{proof}
-  Durch CW-Approximation erhält man ein CW-Paar $(X', A')$ und eine Abbildung $f : (X', A') \to (X, A)$, welche Isomorphismen in relativen und absoluten Homotopiegruppen induziert (vgl. \cite[\mbox{} Ex 4.14]{hatcher:at}).
-  Insbesondere ist auch $A'$ einfach zusammenhängend.
-  Da~$(X', A')$ ein gutes Raumpaar ist, induziert $p : (X', A') \to (X'/A', *)$ Isomorphismen in allen positiven Homologiegruppen.
-  In Homotopie ist $p_* : \pi_i(X', A') \to \pi_i(X'/A')$ für $i \leq n$ ein Isomorphismus (siehe \cite[\mbox{} Prop 4.28]{hatcher:at}).
-  Somit ist $X'/A'$ $(n {-} 1)$-zusammenhängend.
-  Betrachte nun
-  \begin{center}
-    \begin{tikzcd}[row sep=1.2cm, column sep=1.6cm]
-      \pi_i(X'/A') \arrow{d}{}{h_i} &
-      \pi_i(X', A') \arrow{d}{}{h_i} \arrow{l}{\cong}[swap]{p_*} \arrow{r}{f_*}[swap]{\cong} &
-      \pi_i(X, A) \arrow{d}{h_i} \\
-      H_i(X'/A') &
-      H_i(X', A') \arrow{l}{\cong}[swap]{p_*} \arrow{r}{f_*}[swap]{\cong} &
-      H_i(X, A)
-    \end{tikzcd}
-  \end{center}
-  Aufgrund der absoluten Version des Theorems (Satz~\ref{hurewicz-mod-c}) ist also der linke Pfeil im folgenden Diagramm ein Isomorphismus modulo~$\SC$ für $i \leq n$.
-  Gleiches gilt somit für den rechten Pfeil.
+  Es sei nun $n$ gerade.
+  Die oben beschriebene Abbildung~$q : \V{2}{n+1} \to S^{2n-1}$ induziert Isomorphismen in Homologie modulo~$\F$.
+  Somit induziert $q$ auch Isomorphismen auf den Homotopiegruppen.
+  Aus der langen exakten Homotopiesequenz
+  \[
+    \ldots
+    \enspace\to\enspace
+    \pi_{i+1}(S^n)
+    \enspace\to\enspace
+    \underbrace{\pi_i(S^{n-1})}_{\substack{\text{endlich für} \\ i \neq n-1}}
+    \enspace\to\enspace \underbrace{\pi_i(\V{2}{n+1})}_{\mathclap{\substack{\cong \pi_i(S^{2n-1}) \bmod{\F}, \\ \text{endlich für } i \neq 2n-1}}}
+    \enspace\to\enspace
+    \pi_i(S^n)
+    \enspace\to\enspace
+    \pi_{i-1}(S^{n-1})
+    \enspace\to\enspace
+    \ldots
+  \]
+  zur Faserung $S^{n-1} \to \V{2}{n+1} \xrightarrow{p} S^n$ folgt nun, dass $\pi_i(S^n)$ endlich ist für $i \not\in \{ n, 2n-1 \}$ und dass $\pi_{2n-1}(S^n) \cong \pi_{2n-1}(\V{2}{n+1}) \cong \Z$ modulo~$\F$.
 \end{proof}
 
-Wir erhalten eine relative Version von Korollar~\ref{homotopy-in-c-iff-homology-in-c}:
+\section{Die erste Homotopiegruppe von $S^n$ mit $p$-Torsion}
 
-\begin{kor}\label{homotopy-in-c-iff-homology-in-c-relative}
-  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
-  Dann gilt für alle $N \in \N \cup \{ \infty \}$:
-  \[
-    \pushQED{\qed} 
-    \fa{0 \leq n < N} \pi_n(X, A, x_0) \in \SC
-    \quad \iff \quad
-    \fa{1 \leq n < N} H_n(X, A; \Z) \in \SC.
-    \qedhere
-    \popQED
-  \]
-\end{kor}
-
-\begin{kor}\label{homotopy-homology-equivalence-mod-c}
-  Es sei $\SC \in \{ \FG, \F \}$, $f : A \to B$ stetig, $f_* : \pi_1(A) \to \pi_1(B)$ surjektiv und $A$ einfach zusammenhängend.
-  Dann sind äquivalent:
-  \begin{enumerate}[label=(\alph*)]
-    \item $f_* : \pi_i(A) \to \pi_i(B)$ ist ein Isomorphismus modulo~$\SC$ für $1 \leq i < n$ und ein Epimorphismus modulo~$\SC$ für $i = n$.
-    \item $f_* : H_i(A) \to H_i(B)$ ein Isomorphismus modulo~$\SC$ für $1 \leq i < n$ und ein Epimorphismus modulo~$\SC$ für $i = n$.
-  \end{enumerate}
-\end{kor}
-
-\begin{proof}
-  Betrachte den Abbildungszylinder~$M_f$ von~$f$.
-  Die Abbildung~$f$ entspricht der Inklusion~$A \hookrightarrow M_f$ von $A$ als Deckel des Abbildungzylinder, wenn man $X$ als Deformationsretrakt von $M_f$ auffasst.
-  Es gilt nun
-  \[
-    \text{(a)}
-    \stackrel{\text{l.\,e.\,S.}}{\iff}
-    \pi_i(M_f, A) \in \SC \text{ für } 0 \leq i \leq n
-    \stackrel{\text{Kor \ref{homotopy-in-c-iff-homology-in-c-relative}}}{\iff}
-    H_i(M_f, A) \in \SC \text{ für } 1 \leq i \leq n
-    \stackrel{\text{l.\,e.\,S.}}{\iff}
-    \text{(b)}.
-    \qedhere
-  \]
-\end{proof}
+% TODO: kurze Einleitung
 
 Es sei $G$ eine abelsche Gruppe, $p \in \N$ eine Primzahl.
 Die \emph{$p$-primäre Torsionskomponente} von $G$ ist die Menge aller $g \in G$, deren Ordnung eine $p$-Potenz ist.
@@ -1669,55 +1717,14 @@ Mit dem universellen Koeffiziententheorem folgt:
   Dann ist die p-Torsionsuntergruppe von $H_i(K(\Z, n); \Z)$ null für $i < n + 2p - 2$ und isomorph zu $\Z_p$ für $i = n + 2p - 2$. \qed
 \end{kor}
 
-% Die Homologie dieser Stiefel-Mannigfaltigkeit wird auch in Hatcher, §3.D berechnet
-Die Stiefel-Mannigfaltigkeit $\V{2}{m}$ ist die aller orthonormalen $2$-Tupel $(u, v)$ im $\R^m$ mit dem euklidischen Skalarprodukt.
-Die Dimension dieser Mannigfaltigkeit ist $(m-1) + (m-2) = 2m - 3$.
-Man kann einen Punkt $(u, v)$ auf dieser Mannigfaltigkeit auch als Einheitstangentialvektor an die Sphäre~$S^{m-1}$ (mit der kanonischen Metrik) am Punkt~$u \in S^{m-1}$ ansehen, wenn man sich den Startpunkt von~$v$ an den Punkt~$u$ verschoben vorstellt.
-Die Abbildung $p : \V{2}{m} \to S^{m-1}, \enspace (u, v) \mapsto u$ ist die Projektionsabbildung eines \emph{Faser-Bündels}, d.\,h. sie erfüllt eine lokale Trivialitätsbedingung.
-Die Menge aller Einheitstangentialvektoren in einem Punkt~$u$ ist homöomorph zur $S^{m-2}$.
-Die Faser dieses Bündels ist daher eine $S^{m-2}$.
-Da jedes Faser-Bündel auch eine Serre-Faserung ist (vgl. \cite[\mbox{} Prop 4.48]{hatcher:at}), gibt es eine Faserung $S^{m-2} \to \V{2}{m} \xrightarrow{p} S^{m-1}$.
-
-\TODO{Zeigen oder zitieren: Es gilt $H_i(\V{2}{2k+1}) \cong \begin{cases}
-  \Z & \text{für } i = 0, 2k-1, \\
-  \Z_2 & \text{für } i = k-1, \\
-  0 & \text{sonst.}
-\end{cases}$.
-Es gibt eine stetige Abbildung $q : \V{2}{m} \to X^{2m-3} / X^{2m-4} \approx S^{2m-3}$, die in $H_{2m-3}$ einen Isomorphismus induziert.}
-
-\begin{proof}[Beweis des Satzes von Serre]
-  Ist $n$ ungerade, so ist die Abbildung $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$ nach Satz~\ref{rational-homology-kzn} eine Homologieäquivalenz modulo~$\F$.
-  Aus Korollar~\ref{homotopy-homology-equivalence-mod-c} folgt, dass~$i$ auch auf allen Homotopiegruppen Isomorphismen modulo~$\F$ induziert.
-  Somit sind alle Homotopiegruppen von~$S^n$ im Grad $> n$ endlich.
-
-  Es sei nun $n$ gerade.
-  Die oben beschriebene Abbildung~$q : \V{2}{n+1} \to S^{2n-1}$ induziert Isomorphismen in Homologie modulo~$\F$.
-  Somit induziert $q$ auch Isomorphismen auf den Homotopiegruppen.
-  Aus der langen exakten Homotopiesequenz
-  \[
-    \ldots
-    \enspace\to\enspace
-    \pi_{i+1}(S^n)
-    \enspace\to\enspace
-    \underbrace{\pi_i(S^{n-1})}_{\substack{\text{endlich für} \\ i \neq n-1}}
-    \enspace\to\enspace \underbrace{\pi_i(\V{2}{n+1})}_{\mathclap{\substack{\cong \pi_i(S^{2n-1}) \bmod{\F}, \\ \text{endlich für } i \neq 2n-1}}}
-    \enspace\to\enspace
-    \pi_i(S^n)
-    \enspace\to\enspace
-    \pi_{i-1}(S^{n-1})
-    \enspace\to\enspace
-    \ldots
-  \]
-  zur Faserung $S^{n-1} \to \V{2}{n+1} \xrightarrow{p} S^n$ folgt nun, dass $\pi_i(S^n)$ endlich ist für $i \not\in \{ n, 2n-1 \}$ und dass $\pi_{2n-1}(S^n) \cong \pi_{2n-1}(\V{2}{n+1}) \cong \Z$ modulo~$\F$.
-\end{proof}
-
 \begin{satz}
-  Sei $n \geq 3$ und $p > 2$ eine Primzahl.
+  Sei $n \geq 3$ und $p$ eine Primzahl.
   Dann ist die $p$-Torsionskomponente von $\pi_i(S^n)$ null falls $i < n + 2p - 3$ und isomorph zu $\Z_p$, falls $i = n + 2p - 3$.
 \end{satz}
 
 \begin{proof}
   Es sei $\T_p$ die Serre-Klasse der endlichen abelschen Gruppen, deren Ordnung nicht durch $p$ teilbar ist.
+  Wir nehmen zunächst an, dass $p \neq 2$.
 
   Es sei $n$ ungerade.
   Wir betrachten den Abbildungszylinder~$M_i$ der Abbildung $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$.
@@ -1763,10 +1770,17 @@ Es gibt eine stetige Abbildung $q : \V{2}{m} \to X^{2m-3} / X^{2m-4} \approx S^{
   Für $i = n + 2p - 3 = 2n - 1$ (und allgemeiner $i = n + 2p - 3 < 2n$) geben wir daher ein alternatives Argument an:
   Es sei~$M_i$ der Abbildungzylinder von $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$.
   Die lange exakte Homologiesequenz des Paars $(M_i, S^n)$ impliziert, dass $H_j(M_i, S^n) \cong H_j(K(\Z, n))$ für $j \neq n$ und dass $H_n(M_i, S^n) = 0$.
-  Insbesondere gilt $H_j(M_i, S^n) \in \T_p$ für $j \leq i$ und $H_{i+1}(M_i, S^n) \cong H_{i+1}(K(\Z, n)) \cong \Z \oplus \Z_p$ modulo~$\T_p$ nach Korollar~\ref{mod-p-homology-kzn} und Lemma~\ref{rational-homology-kzn}.
-  Somit gilt $\pi_j(M_i, S^n) \in \T_p$ für $j \leq i$ und $\pi_{i+1}(M_i, S^n) \cong \Z \otimes \Z_p$ modulo~$\T_p$.
+  Insbesondere gilt $H_j(M_i, S^n) \in \T_p$ für $j \leq i$ und die p-Torsion von $H_{i+1}(M_i, S^n) \cong H_{i+1}(K(\Z, n)) \bmod{\T_p}$ ist isomorph zu $\Z_p$  nach Korollar~\ref{mod-p-homology-kzn} und Lemma~\ref{rational-homology-kzn}.
+  Somit gilt $\pi_j(M_i, S^n) \in \T_p$ für $j \leq i$ und die p-Torsion von $\pi_{i+1}(M_i, S^n)$ ist ebenfalls isomorph zu $\Z_p$.
   Die Aussage folgt nun mit der langen exakten Homotopiesequenz von $(M_i, S^n)$.
+  
+  Dieses alternative Argument liefert außerdem die Behauptung im Fall $p=2$ und $n \geq 3$ beliebig.
 \end{proof}
+
+\begin{bem}
+  Für $n=2$ stimmt die Aussage des Satzes nicht, denn
+  $\pi_i(S^n) \cong \pi_{i-1}(S^3)$ besitzt für $i < 2 + 2p - 2$ keine $p$-Torsion und die $p$-Torsion von $\pi_{2 + 2p - 2}(S^n)$ ist $\Z_p$.
+\end{bem}
 
 \nocite{*}
 \addcontentsline{toc}{section}{Literatur}
@@ -1786,12 +1800,11 @@ Es gibt eine stetige Abbildung $q : \V{2}{m} \to X^{2m-3} / X^{2m-4} \approx S^{
 \end{landscape}
 
 % TODO:
-% * Fall p=2
 % * James F. Davis, Paul Kirk zitieren
 % * Namen für Axiome der Serre-Klassen und K(G, n) \in C für G \in C zu eigenem Axiom machen
 % Statt den Satz nur für \FG, \F zu zeigen, als Voraussetzung nehmen, dass die (reduzierte) Homologie von K(G, n) für G \in C wieder in C liegt
 % * Relativen Hurewicz-Homomorphismus definieren
-% Beweise umformulieren: "man" vermeiden
+% * Beweise umformulieren: "man" vermeiden
 % * Irgendwo schreiben, dass der Grund für die triviale Wirkung in der ganzen Arbeit der ist, dass die Fundamentalgruppe schon verschwindet.
 % * Vergleich mit dem Ansatz von Serre in seiner Dissertation
 % * Motivation für Studium der Homotopiegruppen der Sphären beschreiben
