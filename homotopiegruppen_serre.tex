@@ -65,12 +65,15 @@
 \DeclareMathOperator{\Tor}{Tor} % Tor-Funktor
 \newcommand{\SC}{\mathcal{C}} % Serre-Klasse
 \newcommand{\FG}{\mathcal{FG}} % Serre-Klasse der endlich erzeugten Gruppen
+\newcommand{\T}{\mathcal{T}} % Serre-Klasse der endlich erzeugten Gruppen, deren Ordnung nur durch Primzahlen in einer bestimmten Menge teilbar ist
 \newcommand{\F}{\mathcal{F}} % Serre-Klasse der endlichen Gruppen
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % Absolutwert
 \DeclareMathOperator{\ggT}{ggT} % größter gemeinsamer Teiler
 \DeclareMathOperator{\Aut}{Aut} % Automorphismengruppe
 \newcommand{\trunc}[2]{\tau_{#1} #2} % Truncation/Postnikov-Section
 \DeclareMathOperator{\sk}{sk} % Skelett
+\newcommand{\V}[2]{V_{{#2},{#1}}} % $\V{k}{n}$ ist die Stiefel-Mannigfaltigkeit der orthonormalen $k$-Tupel im $\R^n$
+\newcommand{\Primes}{\mathbb{P}} % Menge der Primzahlen
 
 % Abkürzungen
 \newcommand{\zB}{z.\,B.}
@@ -949,9 +952,12 @@ Durch Induktion kann man zeigen:
   $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
   Dann gilt für alle $N \in \N \cup \{ \infty \}$:
   \[
+    \pushQED{\qed} 
     \fa{0 \leq n < N} \pi_n(X, x_0) \in \SC
     \quad \iff \quad
     \fa{1 \leq n < N} H_n(X; \Z) \in \SC.
+    \qedhere
+    \popQED
   \]
 \end{kor}
 
@@ -1317,8 +1323,8 @@ Konkret haben wir für $X = K(\Z, n)$:
 
 \section{Beweis des Satzes von Serre}
 
-\begin{satz}[Relatives Mod-$\SC$-Hurewicz-Theorem]
-  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
+\begin{satz}[Relatives Mod-$\SC$-Hurewicz-Theorem]\label{relative-hurewicz-mod-c}
+  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
   Angenommen, $\pi_i(X, A) \in \SC$ für $0 < i < n$.
   Dann ist $h_i : \pi_i(X, A) \to H_i(X, A; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
   Insbesondere gilt $H_i(X, A; \Z) \in \SC$ für $0 < i < n$.
@@ -1342,22 +1348,48 @@ Konkret haben wir für $X = K(\Z, n)$:
       H_i(X, A)
     \end{tikzcd}
   \end{center}
-  Aufgrund der absoluten Version des Theorems (Satz~\ref{hurewicz-mod-c}) ist also der linke Pfeil im folgenden Diagramm ein Isomorphismus mod $\SC$ für $i \leq n$.
+  Aufgrund der absoluten Version des Theorems (Satz~\ref{hurewicz-mod-c}) ist also der linke Pfeil im folgenden Diagramm ein Isomorphismus modulo~$\SC$ für $i \leq n$.
   Gleiches gilt somit für den rechten Pfeil.
 \end{proof}
 
-\begin{kor}
-  Es sei $f : A \to B$ stetig und $A$ einfach zusammenhängend.
-  Angenommen, $f_* : \pi_i(A) \to \pi_i(B)$ ist ein Isomorphismus mod~$\SC$ für $1 \leq i < n$ und ein Epimorphismus mod~$\SC$ für $i = n$.
-  Dann ist auch $f_* : H_i(A) \to H_i(B)$ ein Isomorphismus mod~$\SC$ für $1 \leq i < n$ und ein Epimorphismus mod~$\SC$ für $i = n$.
+Wir erhalten eine relative Version von Korollar~\ref{homotopy-in-c-iff-homology-in-c}:
+
+\begin{kor}\label{homotopy-in-c-iff-homology-in-c-relative}
+  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
+  Dann gilt für alle $N \in \N \cup \{ \infty \}$:
+  \[
+    \pushQED{\qed} 
+    \fa{0 \leq n < N} \pi_n(X, A, x_0) \in \SC
+    \quad \iff \quad
+    \fa{1 \leq n < N} H_n(X, A; \Z) \in \SC.
+    \qedhere
+    \popQED
+  \]
+\end{kor}
+
+\begin{kor}\label{homotopy-homology-equivalence-mod-c}
+  Es sei $\SC \in \{ \FG, \F \}$, $f : A \to B$ stetig, $f_* : \pi_1(A) \to \pi_1(B)$ surjektiv und $A$ einfach zusammenhängend.
+  Dann sind äquivalent:
+  \begin{enumerate}[label=(\alph*)]
+    \item $f_* : \pi_i(A) \to \pi_i(B)$ ist ein Isomorphismus modulo~$\SC$ für $1 \leq i < n$ und ein Epimorphismus modulo~$\SC$ für $i = n$.
+    \item $f_* : H_i(A) \to H_i(B)$ ein Isomorphismus modulo~$\SC$ für $1 \leq i < n$ und ein Epimorphismus modulo~$\SC$ für $i = n$.
+  \end{enumerate}
 \end{kor}
 
 \begin{proof}
-  Betrachte den Abbildungszylinder $M_f$ von $f$.
-  Die Abbildung $f$ entspricht der Inklusion $A \hookrightarrow M_f$ von $A$ als Deckel des Abbildungzylinder, wenn man $X$ als Deformationsretrakt als von $M_f$ auffasst.
-  Aus der langen exakten Sequenz von Homotopiegruppen folgt, dass $\pi_i(M_f, A) \in \SC$ für $i \leq n$.
-  Nach dem letzten Satz gilt somit $H_i(M_f, A) \in \SC$ für $1 \leq i \leq n$.
-  Die Aussage folgt nun mit der langen exakten Sequenz von Homologiegruppen.
+  Betrachte den Abbildungszylinder~$M_f$ von~$f$.
+  Die Abbildung~$f$ entspricht der Inklusion~$A \hookrightarrow M_f$ von $A$ als Deckel des Abbildungzylinder, wenn man $X$ als Deformationsretrakt von $M_f$ auffasst.
+  Es gilt nun
+  \[
+    \text{(a)}
+    \stackrel{\text{l.\,e.\,S.}}{\iff}
+    \pi_i(M_f, A) \in \SC \text{ für } 0 \leq i \leq n
+    \stackrel{\text{Kor \ref{homotopy-in-c-iff-homology-in-c-relative}}}{\iff}
+    H_i(M_f, A) \in \SC \text{ für } 1 \leq i \leq n
+    \stackrel{\text{l.\,e.\,S.}}{\iff}
+    \text{(b)}.
+    \qedhere
+  \]
 \end{proof}
 
 Es sei $G$ eine abelsche Gruppe, $p \in \N$ eine Primzahl.
@@ -1379,9 +1411,9 @@ nach \cite[\mbox{} Thm 5.5.10]{spanier:at}.
 Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie bestimmen, indem wir die Homologie- und Kohomologiegruppen mit Koeffizienten mit $\Z_{(p)}$ berechnen.
 
 % 1.29 in Hatcher SS1
-\begin{lem}
+\begin{lem}\label{mod-p-cohomology-kzn}
   Es sei $n \geq 3$ und $p$ prim.
-  Dann gilt $\Z_{(p)} \otimes H^i(K(\Z, n); \Z) = 0$ für $i < 2p + n - 1$ und $\Z_{(p)} \otimes H^{2p + n - 1}(K(\Z, n); \Z) \cong \Z_{(p)}$.
+  Dann ist die p-Torsionsuntergruppe von $H^i(K(\Z, n); \Z)$ null für $i < n + 2p - 1$ und isomorph zu $\Z_p$ für $i = n + 2p - 1$.
 \end{lem}
 
 \begin{proof}
@@ -1628,11 +1660,112 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie be
     H^{2p + n - 1}(K(\Z, n)) \otimes \Z_{(p)} & \cong H^{2p + n - 1}(K(\Z, n); \Z_{(p)}) \cong H^{2p + n - 1}(K(\Z, n); H^0(K(\Z, n-1); \Z_{(p)})) \\
     & \cong E_2^{2p + n - 1, 0} \cong E_{2p + n - 1}^{2p + n - 1, 0} \cong \Z_p.
   \end{align*}
-  
 \end{proof}
 
+Mit dem universellen Koeffiziententheorem folgt:
+
+\begin{kor}\label{mod-p-homology-kzn}
+  Es sei $n \geq 3$ und $p$ prim.
+  Dann ist die p-Torsionsuntergruppe von $H_i(K(\Z, n); \Z)$ null für $i < n + 2p - 2$ und isomorph zu $\Z_p$ für $i = n + 2p - 2$. \qed
+\end{kor}
+
+% Die Homologie dieser Stiefel-Mannigfaltigkeit wird auch in Hatcher, §3.D berechnet
+Die Stiefel-Mannigfaltigkeit $\V{2}{m}$ ist die aller orthonormalen $2$-Tupel $(u, v)$ im $\R^m$ mit dem euklidischen Skalarprodukt.
+Die Dimension dieser Mannigfaltigkeit ist $(m-1) + (m-2) = 2m - 3$.
+Man kann einen Punkt $(u, v)$ auf dieser Mannigfaltigkeit auch als Einheitstangentialvektor an die Sphäre~$S^{m-1}$ (mit der kanonischen Metrik) am Punkt~$u \in S^{m-1}$ ansehen, wenn man sich den Startpunkt von~$v$ an den Punkt~$u$ verschoben vorstellt.
+Die Abbildung $p : \V{2}{m} \to S^{m-1}, \enspace (u, v) \mapsto u$ ist die Projektionsabbildung eines \emph{Faser-Bündels}, d.\,h. sie erfüllt eine lokale Trivialitätsbedingung.
+Die Menge aller Einheitstangentialvektoren in einem Punkt~$u$ ist homöomorph zur $S^{m-2}$.
+Die Faser dieses Bündels ist daher eine $S^{m-2}$.
+Da jedes Faser-Bündel auch eine Serre-Faserung ist (vgl. \cite[\mbox{} Prop 4.48]{hatcher:at}), gibt es eine Faserung $S^{m-2} \to \V{2}{m} \xrightarrow{p} S^{m-1}$.
+
+\TODO{Zeigen oder zitieren: Es gilt $H_i(\V{2}{2k+1}) \cong \begin{cases}
+  \Z & \text{für } i = 0, 2k-1, \\
+  \Z_2 & \text{für } i = k-1, \\
+  0 & \text{sonst.}
+\end{cases}$.
+Es gibt eine stetige Abbildung $q : \V{2}{m} \to X^{2m-3} / X^{2m-4} \approx S^{2m-3}$, die in $H_{2m-3}$ einen Isomorphismus induziert.}
+
 \begin{proof}[Beweis des Satzes von Serre]
-  \TODO{lalala}
+  Ist $n$ ungerade, so ist die Abbildung $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$ nach Satz~\ref{rational-homology-kzn} eine Homologieäquivalenz modulo~$\F$.
+  Aus Korollar~\ref{homotopy-homology-equivalence-mod-c} folgt, dass~$i$ auch auf allen Homotopiegruppen Isomorphismen modulo~$\F$ induziert.
+  Somit sind alle Homotopiegruppen von~$S^n$ im Grad $> n$ endlich.
+
+  Es sei nun $n$ gerade.
+  Die oben beschriebene Abbildung~$q : \V{2}{n+1} \to S^{2n-1}$ induziert Isomorphismen in Homologie modulo~$\F$.
+  Somit induziert $q$ auch Isomorphismen auf den Homotopiegruppen.
+  Aus der langen exakten Homotopiesequenz
+  \[
+    \ldots
+    \enspace\to\enspace
+    \pi_{i+1}(S^n)
+    \enspace\to\enspace
+    \underbrace{\pi_i(S^{n-1})}_{\substack{\text{endlich für} \\ i \neq n-1}}
+    \enspace\to\enspace \underbrace{\pi_i(\V{2}{n+1})}_{\mathclap{\substack{\cong \pi_i(S^{2n-1}) \bmod{\F}, \\ \text{endlich für } i \neq 2n-1}}}
+    \enspace\to\enspace
+    \pi_i(S^n)
+    \enspace\to\enspace
+    \pi_{i-1}(S^{n-1})
+    \enspace\to\enspace
+    \ldots
+  \]
+  zur Faserung $S^{n-1} \to \V{2}{n+1} \xrightarrow{p} S^n$ folgt nun, dass $\pi_i(S^n)$ endlich ist für $i \not\in \{ n, 2n-1 \}$ und dass $\pi_{2n-1}(S^n) \cong \pi_{2n-1}(\V{2}{n+1}) \cong \Z$ modulo~$\F$.
+\end{proof}
+
+\begin{satz}
+  Sei $n \geq 3$ und $p > 2$ eine Primzahl.
+  Dann ist die $p$-Torsionskomponente von $\pi_i(S^n)$ null falls $i < n + 2p - 3$ und isomorph zu $\Z_p$, falls $i = n + 2p - 3$.
+\end{satz}
+
+\begin{proof}
+  Es sei $\T_p$ die Serre-Klasse der endlichen abelschen Gruppen, deren Ordnung nicht durch $p$ teilbar ist.
+
+  Es sei $n$ ungerade.
+  Wir betrachten den Abbildungszylinder~$M_i$ der Abbildung $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$.
+  Die lange exakte Homologiesequenz des Paares $(M_i, S^n)$ und Lemma~\ref{mod-p-homology-kzn} induzieren, dass
+  \[
+   H_i(M_i, S^n) \cong \begin{cases}
+     0 & i < n + 2p - 2, \\
+     \Z_p & i = n + 2p - 2
+   \end{cases}
+   \qquad \pmod{\T_p}.
+  \]
+  Mit Satz~\ref{relative-hurewicz-mod-c} folgt
+  \[
+   \pi_i(M_i, S^n) \cong \begin{cases}
+     0 & i < n + 2p - 2, \\
+     \Z_p & i = n + 2p - 2
+   \end{cases}
+   \qquad \pmod{\T_p}.
+  \]
+  Dies zeigt die Aussage für ungerade~$n$, da $\pi_{n+2p-3}(S^n) \cong \pi_{n+2p-3}(M_i, S^n)$, wie man an der langen exakten Homotopiesequenz von $(M_i, S^n)$ sieht.
+
+  Es sei nun~$n$ gerade.
+  Wir betrachten wieder die Faserung $S^{n-1} \to \V{2}{n+1} \to S^n$.
+  Die Abbildung $q : \V{2}{n+1} \to S^{2n-1}$ induziert Isomorphismen in Homologie modulo~$\T_p$ und somit auch in Homotopie modulo~$\T_p$.
+  Aus der langen exakten Homotopiesequenz
+  \[
+    \ldots
+    \enspace\to\enspace
+    \pi_{i+1}(S^n)
+    \enspace\to\enspace
+    \underbrace{\pi_i(S^{n-1})}_{\mathclap{\substack{\text{$p$-torsionsfrei} \\ \text{für } i < n + 2p - 4, \\ \text{endlich für} \\ i \neq n-1}}}
+    \enspace\to\enspace \underbrace{\pi_i(\V{2}{n+1})}_{\mathclap{\substack{\cong \pi_i(S^{2n-1}) \bmod{\T_p}, \\ \text{$p$-torsionsfrei} \\ \text{für } i < 2n + 2p - 4, \\ \text{endlich für } i \neq 2n-1}}}
+    \enspace\to\enspace
+    \pi_i(S^n)
+    \enspace\to\enspace
+    \pi_{i-1}(S^{n-1})
+    \enspace\to\enspace
+    \ldots
+  \]
+  folgt, dass $\pi_i(S^n)$ für $i < n + 2p - 3$ keine $p$-Torsion besitzt.
+  Aus dieser Sequenz folgt außerdem, dass die $p$-Torsionsuntergruppe von $\pi_i(S^n)$ für $i = n + 2p - 3$ isomorph ist zu $\Z_p$, sofern $n + 2p - 3 \neq 2n - 1$ gilt\footnote{Im Fall $i = n + 2p - 3 = 2n - 1$ könnte nämlich die exakte Sequenz $\pi_i(\V{2}{n+1}) \to \pi_i(S^n) \to \pi_{i-1}(S^{n-1})$ isomorph zu $\Z \xrightarrow{\cdot p} \Z \to \Z_p$ sein, die $p$-Torsionkomponente von $\pi_i(S^n)$ könnte also auch null sein.}.
+  
+  Für $i = n + 2p - 3 = 2n - 1$ (und allgemeiner $i = n + 2p - 3 < 2n$) geben wir daher ein alternatives Argument an:
+  Es sei~$M_i$ der Abbildungzylinder von $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$.
+  Die lange exakte Homologiesequenz des Paars $(M_i, S^n)$ impliziert, dass $H_j(M_i, S^n) \cong H_j(K(\Z, n))$ für $j \neq n$ und dass $H_n(M_i, S^n) = 0$.
+  Insbesondere gilt $H_j(M_i, S^n) \in \T_p$ für $j \leq i$ und $H_{i+1}(M_i, S^n) \cong H_{i+1}(K(\Z, n)) \cong \Z \oplus \Z_p$ modulo~$\T_p$ nach Korollar~\ref{mod-p-homology-kzn} und Lemma~\ref{rational-homology-kzn}.
+  Somit gilt $\pi_j(M_i, S^n) \in \T_p$ für $j \leq i$ und $\pi_{i+1}(M_i, S^n) \cong \Z \otimes \Z_p$ modulo~$\T_p$.
+  Die Aussage folgt nun mit der langen exakten Homotopiesequenz von $(M_i, S^n)$.
 \end{proof}
 
 \nocite{*}
@@ -1653,10 +1786,11 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie be
 \end{landscape}
 
 % TODO:
+% * Fall p=2
+% * James F. Davis, Paul Kirk zitieren
 % * Namen für Axiome der Serre-Klassen und K(G, n) \in C für G \in C zu eigenem Axiom machen
 % Statt den Satz nur für \FG, \F zu zeigen, als Voraussetzung nehmen, dass die (reduzierte) Homologie von K(G, n) für G \in C wieder in C liegt
 % * Relativen Hurewicz-Homomorphismus definieren
-% * Methode des Killens von unteren Homotopiegruppen separat beschreiben (und damit Beweise vereinfachen?)
 % Beweise umformulieren: "man" vermeiden
 % * Irgendwo schreiben, dass der Grund für die triviale Wirkung in der ganzen Arbeit der ist, dass die Fundamentalgruppe schon verschwindet.
 % * Vergleich mit dem Ansatz von Serre in seiner Dissertation
