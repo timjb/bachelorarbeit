@@ -3,12 +3,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath,amsthm,amssymb}
+\usepackage[protrusion=true,expansion=true]{microtype}
 \usepackage[table]{xcolor} % Für farbige Tabellenzellen
 \usepackage{hhline} % mehr Kontrolle über Tabellenlinien
 \usepackage{tikz}
 \usepackage{enumitem} % bessere Aufzählungen
 \usepackage{mathtools} % \coloneqq, \DeclarePairedDelimiter
 \usepackage{stmaryrd} % \mapsfrom
+\usepackage{nicefrac}
 \usetikzlibrary{cd}
 \usepackage{geometry}
 \geometry{margin=2.5cm}
@@ -188,10 +190,10 @@ Insbesondere ist die $j$-fach iterierte Einhängung $\Sigma^j X$ eines $n$-zusam
 
 Für einen beliebigen CW-Komplex $X$ ist $\Sigma^j X$ ein $(j{-}1)$-zusammenhängender CW-Komplex und es gilt $\pi_{n+j}(\Sigma^j X) \cong \pi_{n+j+1}(\Sigma^{j+1} X)$ für $n + j \leq 2(j-1) \Leftrightarrow n+2 \leq j$.
 Somit ist
-\[ \pi_{2n+2}(\Sigma^{n+2} X) \cong \pi_{2n+3}(\Sigma^{n+3} X) \cong \pi_{2n+4}(\Sigma^{n+4} X) \cong \ldots \cong \colim \pi_{n+j}(\Sigma^j X). \]
+\[ \pi_{2n+2}(\Sigma^{n+2} X) \cong \pi_{2n+3}(\Sigma^{n+3} X) \cong \pi_{2n+4}(\Sigma^{n+4} X) \cong \ldots \qquad \cong \colim \pi_{n+j}(\Sigma^j X). \]
 Die Gruppe $\colim \pi_{n+j}(\Sigma^j X)$ heißt \emph{$n$-te stabile Homotopiegruppe} von $X$.
 Im Fall der Sphären haben wir mit $X = S^0$:
-\[ \pi_{2n+2}(S^{n+2}) \cong \pi_{2n+3}(S^{n+3}) \cong \pi_{2n+4}(S^{n+4}) \cong \ldots \cong \colim_j \pi_{n+j}(S^j) =: \pi^s_n. \]
+\[ \pi_{2n+2}(S^{n+2}) \cong \pi_{2n+3}(S^{n+3}) \cong \pi_{2n+4}(S^{n+4}) \cong \ldots \qquad \cong \colim_j \pi_{n+j}(S^j) =: \pi^s_n. \]
 Wir behaupten, dass $E : \pi_1(S^1) \to \pi_2(S^2)$ ein Isomorphismus ist.
 Aus dem Einhängungssatz folgt, dass diese Abbildung surjektiv ist.
 Somit ist $\pi_2(S^2)$ ein zyklische Gruppe mit Erzeuger $\id_{S^2}$.
@@ -201,7 +203,7 @@ Angenommen, $k \cdot \id_{S^2}$ ist nullhomotop.
 Dann ist auch $H_2(k \cdot \id_{S^2}) = 0$ und somit $k = 0$.
 Somit ist $E$ injektiv.
 Es folgt
-\[ \Z \cong \pi_1(S^1) \cong \pi_2(S^2) \cong \ldots \cong \pi_j(S^j)  \cong \ldots \cong \colim_j \pi_j(S^j) = \pi^s_0. \]
+\[ \Z \cong \pi_1(S^1) \cong \pi_2(S^2) \cong \ldots \cong \pi_j(S^j)  \cong \ldots \qquad \cong \colim_j \pi_j(S^j) = \pi^s_0. \]
 Dabei ist $[\id_{S^i}]$ ein Erzeuger von $\pi_i(S^i)$ für alle $i \geq 0$.
 
 Im Anhang dieser Arbeit befindet sich eine Tabelle mit einigen bekannten Homotopiegruppen von Sphären.
@@ -962,7 +964,7 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
   Insbesondere gilt $H_i(X; \Z) \in \SC$ für $0 < i < n$.
 \end{satz}
 
-Mit $\SC \coloneqq \{ 0 \}$ ist die Aussage des Satzes gerade die des gewöhnlichen Hurewicz-Theorem.
+Mit $\SC \coloneqq \{ 0 \}$ ist die Aussage des Satzes gerade die des gewöhnlichen Hurewicz-Theorems.
 Durch Induktion kann man zeigen:
 
 % Hatcher, 1.7 (etwas allgemeiner)
@@ -1035,7 +1037,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Es sei zunächst $n=1$.
   \begin{itemize}
     \item Falls $G = \Z$, so stimmt die Aussage, denn der Kreis $S^1$ ist ein $K(\Z, 1)$ und $H_*(S^1; \Z) \in \FG$.
-    \item Falls $G = \Z_m$, so kann man einen $K(\Z_m, 1)$ als unendlich-dimensionalen Linsenraum $L_m$ konstruieren.\footnote{Sei dazu $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre. Es wirke $\Z_m$ auf jedem Faktor $\C$ von $\C^\infty$ durch Rotation $(m, x) \mapsto x \cdot e^{2 \pi i m}$. Dies induziert eine eigentlich diskontinuierliche Gruppenwirkung $\Z_m \to \Aut(S^\infty)$. Dann ist $L_m \coloneqq S^\infty / \Z_m$ ein $K(\Z_m, 1)$: Die Überlagerung $S^\infty \to S^\infty / \Z_m$ hat Decktransformationsgruppe $\Z_m$ ist universell, da $S^\infty$ zusammenziehbar ist (vgl. \cite[\mbox{}1B.3-1B.4]{hatcher:at}). Somit ist $\pi_1(L_m) \cong \Z_m$. Für die höheren Homotopiegruppen gilt $\pi_n(L_m) \cong \pi_n(S^\infty) = 0$.}
+    \item Falls $G = \Z_m$, so kann man einen $K(\Z_m, 1)$ als unendlich-dimensionalen Linsenraum $L_m$ konstruieren.\footnote{Sei dazu $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre. Es wirke $\Z_m$ auf jedem Faktor $\C$ von $\C^\infty$ durch Rotation $(k, x) \mapsto x \cdot e^{\nicefrac{2 \pi i k}{m}}$. Dies induziert eine eigentlich diskontinuierliche Gruppenwirkung $\Z_m \to \Aut(S^\infty)$. Dann ist $L_m \coloneqq S^\infty / \Z_m$ ein $K(\Z_m, 1)$: Die Überlagerung $S^\infty \to S^\infty / \Z_m$ hat Decktransformationsgruppe~$\Z_m$ und ist universell, da $S^\infty$ zusammenziehbar ist (vgl. \cite[\mbox{}1B.3-1B.4]{hatcher:at}). Somit ist $\pi_1(L_m) \cong \Z_m$. Für die höheren Homotopiegruppen gilt $\pi_n(L_m) \cong \pi_n(S^\infty) = 0$.}
     Dieser besitzt Homologiegruppen $\tilde{H}_i(L_m) \cong \Z_m$ für $i > 0$ ungerade und $\tilde{H}_i(L_m) \cong 0$ sonst (vgl. \cite[\mbox{}2.43]{hatcher:at}).
     \item Falls $G = G_1 \oplus G_2$, dann ist $K(G_1, 1) \times K(G_2, 1)$ ein $K(G, 1)$.
     Wenn die Aussage für $G_1$ und $G_2$ stimmt, so folgt aus dem letzten Lemma, angewendet auf die Produktfaserung $K(G_1, 1) \to K(G_1, 1) \times K(G_2, 1) \to K(G_2, 1)$, dass sie auch für $G$ gilt.
@@ -1080,7 +1082,7 @@ Dann lässt sich die Abbildung auch auf $(k{+}1)$-Zellen $e^{k+1}_\alpha$ ausdeh
 
 \begin{bem}
   Es sei ein Postnikov-Turm $\ldots \to X_2 \to X_1$ gegeben.
-  Dann kann man durch wiederholtes Anwenden der in Lemma~\ref{convert-to-fibration} beschriebenen Konstruktion einen neuen Postnikovturm $\ldots \to X_2' \to X_1'$ und Homotopieäquivalenzen $X_i \simeq X_i'$ konstruieren, sodass die Abbildungen $X_{i+1}' \to X_i'$ Faserungen sind.
+  Dann kann man durch wiederholtes Anwenden der in Lemma~\ref{convert-to-fibration} beschriebenen Konstruktion einen neuen Postnikov-Turm $\ldots \to X_2' \to X_1'$ und Homotopieäquivalenzen $X_i \simeq X_i'$ konstruieren, sodass die Abbildungen $X_{i+1}' \to X_i'$ Faserungen sind.
   Man sieht anhand der langen exakten Sequenz von Homotopiegruppen, dass die Faser von $X_{i+1}' \to X_i'$ ein $K(\pi_{n+1}(X), n{+}1)$ ist.
 \end{bem}
 
@@ -1867,5 +1869,6 @@ Mit dem universellen Koeffiziententheorem folgt:
 % * Motivation für Studium der Homotopiegruppen der Sphären beschreiben
 % * Switzer/anderen zu Pontryagin-Thom zitieren
 % * Abschnitt über das Modulo-C-Hurewicz-Theorem aufteilen?
+% * Verwendung von Hurewicz- und Serre-Faserungen überprüfen
 
 \end{document}
