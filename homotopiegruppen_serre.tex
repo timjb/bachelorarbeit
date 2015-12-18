@@ -30,6 +30,7 @@
 \newtheorem{beob}[lem]{Beobachtung}
 \newtheorem{bspe}[lem]{Beispiele}
 \newtheorem{kor}[lem]{Korollar}
+\newtheorem{axiom}[lem]{Axiom}
 %\newtheorem*{nota}{Notation}
 
 \theoremstyle{remark}
@@ -68,6 +69,8 @@
 \newcommand{\T}{\mathcal{T}} % Serre-Klasse der endlich erzeugten Gruppen, deren Ordnung nur durch Primzahlen in einer bestimmten Menge teilbar ist
 \newcommand{\F}{\mathcal{F}} % Serre-Klasse der endlichen Gruppen
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % Absolutwert
+\DeclarePairedDelimiter\ord{\lvert}{\rvert} % Gruppenordnung
+\DeclarePairedDelimiter\norm{\lVert}{\rVert} % Norm
 \DeclareMathOperator{\ggT}{ggT} % größter gemeinsamer Teiler
 \DeclareMathOperator{\Aut}{Aut} % Automorphismengruppe
 \newcommand{\trunc}[2]{\tau_{#1} #2} % Truncation/Postnikov-Section
@@ -867,7 +870,7 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 
 \begin{defn}\label{serre-class}
   Eine Klasse $\SC$ von abelschen Gruppen heißt \emph{Serre-Klasse}, falls
-  \begin{enumerate}
+  \begin{enumerate}[label=(\Roman*)]
     \item Für jede kurze exakte Seq. $0 \to A \to B \to C \to 0$ von ab. Gruppen gilt: $B \in \SC \Leftrightarrow A, C \in \SC$.
     \item Für $A, B \in \SC$ sind auch $A \otimes B \in \SC$ und $\Tor(A, B) \in \SC$.
   \end{enumerate}
@@ -896,29 +899,31 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 \begin{lem}
   Folgende Klassen sind Serre-Klassen:
   \begin{enumerate}[label=\alph*)]
-    \item $\F \coloneqq \{\, \text{endliche abelsche Gruppen} \,\}$
+    \item $\T_P \coloneqq \{ \text{endliche abelsche Gruppen, deren Ordnung nur durch Primzahlen in $P \subseteq \Primes$ teilbar ist} \}$, wobei $\Primes$ die Menge aller Primzahlen bezeichnet,
+    \item $\F \coloneqq \T_\Primes = \{\, \text{endliche abelsche Gruppen} \,\}$
     \item $\FG \coloneqq \{\, \text{endlich erzeugte abelsche Gruppen} \,\}$
   \end{enumerate}
 \end{lem}
 
 \begin{proof}
   \emph{a)} \enspace Es sei $0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0$ eine kurze exakte Sequenz von abelschen Gruppen.
-  Falls $B$ endlich ist, so sind $A$ und $B$ offensichtlich auch endlich.
-  Angenommen, $A$ und $C$ sind endlich.
   Wir behaupten, dass $\abs{g^{-1}(c)} = \abs{A}$ für alle $c \in C$.
   Für $c = 0$ gilt die Aussage wegen Exaktheit.
   Sei nun $c \in C$ beliebig.
   Wähle ein Urbild $a \in g^{-1}(c)$.
   Dann ist Rechtsmultiplikation mit $a^{-1}$ eine Bijektion $x \mapsto x \cdot a^{-1} : g^{-1}(c) \to g^{-1}(0)$ mit Umkehrabbildung $x \mapsto x \cdot a$.
   Somit ist $\abs{g^{-1}(c)} = \abs{g^{-1}(0)} = \abs{A}$.
-  Damit ist die Behauptung gezeigt. Es folgt, dass $\abs{B} = \abs{A} \cdot \abs{B} < \infty$.
-  Es bleibt, den zweiten Teil der Definition zu zeigen.
-  Für $n, m > 0$ gilt $\Z_n \otimes \Z_m \cong \Tor(\Z_n, \Z_m) \cong \Z_{\ggT(n, m)}$.
+  
+  Also gilt $\ord{A} \cdot \ord{C} = \ord{B} \in \N \cup \{ \infty \}$.
+  Daraus folgt Axiom (I).
+  
+  Es bleibt, (II) zu zeigen.
+  Für $\Z_n, \Z_m \in \T_P$ (\dh{} $n$ und $m$ sind Produkte von Primzahlen aus $P$) gilt $\Z_n \otimes \Z_m \cong \Tor(\Z_n, \Z_m) \cong \Z_{\ggT(n, m)} \in \T_P$.
   Wegen des Hauptsatzes über endlich erzeugte abelsche Gruppen kann jede endliche abelsche Gruppe als endliche direkte Summe von zyklischen Gruppen schreiben.
   Es seien daher nun $A = \bigoplus_{i=1}^N \Z_{n_i}$ und $B = \bigoplus_{j=1}^M \Z_{m_j}$.
   Dann ist $\Tor(A, B) \cong A \otimes B \cong \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$ ebenfalls endlich.
 
-  \emph{b)} \enspace Wir betrachten nun wieder die kurze exakten Sequenz $0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0$ von abelschen Gruppen.
+  \emph{c)} \enspace Wir betrachten nun wieder die kurze exakten Sequenz $0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0$ von abelschen Gruppen.
   Falls $B$ endlich erzeugt ist, so ist $C$ offensichtlich endlich erzeugt und $A$ ist ebenfalls endlich erzeugt als Untergruppe einer endlich erzeugten abelschen Gruppe.
   Es seien nun $A$ und $C$ endlich erzeugt, $A = \angles{a_1, \ldots, a_N}$ und $C = \angles{c_1, \ldots, c_M}$.
   Dann ist $\ker(g) = \angles{f(a_1), \ldots, f(a_N)}$.
@@ -934,9 +939,23 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
   und $\Tor(A, B) = \bigoplus_{i=1}^N \bigoplus_{j=1}^M \Z_{\ggT(n_i, m_j)}$, es sind also $A \otimes B$ und $\Tor(A, B)$ ebenfalls endlich erzeugt.
 \end{proof}
 
+\begin{defn}
+  Es sei $\SC$ eine Serre-Klasse.
+  Ein topologischer Raum~$X$ heißt \emph{$\SC$-azyklisch}, falls $\widetilde{H}_n(X) \in \SC$ für alle $n \geq 0$.
+\end{defn}
+
+\begin{axiom}
+  Es sei $\SC$ eine Serre-Klasse.
+  \begin{enumerate}[label=(\Roman*)]
+    \setcounter{enumi}{2}
+    \item Es sei $G \in \SC$.
+    Dann ist $K(G, m)$ $\SC$-azyklisch für alle $m \geq 1$.
+  \end{enumerate}
+\end{axiom}
+
 % Hatcher, 1.8
 \begin{satz}[Mod-$\SC$-Hurewicz-Theorem]\label{hurewicz-mod-c}
-  Es sei $\SC \in \{ \FG, \F \}$ und
+  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, und
   $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
   Angenommen, $\pi_i(X, x_0) \in \SC$ für $0 < i < n$.
   Dann ist $h_i : \pi_i(X, x_0) \to H_i(X; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
@@ -948,7 +967,7 @@ Durch Induktion kann man zeigen:
 
 % Hatcher, 1.7 (etwas allgemeiner)
 \begin{kor}\label{homotopy-in-c-iff-homology-in-c}
-  Es sei $\SC \in \{ \FG, \F \}$ und
+  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, und
   $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
   Dann gilt für alle $N \in \N \cup \{ \infty \}$:
   \[
@@ -962,11 +981,6 @@ Durch Induktion kann man zeigen:
 \end{kor}
 
 Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erzeugt sind, da die Homologiegruppen der Sphären endlich erzeugt sind.
-
-\begin{defn}
-  Es sei $\SC$ eine Serre-Klasse.
-  Ein topologischer Raum~$X$ heißt \emph{$\SC$-azyklisch}, falls $\widetilde{H}_n(X) \in \SC$ für alle $n \geq 0$.
-\end{defn}
 
 \begin{lem}\label{two-of-three}
   Es sei $F \to X \to B$ eine Faserung von wegzusammenhängenden Räumen $F$, $X$ und $B$.
@@ -1014,8 +1028,7 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
 
 % 1.10 im Hatcher
 \begin{lem}\label{homology-kgn-in-c}
-  Es sei $G \in \SC \in \{ \FG, \F \}$.
-  Dann ist $K(G, n)$ $\SC$-azyklisch für alle $n \geq 1$.
+  $\FG$ und $\F$ erfüllen Axiom (III).
 \end{lem}
 
 \begin{proof}
@@ -1076,7 +1089,7 @@ Dadurch wird es möglich, induktiv über den Raum $X$ zu argumentieren oder sein
 Das wird im Beweis des nächsten Lemmas deutlich.
 
 \begin{lem}\label{homotopy-in-c-implies-homology-in-c}
-  Es sei $\SC \in \{ \FG, \F \}$ und
+  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, und
   $X$ einfach zusammenhängend mit $\pi_i(X, x_0) \in \SC$ für alle $i \geq 0$.
   Dann ist $X$ $\SC$-azyklisch, \dh{} es gilt $H_i(X) \in \SC$ für $i \geq 1$.
 \end{lem}
@@ -1085,20 +1098,22 @@ Das wird im Beweis des nächsten Lemmas deutlich.
   Es sei $\ldots \to X_{i+1} \to X_i \to \ldots \to X_1$ ein Postnikov-Turm von $X$, dessen Abbildungen $X_{i+1} \to X_i$ Faserungen sind.
   Wir zeigen, dass $H_i(X_k; \Z) \in \SC$ für alle $i, k > 0$.
   Die Aussage stimmt für $k = 1$, da alle Homotopiegruppen und nach dem Satz von Hurewicz auch Homologiegruppen von $X_1$ null sind.
-  %Beachte, dass $X_2$ ein $K(\pi_2(X); 2)$, denn $\pi_1(X_2) \cong \pi_1(X) = 0$.
-  %Da $X_2$ ist ein  ist, stimmt die Aussage nach Lemma \ref{homology-kgn-in-c} für $k=2$.
   Gelte die Aussage nun für $k \geq 1$.
   Wir verwenden die Faserung $K(\pi_{k+1}(X), k{+}1) \to X_{k+1} \to X_k$.
-  Nach Lemma \ref{homology-kgn-in-c} liegen die Homologiegruppen der Faser in~$\SC$.
+  Nach Voraussetzung liegen die Homologiegruppen der Faser in~$\SC$.
   Gleiches gilt für den Basisraum $X_k$ nach Induktionsvoraussetzung,
   und somit auch für $X_{k+1}$ nach Lemma \ref{two-of-three}.
 
-  Es gilt $H_i(X; \Z) \cong H_i(X_k; \Z) \in \SC$ für $k \geq i$, da $\pi_i(X \to X_k)$ und nach einem Korollar der relativen Version des Hurewicz-Theorems damit auch $H_i(X \to X_k)$ ein Isomorphismus für $i \leq k$ ist.
-  \TODO{Verweis oder Beweis zu dem letzten Satz}
+  Die Abbildung $\pi_i(X \to X_k)$ ist ein Isomorphismus für $i \leq k$ und ein Epimorphismus für $i = k+1$.
+  Somit ist $H_i(X \to X_k)$ ein Isomorphismus für $i \leq k$ und ein Epimorphismus für $i = k+1$ ist.
+  Dies folgt aus einer relativen Version des gewöhnlichen Hurewicz-Theorems (siehe \cite[\mbox{} Thm 4.32]{hatcher:at}) durch Betrachtung des Abbildungszylinders wie im Beweis von Korollar~\ref{homotopy-homology-equivalence-mod-c}.
+
+  Somit gilt $H_k(X; \Z) \cong H_k(X_k; \Z) \in \SC$.
 \end{proof}
 
 
 \begin{proof}[Beweis von Satz \ref{hurewicz-mod-c}]
+  Es sei wieder $\ldots \to X_{i+1} \to X_i \to \ldots \to X_1$ ein Postnikov-Turm von $X$, dessen Abbildungen $X_{i+1} \to X_i$ Faserungen sind.
   Aufgrund der Natürlichkeit des Hurewicz-Homomorphismus kommutiert folgendes Diagramm:
   \begin{centertikzcd}
     \pi_n(X) \arrow[r, "\cong"] \arrow[d, "h_n"] &
@@ -1107,10 +1122,15 @@ Das wird im Beweis des nächsten Lemmas deutlich.
     H_n(X_n)
   \end{centertikzcd}
   Es genügt daher zu zeigen, dass $h_n : \pi_n(X_n) \to H_n(X_n; \Z)$ ein Isomorphismus modulo $\SC$ ist.
-  Wir betrachten die Serre-Spektralsequenz zur Faserung $F_n \to X_n \to X_{n-1}$.
-  \[ E^2_{p,q} \cong H_p(X_{n-1}; \underbrace{H_q(K(\pi_n(X), n); \Z)}_{= 0 \text{ für } 0 < q < n}), \]
-  % TODO: Begründung für das Verschwinden dieser Homologiegruppen
-  Es verschwinden also alle Einträge zwischen der 0-ten und der $n$-ten Zeile. Für diese gilt
+  Wir verwenden die Serre-Spektralsequenz zur Faserung $F_n \to X_n \to X_{n-1}$. Es gilt
+  \[
+    E^2_{p,q} \cong
+    H_p(X_{n-1}; \underbrace{H_q(K(\pi_n(X), n); \Z)}_{\mathclap{\substack{
+      = 0 \text{ für } 0 < q < n, \\
+      \text{da } \pi_q(K(\pi_n(X), n)) = 0 \text{ für } 0 < q < n
+    }}}),
+  \]
+  es verschwinden also alle Einträge zwischen der $0$-ten und der $n$-ten Zeile.
   Wir betrachten die exakte Sequenz
   \begin{centertikzcd}[row sep=0.1cm, column sep=0.5cm]
     H_{n+1}(X_{n-1}) \arrow[d, equal] &&
@@ -1121,7 +1141,7 @@ Das wird im Beweis des nächsten Lemmas deutlich.
     E^2_{n+1,0} \arrow[d, equal] && E^2_{0,n} \arrow[d, equal] && E^\infty_{0,n} \arrow[rrd] \arrow[ru] &&&&
     E^2_{n,0} \arrow[d, equal] \\
     %\underbrace{E^n_{n+1,0}}_{\mathrlap{\substack{= E^2_{n+1,0} \\ = H_{n+1}(X_{n-1})}}} \arrow[r, "d^n_{n+1,0}"] &
-    E^n_{n+1,0} \arrow[rr, "d^r_{n+1,0}"] &&
+    E^n_{n+1,0} \arrow[rr, "d^n_{n+1,0}"] &&
     E^n_{0,n} \arrow[rrrr] \arrow[rru] &&&&
     H_n(X_n) \arrow[rr] &&
     E^\infty_{n,0} \arrow[r] &
@@ -1129,13 +1149,14 @@ Das wird im Beweis des nächsten Lemmas deutlich.
   \end{centertikzcd}
   welche sich aus zwei kurzen Sequenzen zusammensetzt:
   \begin{itemize}
-    \item Die linke Sequenz ist exakt, da $E^\infty_{0,n} \cong E^{n+1}_{0,n} \cong \ker(d^r_{0,n}) / \im(d^r_{n+1,0}) = E^n_{0,n} / \im(d^r_{n+1,0})$.
+    \item Die linke Sequenz ist exakt, da $E^\infty_{0,n} \cong E^{n+1}_{0,n} \cong \ker(d^n_{0,n}) / \im(d^n_{n+1,0}) = E^n_{0,n} / \im(d^n_{n+1,0})$.
     \item Die rechte Sequenz ist exakt, da $E^\infty_{0,n} = F^0 H_n(X_n)$ und $E^\infty_{n,0} = F^n H_n(X_n) / F^{n-1} H_n(X_n)$ für eine Filtrierung $0 = F^{-1} H_n(X_n) \subseteq F^0 H_n(X_n) \subseteq \ldots \subseteq F^n H_n(X_n) = H_n(X_n)$.
     Da $F^p H_n(X_n) / F^{p-1} H_n(X_n) = E^\infty_{p,n-p} = 0$ für $p = 1, \ldots, n-1$, gilt $F^0 H_n(X_n) = \ldots = F^{n-1} H_n(X_n)$.
   \end{itemize}
   Aus Lemma \ref{homotopy-in-c-implies-homology-in-c} folgt, dass $E^n_{n+1,0}, E^\infty_{n,0} \in \SC$.
-  Somit ist der mittlere Morphismus $H_n(F_n) = E^n_{0,n} \to H_n(X_n)$ ein Isomorphismus modulo $\SC$.
-  \TODO{Begründen, warum dieser Morphismus genau der von der Inklusion $F_n \hookrightarrow X_n$ induzierte Morphismus ist.}
+  Somit ist der mittlere Morphismus $H_n(F_n) = E^n_{0,n} \to H_n(X_n)$ ein Isomorphismus modulo~$\SC$.
+  Dieser Morphismus ist aber gerade der von der Inklusion $F_n \hookrightarrow X_n$ induzierte Morphismus in Homologie\footnote{Dies sieht man durch nähere Betrachtung des Beweises über die Existenz der Serre-Spektralsequenz zu einer Faserung $F \to X \to B$ in \cite{hatcher:ss}: Durch CW-Approximation kann man davon ausgehen, dass $B$ ein CW-Komplex ist. Die Filtrierung von $H_n(X)$ wird dort definiert durch $F^p H_n(X) \cong \im(H_n(p^{-1}(B^p) \hookrightarrow X)) \subseteq H_n(X)$, wobei~$B^p$ das $p$-Skelett von $B$ bezeichnet. Die Abbildung $H_n(F) \cong H_0(B; H_n(F)) \cong E^2_{0,n} \to E^\infty_{0,n} \cong F^0 H_n(X)$ wird durch die Inklusion von $F \approx p^{-1}(B^0)$ in $X$ induziert.}.
+
   Betrachte nun das kommutative Diagramm
   \begin{centertikzcd}
     \pi_n(F_n) \arrow{d}{h_n}[swap]{\cong} \arrow[r, "\cong"] &
@@ -1151,7 +1172,7 @@ Das wird im Beweis des nächsten Lemmas deutlich.
 \end{proof}
 
 \begin{satz}[Relatives Mod-$\SC$-Hurewicz-Theorem]\label{relative-hurewicz-mod-c}
-  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
+  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
   Angenommen, $\pi_i(X, A) \in \SC$ für $0 < i < n$.
   Dann ist $h_i : \pi_i(X, A) \to H_i(X, A; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
   Insbesondere gilt $H_i(X, A; \Z) \in \SC$ für $0 < i < n$.
@@ -1182,7 +1203,7 @@ Das wird im Beweis des nächsten Lemmas deutlich.
 Wir erhalten eine relative Version von Korollar~\ref{homotopy-in-c-iff-homology-in-c}:
 
 \begin{kor}\label{homotopy-in-c-iff-homology-in-c-relative}
-  Es sei $\SC \in \{ \FG, \F \}$, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
+  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
   Dann gilt für alle $N \in \N \cup \{ \infty \}$:
   \[
     \pushQED{\qed} 
@@ -1195,7 +1216,7 @@ Wir erhalten eine relative Version von Korollar~\ref{homotopy-in-c-iff-homology-
 \end{kor}
 
 \begin{kor}\label{homotopy-homology-equivalence-mod-c}
-  Es sei $\SC \in \{ \FG, \F \}$, $f : A \to B$ stetig, $f_* : \pi_1(A) \to \pi_1(B)$ surjektiv und $A$ einfach zusammenhängend.
+  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, $f : A \to B$ stetig, $f_* : \pi_1(A) \to \pi_1(B)$ surjektiv und $A$ einfach zusammenhängend.
   Dann sind äquivalent:
   \begin{enumerate}[label=(\alph*)]
     \item $f_* : \pi_i(A) \to \pi_i(B)$ ist ein Isomorphismus modulo~$\SC$ für $1 \leq i < n$ und ein Epimorphismus modulo~$\SC$ für $i = n$.
@@ -1400,6 +1421,44 @@ Die Abbildung $p : \V{2}{m} \to S^{m-1}, \enspace (u, v) \mapsto u$ ist die Proj
 Die Menge aller Einheitstangentialvektoren in einem Punkt~$u$ ist homöomorph zur $S^{m-2}$.
 Die Faser dieses Bündels ist daher eine $S^{m-2}$.
 Da jedes Faser-Bündel auch eine Serre-Faserung ist (vgl. \cite[\mbox{} Prop 4.48]{hatcher:at}), gibt es eine Faserung $S^{m-2} \to \V{2}{m} \xrightarrow{p} S^{m-1}$.
+
+Wir wollen nun die Homologie von $\V{2}{m+1}$ berechnen.
+Dazu konstruieren wir eine CW-Struktur auf $\V{2}{m+1}$.
+Wir fassen nun $\V{2}{m+1}$ als Mannigfaltigkeit $UT S^m$ der Einheitstangentialvektoren an $S^m = \Set{v \in R^{m+1}}{\norm{v} = 1}$ auf.
+Wir notieren $UT_p S^m \coloneqq \Set{v \in T_p S^m}{\norm{v} = 1}$ für $p \in S^m$.
+Es seien $p_N, p_S \in S^m$ der Nord- bzw. Südpol von $S^m$, $u_S \in UT_{p_S}$ und $u_N \in UT_{p_N} S^m$.
+
+Wir verwenden vier Zellen:
+
+\begin{itemize}
+  \item einer $0$-Zelle $e^0$ für $u_S$,
+  \item einer $(m-1)$-Zelle $e^{m-1}$ für $UT_{p_S}$, die Einheitstangentialvektoren am Punkt $p_S$,
+  \item einer $m$-Zelle $e^m$ für alle Einheitstangentialvektoren auf $S^m \setminus \{ p_S \}$, die man durch Paralleltransport von $u_N$ entlang von Meridianen erhält und
+  \item einer $(2m - 1)$-Zelle $e^{2m-1}$ für alle restlichen Einheitstangentialvektoren.
+\end{itemize}
+
+Wir fassen das $(m-1)$-Skelett $(\V{2}{m+1})^{m-1} \approx S^{m-1}$ als Raum der Einheitstangentialvektoren an~$p_S$ auf.
+Den Rand $\partial e^m$ können wir mit dem Raum der Einheitstangentialvektoren an~$p_N$ identifizieren.
+
+Die Anklebeabbildung $\phi : \partial e^m \to (\V{2}{m+1})^{m-1}$ schickt einen Vektor $v \in T_{p_N} S^m$ auf $P_{\gamma_v(0),\gamma_v(\pi)} u_N$, dem entlang dem Meridian $\gamma : [0, \pi] \to S^m$ mit $\dot{\gamma}(0) = v$ parallel verschobenen Vektor $u_N$.
+
+\TODO{letzte Anklebeabbildung}
+
+Um die Homologie von $\V{2}{m+1}$ zu bestimmen, müssen wir den Abbildungsgrad von $\phi : \partial e^m \to (\V{2}{m+1})^{m-1}$ ausrechnen.
+Dieser Abbildungsgrad ist (bis auf evtl. ein Vorzeichen) gleich dem Abbildungsgrad der Abbildung
+\[
+  g : UT_{p_N} \to UT_{p_N}, \quad
+  v \mapsto P_{\gamma_{u_N}(0),\gamma_{u_N}(\pi)}^{-1} \circ P_{\gamma_v(0),\gamma_v(\pi)} u_N,
+\]
+welche $v$ abbildet auf den Vektor, den man erhält, wenn man $u_N$ entlang des $v$-Meridians an den Südpol verschiebt und dann entlang des $u_N$-Meridians wieder zurück an den Nordpol verschiebt.
+Einfache geometrische Überlegungen zeigen, dass diese Abbildung gegeben ist durch $g(v) = r_{u_N} \circ r_{v} u_N$, wobei $r_w : UT_{p_N} S^m \to UT_{p_N} S^m$ die Spiegelung an der zu $w \in UT_{p_N} S^m$ senkrechten Hyperebene ist.
+Sei $W \subset UT_{p_N} S^m$ die Menge aller auf $u_N$ senkrechten Einheitstangentialvektoren.
+Die Abbildung $g$ ist auf den beiden Komponente von $UT_{p_N} S^m \setminus W$ ein Homöomorphismus auf $UT_{p_N} S^m \setminus \{ -u_N \}$.
+Diese beiden Homöomorphismen gehen durch Komposition mit der Antipodenabbildung $w \mapsto -w$ auf $UT_{p_N} S^m \approx S^{m-1}$ auseinander hervor.
+Die Antipodenabbildung besitzt den Abbildungsgrad $(-1)^m$.
+
+\TODO{weiter}
+
 
 \TODO{Zeigen oder zitieren: Es gilt $H_i(\V{2}{2k+1}) \cong \begin{cases}
   \Z & \text{für } i = 0, 2k-1, \\
@@ -1619,7 +1678,7 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie be
       \node[below] at (8,-0.6) {$2p+n-1$};
     \end{tikzpicture}
   \end{center}
-  
+
   Aus der Induktionsannahme sowie Satz~\ref{rational-homology-kzn} folgt, dass die $0$-te Spalte wie abgebildet ist.
   Das Muster in der $0$-ten und der $(n-1)$-ten Zeile begründet sich wie im Beweis von Satz~\ref{rational-homology-kzn}.
   Insbesondere ist der Kohomologiering $H^{< 2p + n - 1}(K(\Z, n); \Z_{(p)}) \coloneqq \oplus_{i=0}^{2p + n - 2} H^i(K(\Z, n); \Z_{(p)})$ von $K(\Z, n)$ im Grad kleiner $2p + n - 2$ isomorph zu $(\Z_{(p)}[a]) / (a^l)$ mit Generator $a \in H^n(K(\Z, n); \Z_{(p)})$ und $l \coloneqq \ceil{\tfrac{2p + n - 1}{n}}$ ist.
@@ -1635,9 +1694,9 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie be
     H^{2p + n - 1}(K(\Z, n)) \otimes \Z_{(p)} & \cong H^{2p + n - 1}(K(\Z, n); \Z_{(p)}) \cong H^{2p + n - 1}(K(\Z, n); H^0(K(\Z, n-1); \Z_{(p)})) \\
     & \cong E_2^{2p + n - 1, 0} \cong E_{2p + n - 1}^{2p + n - 1, 0} \cong E_{2p + n - 1}^{0, 2p + n - 2} \cong E_2^{0, 2p + n - 2} \cong \Z_p.
   \end{align*}
-  
+
   \emph{Falls $n > 3$, $n$ ungerade:} \enspace
-  
+
   \begin{center}
     \begin{tikzpicture}[x=32pt,y=16pt]
       \foreach \x in {1,2,4,6}{
@@ -1693,7 +1752,7 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie be
       \node[below] at (7,-0.6) {$2p+n-1$};
     \end{tikzpicture}
   \end{center}
-  
+
   In diesem Fall argumentieren wir ähnlich wie im Fall $n = 3$.
   Wir haben eben im geraden Fall gezeigt, dass die erste Spalte wie abgebildet ist.
   Wie im Fall $n = 3$ sieht man, dass $H^n(K(\Z, n); \Z_{(p)}) \cong E_2^{n,0} \cong \Z_{(p)}$.
@@ -1723,7 +1782,7 @@ Mit dem universellen Koeffiziententheorem folgt:
 \end{satz}
 
 \begin{proof}
-  Es sei $\T_p$ die Serre-Klasse der endlichen abelschen Gruppen, deren Ordnung nicht durch $p$ teilbar ist.
+  Es sei $\T_p \coloneqq \T_{\Primes \setminus \{ p \}}$ die Serre-Klasse der endlichen abelschen Gruppen, deren Ordnung nicht durch $p$ teilbar ist.
   Wir nehmen zunächst an, dass $p \neq 2$.
 
   Es sei $n$ ungerade.
@@ -1801,13 +1860,12 @@ Mit dem universellen Koeffiziententheorem folgt:
 
 % TODO:
 % * James F. Davis, Paul Kirk zitieren
-% * Namen für Axiome der Serre-Klassen und K(G, n) \in C für G \in C zu eigenem Axiom machen
-% Statt den Satz nur für \FG, \F zu zeigen, als Voraussetzung nehmen, dass die (reduzierte) Homologie von K(G, n) für G \in C wieder in C liegt
+% * Bemerkung über Serresche Quotientenkategorien
 % * Relativen Hurewicz-Homomorphismus definieren
 % * Beweise umformulieren: "man" vermeiden
 % * Irgendwo schreiben, dass der Grund für die triviale Wirkung in der ganzen Arbeit der ist, dass die Fundamentalgruppe schon verschwindet.
-% * Vergleich mit dem Ansatz von Serre in seiner Dissertation
 % * Motivation für Studium der Homotopiegruppen der Sphären beschreiben
 % * Switzer/anderen zu Pontryagin-Thom zitieren
+% * Abschnitt über das Modulo-C-Hurewicz-Theorem aufteilen?
 
 \end{document}
