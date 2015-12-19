@@ -19,7 +19,7 @@
 \usepackage{mathabx} % \divides
 \usepackage{array} % für \setlength\extrarowheight{2pt}
 \usepackage{lscape} % Für Querformat
-\newcommand{\ceil}[1]{\lceil #1 \rceil} % Aufrunden
+\usepackage{hyperref}
 
 \usepackage[style=alphabetic-verb, backend=bibtex]{biblatex} % Literaturverzeichnis
 \bibliography{literatur.bib}
@@ -73,12 +73,15 @@
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % Absolutwert
 \DeclarePairedDelimiter\ord{\lvert}{\rvert} % Gruppenordnung
 \DeclarePairedDelimiter\norm{\lVert}{\rVert} % Norm
+\newcommand{\ceil}[1]{\lceil #1 \rceil} % Aufrunden
 \DeclareMathOperator{\ggT}{ggT} % größter gemeinsamer Teiler
 \DeclareMathOperator{\Aut}{Aut} % Automorphismengruppe
 \newcommand{\trunc}[2]{\tau_{#1} #2} % Truncation/Postnikov-Section
 \DeclareMathOperator{\sk}{sk} % Skelett
 \newcommand{\V}[2]{V_{{#2},{#1}}} % $\V{k}{n}$ ist die Stiefel-Mannigfaltigkeit der orthonormalen $k$-Tupel im $\R^n$
 \newcommand{\Primes}{\mathbb{P}} % Menge der Primzahlen
+\newcommand{\homeo}{\approx} % homöomorph
+\newcommand{\AbGrp}{\mathbf{AbGrp}} % Kategorie der abelschen Gruppen
 
 % Abkürzungen
 \newcommand{\zB}{z.\,B.}
@@ -171,7 +174,7 @@ Für $f : (X, x_0) \to (Y, y_0)$ ist
   [(x, t)] \mapsto [(f(x), t)].
 \]
 
-Man sieht leicht, dass $\Sigma S^i \approx S^{i+1}$.
+Man sieht leicht, dass $\Sigma S^i \homeo S^{i+1}$.
 Somit induziert Einhängung eine Abbildung $E : \pi_i(X, x_0) \to \pi_{i+1}(\Sigma X, *)$.
 Da Einhängung mit den Kogruppenstruktur von $S^i$ und $S^{i+1}$ verträglich ist, ist $E$ sogar ein Gruppenhomomorphismus.
 
@@ -429,7 +432,7 @@ Zum Beispiel ist die Wirkung bei Produktfaserungen immer trivial.
   Die \emph{Hopf-Faserung} ist eine Abbildung $\eta : S^3 \to S^2$, welche ein nichttriviales Element in $\pi_3(S^2)$ repräsentiert.
   Wenn man $S^3$ mit $\Set{(x, y) \in \C^2}{\abs{x} + \abs{y} = 1}$ identifiert und $S^2$ als Riemannsche Zahlenkugel $\C \cup \{ \infty \}$ auffasst, so ist $\eta$ gegeben durch $\eta(x, y) \coloneqq x/y$ für $y \neq 0$ und $\eta(x, 0) \coloneqq \infty$.
   Man sieht leicht, dass $\eta$ eine Faserung ist und dass die Faser
-  \[ \eta^{-1}(c) = \Set{s / (\abs{c} + 1) \cdot (c, 1)}{s \in \C, \abs{s} = 1} \approx S^1 \]
+  \[ \eta^{-1}(c) = \Set{s / (\abs{c} + 1) \cdot (c, 1)}{s \in \C, \abs{s} = 1} \homeo S^1 \]
   für alle $c \in \C$ ist.
   In der langen exakte Homotopiesequenz
   \[ \ldots \to \pi_n(S^1) \to \pi_n(S^3) \xrightarrow{\eta_*} \pi_n(S^2) \to \pi_{n-1}(S^1) \to \ldots \]
@@ -855,12 +858,12 @@ Man kann zeigen (siehe \cite[365-366]{hatcher:at}):
   Die Homologiegruppen von Räumen vom Typ $K(G, n)$ kann man über die Pfadfaserung $K(G, n{-}1) \to P K(G, n) \to K(G, n)$ untersuchen.
 \end{bem}
 
-\section{Das Mod-$\SC$-Hurewicz-Theorem}
+\section{Serre-Klassen}
 
 Es sei $(X, x_0)$ ein punktierter topologischer Raum.
 Der Hurewicz-Homomorphismus $h_n : \pi_n(X, x_0) \to H_n(X; \Z)$ verläuft zwischen der $n$-ten Homotopiegruppe und der $n$-ten Homologiegruppe von $X$.
 Er ist definiert durch $h_n([f]) \coloneqq H_n(f)(\alpha)$ für einen fest gewählten Erzeuger $\alpha \in H_n(S^n; \Z)$.
-In diesem Abschnitt werden wir folgenden klassischen Satz verallgemeinern:
+Im nächsten Abschnitt werden wir folgenden klassischen Satz verallgemeinern:
 
 \begin{satz}[Hurewicz]
   Sei $(X, x_0)$ ein $(n{-}1)$-zusammenhängender topologischer Raum, \dh{} $\pi_i(X, x_0) = 0$ für $i < n$.
@@ -869,6 +872,10 @@ In diesem Abschnitt werden wir folgenden klassischen Satz verallgemeinern:
 \end{satz}
 
 Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
+Genauer wollen wir die Bedingung, dass bestimmte Homotopiegruppen von $X$ null sind ersetzen durch die Forderung, dass diese Homotopiegruppen eine bestimmte Eigenschaft erfüllen, \zB{} endlich erzeugt zu sein.
+Wir müssen dann auch den Begriff des Isomorphismus entsprechend verallgemeinern.
+Wir können natürlich nicht erwarten, dass wir jede beliebige Eigenschaft verwenden können.
+Damit das Vorhaben gelingt, muss die Klasse aller abelschen Gruppen, die diese Eigenschaft besitzen, folgende Bedingung erfüllen:
 
 \begin{defn}\label{serre-class}
   Eine Klasse $\SC$ von abelschen Gruppen heißt \emph{Serre-Klasse}, falls
@@ -896,12 +903,21 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
 \begin{bem}
   Dies ist äquivalent zur Existenz einer exakten Sequenz $K \to A \xrightarrow{f} B \to C$ mit $K, C \in \SC$.
   Eine Gruppe, welche modulo-$\SC$-isomorph zu einer Gruppe aus $\SC$ ist, ist selbst in $\SC$.
+
+  Wir fassen nun~$\SC$ als volle Unterkategorie der Kategorie $\AbGrp$ der abelschen Gruppen auf.
+  Dann gibt es eine abelsche Kategorie $\AbGrp/\SC$, die \emph{Serresche Quotientenkategorie}, und einen wesentlich surjektiven, exakten Funktor $F : \AbGrp \to \AbGrp/\SC$, dessen Kern genau~$\SC$ ist.
+  Ein Morphismus $f$ in $\AbGrp$ ist genau dann ein Isomorphismus modulo $\SC$, wenn $F(f)$ ein Isomorphismus in $\AbGrp/\SC$ ist.
+  Analog kann man eine Reihe weiterer Modulo-$\SC$-Begriffe einführen: Ein Morphismus heißt Mono- bzw. Epimorphismus modulo~$\SC$, wenn sein Bild unter $F$ ein Mono- bzw. Epimorphismus ist, ein Kettenkomplex heißt exakt modulo~$\SC$, wenn sein Bild unter $F$ exakt ist, etc.
+  Da $\AbGrp/\SC$ eine abelsche Kategorie ist, gelten in $\AbGrp/\SC$ typische Sätze der homologischen Algebra, wie das Fünfer- oder das Schlangenlemma.
+  Es gibt daher Modulo-$\SC$-Versionen dieser Sätze.
+  Konstruiert werden kann $\AbGrp/\SC$ als Lokalisierung von $\AbGrp$ nach der Klasse der Modulo-$\SC$-Isomorphismen, siehe \cite[\href{http://stacks.math.columbia.edu/tag/02MN}{Section 02MN}]{stacks-project}.
 \end{bem}
 
 \begin{lem}
   Folgende Klassen sind Serre-Klassen:
   \begin{enumerate}[label=\alph*)]
-    \item $\T_P \coloneqq \{ \text{endliche abelsche Gruppen, deren Ordnung nur durch Primzahlen in $P \subseteq \Primes$ teilbar ist} \}$, wobei $\Primes$ die Menge aller Primzahlen bezeichnet,
+    \item $\T_P \coloneqq \{\, \text{endl. ab. Gruppen, deren Ordnung nur durch Primzahlen in $P \subseteq \Primes$ teilbar ist} \,\}$, \\
+    wobei $\Primes$ die Menge aller Primzahlen bezeichnet,
     \item $\F \coloneqq \T_\Primes = \{\, \text{endliche abelsche Gruppen} \,\}$
     \item $\FG \coloneqq \{\, \text{endlich erzeugte abelsche Gruppen} \,\}$
   \end{enumerate}
@@ -946,46 +962,12 @@ Ein Beweis dieses Satzes wird in~\cite[\mbox{}4.32]{hatcher:at} geführt.
   Ein topologischer Raum~$X$ heißt \emph{$\SC$-azyklisch}, falls $\widetilde{H}_n(X) \in \SC$ für alle $n \geq 0$.
 \end{defn}
 
-\begin{axiom}
-  Es sei $\SC$ eine Serre-Klasse.
-  \begin{enumerate}[label=(\Roman*)]
-    \setcounter{enumi}{2}
-    \item Es sei $G \in \SC$.
-    Dann ist $K(G, m)$ $\SC$-azyklisch für alle $m \geq 1$.
-  \end{enumerate}
-\end{axiom}
-
-% Hatcher, 1.8
-\begin{satz}[Mod-$\SC$-Hurewicz-Theorem]\label{hurewicz-mod-c}
-  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, und
-  $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
-  Angenommen, $\pi_i(X, x_0) \in \SC$ für $0 < i < n$.
-  Dann ist $h_i : \pi_i(X, x_0) \to H_i(X; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
-  Insbesondere gilt $H_i(X; \Z) \in \SC$ für $0 < i < n$.
-\end{satz}
-
-Mit $\SC \coloneqq \{ 0 \}$ ist die Aussage des Satzes gerade die des gewöhnlichen Hurewicz-Theorems.
-Durch Induktion kann man zeigen:
-
-% Hatcher, 1.7 (etwas allgemeiner)
-\begin{kor}\label{homotopy-in-c-iff-homology-in-c}
-  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, und
-  $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
-  Dann gilt für alle $N \in \N \cup \{ \infty \}$:
-  \[
-    \pushQED{\qed} 
-    \fa{0 \leq n < N} \pi_n(X, x_0) \in \SC
-    \quad \iff \quad
-    \fa{1 \leq n < N} H_n(X; \Z) \in \SC.
-    \qedhere
-    \popQED
-  \]
-\end{kor}
-
-Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erzeugt sind, da die Homologiegruppen der Sphären endlich erzeugt sind.
+\begin{bem}
+  Ein Raum ist genau dann $\F$-azyklisch ($\FG$-azyklisch), wenn seine reduzierten Homologiegruppen endlich (erzeugt) sind.
+\end{bem}
 
 \begin{lem}\label{two-of-three}
-  Es sei $F \to X \to B$ eine Faserung von wegzusammenhängenden Räumen $F$, $X$ und $B$.
+  Es sei $\SC$ eine Serre-Klasse und $F \to X \to B$ eine Faserung von wegzusammenhängenden Räumen $F$, $X$ und $B$.
   Es wirke $\pi_1(B)$ trivial auf $H_*(F)$.
   Dann gilt folgende $2$-aus-$3$-Eigenschaft: Falls zwei der Räume $F$, $X$ und $B$ $\SC$-azyklisch sind, so auch der dritte.
 \end{lem}
@@ -1028,26 +1010,69 @@ Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erze
   Dazu verwendet man die kurze exakte Sequenz $0 \to \im(d^r_{r,k-r+1}) \hookrightarrow E^r_{0,k} \to E^{r+1}_{0,k}$.
 \end{proof}
 
+\begin{axiom}
+  Es sei $\SC$ eine Serre-Klasse.
+  \begin{enumerate}[label=(\Roman*)]
+    \setcounter{enumi}{2}
+    \item Es sei $G \in \SC$.
+    Dann ist $K(G, n)$ $\SC$-azyklisch für alle $n \geq 1$.
+  \end{enumerate}
+\end{axiom}
+
 % 1.10 im Hatcher
 \begin{lem}\label{homology-kgn-in-c}
-  $\FG$ und $\F$ erfüllen Axiom (III).
+  $\T_P$, $\F$ und $\FG$ erfüllen Axiom (III).
 \end{lem}
 
 \begin{proof}
-  Es sei zunächst $n=1$.
+  Es sei $\SC \in \Set{\T_P}{P \subseteq \Primes} \cup \{ \FG \}$ und $G \in \SC$ und $n \geq 1$.
+  Es ist zu zeigen, dass $K(G, n)$ für alle $n \geq 1$ $\SC$-azyklisch ist.
+  Wir führen dazu Induktion nach $n$ durch.
+  Sei zunächst $n = 1$.
   \begin{itemize}
-    \item Falls $G = \Z$, so stimmt die Aussage, denn der Kreis $S^1$ ist ein $K(\Z, 1)$ und $H_*(S^1; \Z) \in \FG$.
+    \item Falls $G = \Z$, so ist $\C = \FG$ und $K(\Z, n)$ ist $\FG$-azyklisch, denn der Kreis $S^1$ ist ein $K(\Z, 1)$ und $H_*(S^1; \Z) \in \FG$.
     \item Falls $G = \Z_m$, so kann man einen $K(\Z_m, 1)$ als unendlich-dimensionalen Linsenraum $L_m$ konstruieren.\footnote{Sei dazu $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre. Es wirke $\Z_m$ auf jedem Faktor $\C$ von $\C^\infty$ durch Rotation $(k, x) \mapsto x \cdot e^{\nicefrac{2 \pi i k}{m}}$. Dies induziert eine eigentlich diskontinuierliche Gruppenwirkung $\Z_m \to \Aut(S^\infty)$. Dann ist $L_m \coloneqq S^\infty / \Z_m$ ein $K(\Z_m, 1)$: Die Überlagerung $S^\infty \to S^\infty / \Z_m$ hat Decktransformationsgruppe~$\Z_m$ und ist universell, da $S^\infty$ zusammenziehbar ist (vgl. \cite[\mbox{}1B.3-1B.4]{hatcher:at}). Somit ist $\pi_1(L_m) \cong \Z_m$. Für die höheren Homotopiegruppen gilt $\pi_n(L_m) \cong \pi_n(S^\infty) = 0$.}
     Dieser besitzt Homologiegruppen $\tilde{H}_i(L_m) \cong \Z_m$ für $i > 0$ ungerade und $\tilde{H}_i(L_m) \cong 0$ sonst (vgl. \cite[\mbox{}2.43]{hatcher:at}).
+    Wenn $m = p^k$ für eine Primzahl~$p$ und $k \geq 1$, so ist damit $K(\Z_m, 1)$ $\T_{\{ p \}}$-azyklisch.
     \item Falls $G = G_1 \oplus G_2$, dann ist $K(G_1, 1) \times K(G_2, 1)$ ein $K(G, 1)$.
-    Wenn die Aussage für $G_1$ und $G_2$ stimmt, so folgt aus dem letzten Lemma, angewendet auf die Produktfaserung $K(G_1, 1) \to K(G_1, 1) \times K(G_2, 1) \to K(G_2, 1)$, dass sie auch für $G$ gilt.
+    Wenn $K(G_1, 1)$ und $K(G_2, 1)$ $\SC$-azyklisch sind, so folgt aus dem letzten Lemma, angewendet auf die Produktfaserung $K(G_1, 1) \to K(G_1, 1) \times K(G_2, 1) \to K(G_2, 1)$, dass auch $K(G, 1)$ $\SC$-azyklisch ist.
   \end{itemize}
-  Da man jede endlich erzeugte abelsche Gruppe als direkte Summe von endlich vielen Summanden der Form $\Z$ und $\Z_m$ schreiben kann, gilt die Aussage für $n=1$.
+  Die Aussage gilt für $n=1$, da man jede endlich erzeugte abelsche Gruppe als direkte Summe von endlich vielen Summanden der Form $\Z$ und $\Z_m$ (wobei $m$ eine Primzahlpotenz ist) schreiben kann.
 
-  Induktiv zeigen wir nun, dass die Aussage für beliebiges $n$ gilt.
-  Dazu verwenden wir die Pfadfaserung $K(G, n) \to P \to K(G, n{+}1)$.
-  Es gilt $H_k(P) = 0 \in \SC$ und $H_k(K(G, n)) \in \SC$ für $k \geq 1$ nach Induktionshypothese, also $H_k(K(G, n{+}1)) \in \SC$ für alle $k \geq 1$ nach dem vorhergehenden Lemma.
+  Für den Induktionsschritt verwenden wir die Pfadfaserung $K(G, n) \to P \to K(G, n{+}1)$.
+  Es gilt $H_k(P) = 0 \in \SC$ und $H_k(K(G, n)) \in \SC$ für $k \geq 1$ nach Induktionshypothese, also $\widetilde{H}_*(K(G, n{+}1)) \in \SC$ nach dem vorhergehenden Lemma.
 \end{proof}
+
+\section{Das Modulo-$\SC$-Hurewicz-Theorem}
+
+In diesem Abschnitt sei~$\SC$ eine Serre-Klasse, die Axiom (III) erfüllt.
+
+% Hatcher, 1.8
+\begin{satz}[Modulo-$\SC$-Hurewicz-Theorem]\label{hurewicz-mod-c}
+  Es sei $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
+  Angenommen, $\pi_i(X, x_0) \in \SC$ für $0 < i < n$.
+  Dann ist $h_i : \pi_i(X, x_0) \to H_i(X; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
+  Insbesondere gilt $H_i(X; \Z) \in \SC$ für $0 < i < n$.
+\end{satz}
+
+Mit $\SC \coloneqq \{ 0 \}$ ist die Aussage des Satzes gerade die des gewöhnlichen Hurewicz-Theorems.
+Durch Induktion kann man zeigen:
+
+% Hatcher, 1.7 (etwas allgemeiner)
+\begin{kor}\label{homotopy-in-c-iff-homology-in-c}
+  Es sei $(X, x_0)$ ein einfach zusammenhängender topologischer Raum.
+  Dann gilt für alle $N \in \N \cup \{ \infty \}$:
+  \[
+    \pushQED{\qed} 
+    \fa{0 \leq n < N} \pi_n(X, x_0) \in \SC
+    \quad \iff \quad
+    \fa{1 \leq n < N} H_n(X; \Z) \in \SC.
+    \qedhere
+    \popQED
+  \]
+\end{kor}
+
+Aus dem Korollar folgt, dass die Homotopiegruppen der Sphären alle endlich erzeugt sind, da die Homologiegruppen der Sphären endlich erzeugt sind.
 
 Für den Beweis des nächsten Lemmas benötigen wir einen weiteren Begriff.
 
@@ -1091,8 +1116,7 @@ Dadurch wird es möglich, induktiv über den Raum $X$ zu argumentieren oder sein
 Das wird im Beweis des nächsten Lemmas deutlich.
 
 \begin{lem}\label{homotopy-in-c-implies-homology-in-c}
-  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, und
-  $X$ einfach zusammenhängend mit $\pi_i(X, x_0) \in \SC$ für alle $i \geq 0$.
+  Es sei $X$ einfach zusammenhängend mit $\pi_i(X, x_0) \in \SC$ für alle $i \geq 0$.
   Dann ist $X$ $\SC$-azyklisch, \dh{} es gilt $H_i(X) \in \SC$ für $i \geq 1$.
 \end{lem}
 
@@ -1157,7 +1181,7 @@ Das wird im Beweis des nächsten Lemmas deutlich.
   \end{itemize}
   Aus Lemma \ref{homotopy-in-c-implies-homology-in-c} folgt, dass $E^n_{n+1,0}, E^\infty_{n,0} \in \SC$.
   Somit ist der mittlere Morphismus $H_n(F_n) = E^n_{0,n} \to H_n(X_n)$ ein Isomorphismus modulo~$\SC$.
-  Dieser Morphismus ist aber gerade der von der Inklusion $F_n \hookrightarrow X_n$ induzierte Morphismus in Homologie\footnote{Dies sieht man durch nähere Betrachtung des Beweises über die Existenz der Serre-Spektralsequenz zu einer Faserung $F \to X \to B$ in \cite{hatcher:ss}: Durch CW-Approximation kann man davon ausgehen, dass $B$ ein CW-Komplex ist. Die Filtrierung von $H_n(X)$ wird dort definiert durch $F^p H_n(X) \cong \im(H_n(p^{-1}(B^p) \hookrightarrow X)) \subseteq H_n(X)$, wobei~$B^p$ das $p$-Skelett von $B$ bezeichnet. Die Abbildung $H_n(F) \cong H_0(B; H_n(F)) \cong E^2_{0,n} \to E^\infty_{0,n} \cong F^0 H_n(X)$ wird durch die Inklusion von $F \approx p^{-1}(B^0)$ in $X$ induziert.}.
+  Dieser Morphismus ist aber gerade der von der Inklusion $F_n \hookrightarrow X_n$ induzierte Morphismus in Homologie\footnote{Dies sieht man durch nähere Betrachtung des Beweises über die Existenz der Serre-Spektralsequenz zu einer Faserung $F \to X \to B$ in \cite{hatcher:ss}: Durch CW-Approximation kann man davon ausgehen, dass $B$ ein CW-Komplex ist. Die Filtrierung von $H_n(X)$ wird dort definiert durch $F^p H_n(X) \cong \im(H_n(p^{-1}(B^p) \hookrightarrow X)) \subseteq H_n(X)$, wobei~$B^p$ das $p$-Skelett von $B$ bezeichnet. Die Abbildung $H_n(F) \cong H_0(B; H_n(F)) \cong E^2_{0,n} \to E^\infty_{0,n} \cong F^0 H_n(X)$ wird durch die Inklusion von $F \homeo p^{-1}(B^0)$ in $X$ induziert.}.
 
   Betrachte nun das kommutative Diagramm
   \begin{centertikzcd}
@@ -1173,8 +1197,8 @@ Das wird im Beweis des nächsten Lemmas deutlich.
   Somit ist auch der rechte Morphismus im Diagramm ein Isomorphismus modulo $\SC$.
 \end{proof}
 
-\begin{satz}[Relatives Mod-$\SC$-Hurewicz-Theorem]\label{relative-hurewicz-mod-c}
-  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
+\begin{satz}[Relatives Modulo-$\SC$-Hurewicz-Theorem]\label{relative-hurewicz-mod-c}
+  Es sei $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
   Angenommen, $\pi_i(X, A) \in \SC$ für $0 < i < n$.
   Dann ist $h_i : \pi_i(X, A) \to H_i(X, A; \Z)$ ein Isomorphismus modulo $\SC$ für $i \leq n$.
   Insbesondere gilt $H_i(X, A; \Z) \in \SC$ für $0 < i < n$.
@@ -1205,7 +1229,7 @@ Das wird im Beweis des nächsten Lemmas deutlich.
 Wir erhalten eine relative Version von Korollar~\ref{homotopy-in-c-iff-homology-in-c}:
 
 \begin{kor}\label{homotopy-in-c-iff-homology-in-c-relative}
-  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
+  Es sei $(X, A)$ ein $1$-zusammenhängendes Raumpaar, wobei $A$ nichtleer und einfach zusammenhängend ist.
   Dann gilt für alle $N \in \N \cup \{ \infty \}$:
   \[
     \pushQED{\qed} 
@@ -1218,7 +1242,7 @@ Wir erhalten eine relative Version von Korollar~\ref{homotopy-in-c-iff-homology-
 \end{kor}
 
 \begin{kor}\label{homotopy-homology-equivalence-mod-c}
-  Es sei $\SC$ eine Serre-Klasse, die (III) erfüllt, $f : A \to B$ stetig, $f_* : \pi_1(A) \to \pi_1(B)$ surjektiv und $A$ einfach zusammenhängend.
+  Es sei $f : A \to B$ stetig, $f_* : \pi_1(A) \to \pi_1(B)$ surjektiv und $A$ einfach zusammenhängend.
   Dann sind äquivalent:
   \begin{enumerate}[label=(\alph*)]
     \item $f_* : \pi_i(A) \to \pi_i(B)$ ist ein Isomorphismus modulo~$\SC$ für $1 \leq i < n$ und ein Epimorphismus modulo~$\SC$ für $i = n$.
@@ -1413,16 +1437,16 @@ Konkret haben wir für $X = K(\Z, n)$:
   \end{cutout}
 \end{proof}
 
-\section{Homologie der Stiefel-Mannigfaltigkeit $\V{2}{m}$}
+\section{Homologie der Stiefel-Mannigfaltigkeit $\V{2}{m+1}$}
 
 % Die Homologie dieser Stiefel-Mannigfaltigkeit wird auch in Hatcher, §3.D berechnet
-Die Stiefel-Mannigfaltigkeit $\V{2}{m}$ ist die aller orthonormalen $2$-Tupel $(u, v)$ im $\R^m$ mit dem euklidischen Skalarprodukt.
-Die Dimension dieser Mannigfaltigkeit ist $(m-1) + (m-2) = 2m - 3$.
-Man kann einen Punkt $(u, v)$ auf dieser Mannigfaltigkeit auch als Einheitstangentialvektor an die Sphäre~$S^{m-1}$ (mit der kanonischen Metrik) am Punkt~$u \in S^{m-1}$ ansehen, wenn man sich den Startpunkt von~$v$ an den Punkt~$u$ verschoben vorstellt.
-Die Abbildung $p : \V{2}{m} \to S^{m-1}, \enspace (u, v) \mapsto u$ ist die Projektionsabbildung eines \emph{Faser-Bündels}, d.\,h. sie erfüllt eine lokale Trivialitätsbedingung.
-Die Menge aller Einheitstangentialvektoren in einem Punkt~$u$ ist homöomorph zur $S^{m-2}$.
-Die Faser dieses Bündels ist daher eine $S^{m-2}$.
-Da jedes Faser-Bündel auch eine Serre-Faserung ist (vgl. \cite[\mbox{} Prop 4.48]{hatcher:at}), gibt es eine Faserung $S^{m-2} \to \V{2}{m} \xrightarrow{p} S^{m-1}$.
+Die Stiefel-Mannigfaltigkeit $\V{2}{m+1}$ besteht aus allen orthonormalen $2$-Tupeln~$(u, v)$ im~$\R^{m+1}$ mit dem euklidischen Skalarprodukt.
+Die Dimension dieser Mannigfaltigkeit ist $m + (m-1) = 2m - 1$.
+Man kann einen Punkt~$(u, v)$ auf dieser Mannigfaltigkeit auch als Einheitstangentialvektor an die Sphäre~$S^m$ (mit der kanonischen Metrik) am Punkt~$u \in S^m$ ansehen, wenn man sich den Startpunkt von~$v$ an den Punkt~$u$ verschoben vorstellt.
+Die Abbildung $p : \V{2}{m+1} \to S^m, \enspace (u, v) \mapsto u$ ist die Projektionsabbildung eines \emph{Faser-Bündels}, d.\,h. sie erfüllt eine lokale Trivialitätsbedingung.
+Die Menge aller Einheitstangentialvektoren in einem Punkt~$u$ ist homöomorph zur $S^{m-1}$.
+Die Faser dieses Bündels ist daher eine $S^{m-1}$.
+Da jedes Faser-Bündel auch eine Serre-Faserung ist (vgl. \cite[\mbox{} Prop 4.48]{hatcher:at}), gibt es eine Faserung $S^{m-1} \to \V{2}{m+1} \xrightarrow{p} S^m$.
 
 Wir wollen nun die Homologie von $\V{2}{m+1}$ berechnen.
 Dazu konstruieren wir eine CW-Struktur auf $\V{2}{m+1}$.
@@ -1439,35 +1463,51 @@ Wir verwenden vier Zellen:
   \item einer $(2m - 1)$-Zelle $e^{2m-1}$ für alle restlichen Einheitstangentialvektoren.
 \end{itemize}
 
-Wir fassen das $(m-1)$-Skelett $(\V{2}{m+1})^{m-1} \approx S^{m-1}$ als Raum der Einheitstangentialvektoren an~$p_S$ auf.
+Wir fassen das $(m-1)$-Skelett $(\V{2}{m+1})^{m-1} \homeo S^{m-1}$ als Raum der Einheitstangentialvektoren an~$p_S$ auf.
 Den Rand $\partial e^m$ können wir mit dem Raum der Einheitstangentialvektoren an~$p_N$ identifizieren.
 
-Die Anklebeabbildung $\phi : \partial e^m \to (\V{2}{m+1})^{m-1}$ schickt einen Vektor $v \in T_{p_N} S^m$ auf $P_{\gamma_v(0),\gamma_v(\pi)} u_N$, dem entlang dem Meridian $\gamma : [0, \pi] \to S^m$ mit $\dot{\gamma}(0) = v$ parallel verschobenen Vektor $u_N$.
+Die Anklebeabbildung $\varphi^m : \partial D^m \to (\V{2}{m+1})^{m-1}$ schickt einen Vektor $v \in T_{p_N} S^m$ auf $P_{\gamma_v(0),\gamma_v(\pi)} u_N$, dem entlang dem Meridian $\gamma_v : [0, \pi] \to S^m$ mit $\dot{\gamma_v}(0) = v$ parallel verschobenen Vektor~$u_N$.
 
-\TODO{letzte Anklebeabbildung}
+Wir konstruieren nun die Anklebeabbildung $\varphi^{2m-1} : \partial D^{2m-1} \to (\V{2}{m+1})^{2m-2}$.
+Dazu identifizieren wir $D^{2m-1} \homeo D^{m-1} \times D^m$.
+Dann ist $\partial D^{2m-1} \homeo (\partial D^{m-1} \times D^m) \cup (D^{m-1} \times \partial D^m)$.
+Wir bilden $(u, v) \in \partial D^{m-1} \times D^m$ auf $\Phi^m(v)$ ab, wobei $\Phi^m : D^m \to (\V{2}{m+1})^m$ die charakteristische Abbildung von~$e^m$ ist.
+Sei nun $(u, v) \in D^{m-1} \times \partial D^m$.
+Wir wählen einen festen Homöomorphismus $\rho : D^{m-1} / \partial D^{m-1} \to UT_{p_N} S^m$ mit $\rho([\partial D^{m-1}]) = u_N$.
+Außerdem identifizieren wir~$\partial D^m$ mit $UT_{p_N} S^m$.
+Wir setzen $\varphi^{2m-1}(u, v) \coloneqq P_{\gamma_v(0),\gamma_v(\pi)} \rho(u) \in T_{p_S} S^m \homeo (\V{2}{m+1})^{m-1}$, die Parallelverschiebung von $\rho(u)$ entlang dem Median $\gamma_v$ mit $\dot{\gamma}_v = v \in UT_{p_N} S^m$.
 
 Um die Homologie von $\V{2}{m+1}$ zu bestimmen, müssen wir den Abbildungsgrad von $\phi : \partial e^m \to (\V{2}{m+1})^{m-1}$ ausrechnen.
-Dieser Abbildungsgrad ist (bis auf evtl. ein Vorzeichen) gleich dem Abbildungsgrad der Abbildung
+Dieser Abbildungsgrad ist (bis auf evtl. ein Vorzeichen) gleich dem Grad der Abbildung
 \[
   g : UT_{p_N} \to UT_{p_N}, \quad
   v \mapsto P_{\gamma_{u_N}(0),\gamma_{u_N}(\pi)}^{-1} \circ P_{\gamma_v(0),\gamma_v(\pi)} u_N,
 \]
 welche $v$ abbildet auf den Vektor, den man erhält, wenn man $u_N$ entlang des $v$-Meridians an den Südpol verschiebt und dann entlang des $u_N$-Meridians wieder zurück an den Nordpol verschiebt.
 Einfache geometrische Überlegungen zeigen, dass diese Abbildung gegeben ist durch $g(v) = r_{u_N} \circ r_{v} u_N$, wobei $r_w : UT_{p_N} S^m \to UT_{p_N} S^m$ die Spiegelung an der zu $w \in UT_{p_N} S^m$ senkrechten Hyperebene ist.
-Sei $W \subset UT_{p_N} S^m$ die Menge aller auf $u_N$ senkrechten Einheitstangentialvektoren.
+Sei $W \subset UT_{p_N} S^m$ die Menge aller auf~$u_N$ senkrechten Einheitstangentialvektoren.
 Die Abbildung $g$ ist auf den beiden Komponente von $UT_{p_N} S^m \setminus W$ ein Homöomorphismus auf $UT_{p_N} S^m \setminus \{ -u_N \}$.
-Diese beiden Homöomorphismen gehen durch Komposition mit der Antipodenabbildung $w \mapsto -w$ auf $UT_{p_N} S^m \approx S^{m-1}$ auseinander hervor.
-Die Antipodenabbildung besitzt den Abbildungsgrad $(-1)^m$.
+Diese beiden Homöomorphismen gehen durch Komposition mit der Antipodenabbildung $(- \id)$ auf $UT_{p_N} S^m \homeo S^{m-1}$ auseinander hervor.
+Die Antipodenabbildung auf~$S^m$ besitzt den Abbildungsgrad $(-1)^m$.
+Dies impliziert
+\[
+  \pm \deg(g) = \deg \id + \deg (-\id) = 1 + (-1)^m = \begin{cases}
+    0 & \text{falls $m$ ungerade,} \\
+    2 & \text{falls $m$ gerade.}
+  \end{cases}
+\]
+Für $m \geq 2$ folgt aus zellulärer Homologie
+\[
+  H_i(\V{2}{m+1}) \cong \begin{cases}
+    \Z & \text{für } i = 0, 2m-1, \\
+    \Z & \text{für } i = m, m-1 \text{ falls $m$ ungerade,} \\
+    \Z_2 & \text{für } i = m-1 \text{ falls $m$ gerade,} \\
+    0 & \text{sonst.}
+  \end{cases}
+\]
 
-\TODO{weiter}
-
-
-\TODO{Zeigen oder zitieren: Es gilt $H_i(\V{2}{2k+1}) \cong \begin{cases}
-  \Z & \text{für } i = 0, 2k-1, \\
-  \Z_2 & \text{für } i = k-1, \\
-  0 & \text{sonst.}
-\end{cases}$.
-Es gibt eine stetige Abbildung $q : \V{2}{m} \to X^{2m-3} / X^{2m-4} \approx S^{2m-3}$, die in $H_{2m-3}$ einen Isomorphismus induziert.}
+Wir halten außerdem fest, dass für $m \geq 3$ die Abbildung $q : \V{2}{m+1} \to \V{2}{m+1} / (\V{2}{m+1})^{2m-2} \homeo S^{2m-1}$, welche das $(2m-2)$-Skelett auf einen Punkt zusammenzieht, einen Isomorphismus auf $H_n(\blank)$ induziert.
+Dies folgt aus dem Fünferlemma.
 
 \section{Beweis des Satzes von Serre}
 
@@ -1767,7 +1807,7 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie be
   Somit ist
   \begin{align*}
     H^{2p + n - 1}(K(\Z, n)) \otimes \Z_{(p)} & \cong H^{2p + n - 1}(K(\Z, n); \Z_{(p)}) \cong H^{2p + n - 1}(K(\Z, n); H^0(K(\Z, n-1); \Z_{(p)})) \\
-    & \cong E_2^{2p + n - 1, 0} \cong E_{2p + n - 1}^{2p + n - 1, 0} \cong \Z_p.
+    & \cong E_2^{2p + n - 1, 0} \cong E_{2p + n - 1}^{2p + n - 1, 0} \cong \Z_p. \qedhere
   \end{align*}
 \end{proof}
 
@@ -1784,8 +1824,8 @@ Mit dem universellen Koeffiziententheorem folgt:
 \end{satz}
 
 \begin{proof}
-  Es sei $\T_p \coloneqq \T_{\Primes \setminus \{ p \}}$ die Serre-Klasse der endlichen abelschen Gruppen, deren Ordnung nicht durch $p$ teilbar ist.
   Wir nehmen zunächst an, dass $p \neq 2$.
+  Es bezeichne $\T_p \coloneqq \T_{\Primes \setminus \{ p \}}$ die Serre-Klasse der endlichen abelschen Gruppen, deren Ordnung nicht durch $p$ teilbar ist.
 
   Es sei $n$ ungerade.
   Wir betrachten den Abbildungszylinder~$M_i$ der Abbildung $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$.
@@ -1868,7 +1908,8 @@ Mit dem universellen Koeffiziententheorem folgt:
 % * Irgendwo schreiben, dass der Grund für die triviale Wirkung in der ganzen Arbeit der ist, dass die Fundamentalgruppe schon verschwindet.
 % * Motivation für Studium der Homotopiegruppen der Sphären beschreiben
 % * Switzer/anderen zu Pontryagin-Thom zitieren
-% * Abschnitt über das Modulo-C-Hurewicz-Theorem aufteilen?
 % * Verwendung von Hurewicz- und Serre-Faserungen überprüfen
+% * Schon früher den Beginn des Faserbündels einführen (oder vllt. sogar gar nicht)
+% * $\subset$ ---> $\subseteq$ bei den Filtrierungen
 
 \end{document}
