@@ -149,7 +149,7 @@ Wir schreiben $\pi_0(X, x_0) = 0$, falls die einzige Wegzusammenhangskomponente 
 Falls ein Weg von $x_0$ nach $x'_0$ in $X$ existiert, so sind $\pi_n(X, x_0)$ und $\pi_n(X, x'_0)$ isomorph.
 Für nicht leere, wegzusammenhängende Räume $X$ kann man daher den Basispunkt in der Notation weglassen und von der Homotopiegruppe $\pi_n(X)$ von $X$ sprechen.
 
-\TODO{Motivation für Studium der Homotopiegruppen der Sphären}
+%\TODO{Motivation für Studium der Homotopiegruppen der Sphären}
 
 Für $i < n$ gilt $\pi_i(S^n) = 0$:
 Wir können die Sphären $S^i$ und $S^n$ als CW-Komplexe mit jeweils einer Nullzelle und einer $i$-Zelle bzw. $n$-Zelle realisieren.
@@ -218,7 +218,7 @@ So sind die stabilen Homotopiegruppen $\pi_n^s$ nur für $n \leq 64$ berechnet u
 Das Ziel dieser Arbeit ist es, folgenden Satz von Serre zu beweisen:
 
 % Hatcher, 1.21
-\begin{satz}[Serre, 1951]\label{serre}
+\begin{satz}[Serre, 1951]\label{serre-finiteness}
   Die Homotopiegruppen $\pi_i(S^n, *)$,~$i > n$, sind endlich bis auf die Gruppen $\pi_{4k-1}(S^{2k})$, $k \geq 1$, welche jeweils isomorph zu einer direkten Summe von $\Z$ und einer endlichen Gruppe sind.
 \end{satz}
 
@@ -698,7 +698,7 @@ Jede homologische Spektralsequenz $E$ liefert eine kohomologische Spektralsequen
 
 \begin{defn}
   Eine kohomologische Spektralsequenz $E$ \emph{konvergiert gegen} einen graduierten $A$-Modul $M = \oplus_{n \in \Z} M^n$ (notiert $E_r^{p,q} \Rightarrow M^{p+q}$), falls $E$ überhaupt konvergiert und reguläre Filtrierungen
-  \[ M^n \supseteq \ldots \supseteq F^{p-1} M^n \supseteq F^p M^n \supseteq F^{p+1} M^n \supseteq \ldots \supset 0 \]
+  \[ M^n \supseteq \ldots \supseteq F^{p-1} M^n \supseteq F^p M^n \supseteq F^{p+1} M^n \supseteq \ldots \supseteq 0 \]
   existieren, sodass $E_\infty^{p,q} \cong F^p M^{p+q} / F^{p+1} M^{p+q}$ für alle $p, q \in \Z$.
 \end{defn}
 
@@ -741,7 +741,7 @@ Solch eine multiplikative Struktur existiert auch auf der Serre-Spektralsequenz 
       a_{\sigma_{\angles{e_0, \ldots, e_p}}} \cup b_{\sigma_{\angles{e_p, \ldots, e_{p+s}}}}.
     \]
     \item Das Cup-Produkt auf $H^*(B; R)$ respektiert die Filtrierungen
-    \[ H^n \coloneqq H^n(B; R) \supset \ldots \supset F^{p-1} H^n \supset F^p H^n \supset F^{p+1} H^n \supset \ldots \supset 0 \]
+    \[ H^n \coloneqq H^n(B; R) \supseteq \ldots \supseteq F^{p-1} H^n \supseteq F^p H^n \supseteq F^{p+1} H^n \supseteq \ldots \supseteq 0 \]
     und schränkt daher ein zu Abbildungen $F^p H^m \times F^s H^n \to F^{p+s} H^{m+n}$.
     Die induzierte Abbildung auf dem Quotienten $F^p H^m/F^{p+1} H^m \times F^s H^n/F^{s+1} H^n \to F^{p+s} H^{m+n} / F^{p+s+1} H^{m+n}$ entspricht dem Grenzwert $m_\infty^{p,m-p,s,n-s} : E_\infty^{p,m-p} \times E_\infty^{s,n-s} \to E_\infty^{p+s,m+n-p-s}$ der Multiplikationen $m_r^{p,m-p,s,n-s}$.
     Dieser Grenzwert existiert aufgrund von (ii).
@@ -811,7 +811,7 @@ Wir setzen $\trunc{< n}{X} \coloneqq \trunc{\leq n+1}{X} \bigcup_{j=n}^\infty X_
 \end{proof}
 
 Der Raum $\trunc{< n}{X}$ hängt auch nicht (bis auf Homotopie) von den Wahlen der Erzeuger ab:
-Es seien dazu $Y, Y' \supset X$ zwei durch obiges Verfahren aus $X$ konstruierte Räume.
+Es seien dazu $Y, Y' \supseteq X$ zwei durch obiges Verfahren aus $X$ konstruierte Räume.
 Dann kann man die Inklusionsabbildung $i : X \hookrightarrow Y'$ fortsetzen zu einer Abbildung $f : Y \to Y'$, indem man induktiv $f$ auf das $j$-Skelett von $Y$, $j > n$ fortsetzt.
 Dies ist möglich, da für eine $j$-Zelle $e_\beta^j \subset Y$ die Einschränkung $f|_{\partial e_\beta^j}$ nullhomotop ist.
 Die Abbildung $f$ ist dann eine Homotopieäquivalenz nach dem Whitehead-Theorem (siehe \cite[Thm 4.5]{hatcher:at}), da sie Isomorphismen auf allen Homotopiegruppen induziert.
@@ -1031,7 +1031,12 @@ Damit das Vorhaben gelingt, muss die Klasse aller abelschen Gruppen, die diese E
   Sei zunächst $n = 1$.
   \begin{itemize}
     \item Falls $G = \Z$, so ist $\C = \FG$ und $K(\Z, n)$ ist $\FG$-azyklisch, denn der Kreis $S^1$ ist ein $K(\Z, 1)$ und $H_*(S^1; \Z) \in \FG$.
-    \item Falls $G = \Z_m$, so kann man einen $K(\Z_m, 1)$ als unendlich-dimensionalen Linsenraum $L_m$ konstruieren.\footnote{Sei dazu $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre. Es wirke $\Z_m$ auf jedem Faktor $\C$ von $\C^\infty$ durch Rotation $(k, x) \mapsto x \cdot e^{\nicefrac{2 \pi i k}{m}}$. Dies induziert eine eigentlich diskontinuierliche Gruppenwirkung $\Z_m \to \Aut(S^\infty)$. Dann ist $L_m \coloneqq S^\infty / \Z_m$ ein $K(\Z_m, 1)$: Die Überlagerung $S^\infty \to S^\infty / \Z_m$ hat Decktransformationsgruppe~$\Z_m$ und ist universell, da $S^\infty$ zusammenziehbar ist (vgl. \cite[\mbox{}1B.3-1B.4]{hatcher:at}). Somit ist $\pi_1(L_m) \cong \Z_m$. Für die höheren Homotopiegruppen gilt $\pi_n(L_m) \cong \pi_n(S^\infty) = 0$.}
+    \item Falls $G = \Z_m$, so kann man einen $K(\Z_m, 1)$ als unendlich-dimensionalen Linsenraum $L_m$ konstruieren.\footnote{
+      Sei dazu $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre.
+      Es wirke $\Z_m$ auf jedem Faktor $\C$ von $\C^\infty$ durch Rotation $(k, x) \mapsto x \cdot e^{\nicefrac{2 \pi i k}{m}}$. Dies induziert eine eigentlich diskontinuierliche Gruppenwirkung $\Z_m \to \Aut(S^\infty)$.
+      Dann ist $L_m \coloneqq S^\infty / \Z_m$ ein $K(\Z_m, 1)$: Die Überlagerung $S^\infty \to S^\infty / \Z_m$ hat Decktransformationsgruppe~$\Z_m$ und ist universell, da $S^\infty$ zusammenziehbar ist (vgl. \cite[\mbox{}1B.3-1B.4]{hatcher:at}). Somit ist $\pi_1(L_m) \cong \Z_m$.
+      Für die höheren Homotopiegruppen gilt $\pi_n(L_m) \cong \pi_n(S^\infty) = 0$.
+    }
     Dieser besitzt Homologiegruppen $\tilde{H}_i(L_m) \cong \Z_m$ für $i > 0$ ungerade und $\tilde{H}_i(L_m) \cong 0$ sonst (vgl. \cite[\mbox{}2.43]{hatcher:at}).
     Wenn $m = p^k$ für eine Primzahl~$p$ und $k \geq 1$, so ist damit $K(\Z_m, 1)$ $\T_{\{ p \}}$-azyklisch.
     \item Falls $G = G_1 \oplus G_2$, dann ist $K(G_1, 1) \times K(G_2, 1)$ ein $K(G, 1)$.
@@ -1181,7 +1186,12 @@ Das wird im Beweis des nächsten Lemmas deutlich.
   \end{itemize}
   Aus Lemma \ref{homotopy-in-c-implies-homology-in-c} folgt, dass $E^n_{n+1,0}, E^\infty_{n,0} \in \SC$.
   Somit ist der mittlere Morphismus $H_n(F_n) = E^n_{0,n} \to H_n(X_n)$ ein Isomorphismus modulo~$\SC$.
-  Dieser Morphismus ist aber gerade der von der Inklusion $F_n \hookrightarrow X_n$ induzierte Morphismus in Homologie\footnote{Dies sieht man durch nähere Betrachtung des Beweises über die Existenz der Serre-Spektralsequenz zu einer Faserung $F \to X \to B$ in \cite{hatcher:ss}: Durch CW-Approximation kann man davon ausgehen, dass $B$ ein CW-Komplex ist. Die Filtrierung von $H_n(X)$ wird dort definiert durch $F^p H_n(X) \cong \im(H_n(p^{-1}(B^p) \hookrightarrow X)) \subseteq H_n(X)$, wobei~$B^p$ das $p$-Skelett von $B$ bezeichnet. Die Abbildung $H_n(F) \cong H_0(B; H_n(F)) \cong E^2_{0,n} \to E^\infty_{0,n} \cong F^0 H_n(X)$ wird durch die Inklusion von $F \homeo p^{-1}(B^0)$ in $X$ induziert.}.
+  Dieser Morphismus ist aber gerade der von der Inklusion $F_n \hookrightarrow X_n$ induzierte Morphismus in Homologie.\footnote{
+    Dies sieht man durch nähere Betrachtung des Beweises über die Existenz der Serre-Spektralsequenz zu einer Faserung $F \to X \to B$ in \cite{hatcher:ss}:
+    Durch CW-Approximation kann man davon ausgehen, dass $B$ ein CW-Komplex ist.
+    Die Filtrierung von $H_n(X)$ wird dort definiert durch $F^p H_n(X) \cong \im(H_n(p^{-1}(B^p) \hookrightarrow X)) \subseteq H_n(X)$, wobei~$B^p$ das $p$-Skelett von $B$ bezeichnet.
+    Die Abbildung $H_n(F) \cong H_0(B; H_n(F)) \cong E^2_{0,n} \to E^\infty_{0,n} \cong F^0 H_n(X)$ wird durch die Inklusion von $F \homeo p^{-1}(B^0)$ in $X$ induziert.
+  }
 
   Betrachte nun das kommutative Diagramm
   \begin{centertikzcd}
@@ -1204,7 +1214,8 @@ Das wird im Beweis des nächsten Lemmas deutlich.
   Insbesondere gilt $H_i(X, A; \Z) \in \SC$ für $0 < i < n$.
 \end{satz}
 
-% nach Vorlage des Beweises des relativen gewöhnlichen Hurewicz-Theorems aus dem absoluten gewöhnlichen Hurewicz-Theorem, siehe hatcher:at, Seite 367
+Zum Beweis der Aussage führen wir den relativen Fall auf den absoluten wie im Beweis von \cite[Thm 4.32]{hatcher:at} zurück.
+
 \begin{proof}
   Durch CW-Approximation erhält man ein CW-Paar $(X', A')$ und eine Abbildung $f : (X', A') \to (X, A)$, welche Isomorphismen in relativen und absoluten Homotopiegruppen induziert (vgl. \cite[\mbox{} Ex 4.14]{hatcher:at}).
   Insbesondere ist auch $A'$ einfach zusammenhängend.
@@ -1271,6 +1282,7 @@ Wir erhalten eine relative Version von Korollar~\ref{homotopy-in-c-iff-homology-
 \end{bem}
 
 \section{Rationale Kohomologie von Räumen vom Typ $K(\Z, n)$}
+\label{sec:rational-cohomology}
 
 Wir wollen zeigen, dass die Homotopiegruppen von gewissen Räumen $X$ alle endlich sind.
 Nach Korollar \ref{homotopy-in-c-iff-homology-in-c} können wir dazu zeigen, dass die Homologiegruppen in positiven Graden endlich sind.
@@ -1283,8 +1295,7 @@ Das ist der Grund, warum wir uns für Homologie- und Kohomologiegruppen mit Koef
 Der Vorteil gegenüber Homologie- und Kohomologiegruppen mit Koeffizienten in $\Z$ besteht darin, dass diese Gruppen leichter zu bestimmen sind.
 Konkret haben wir für $X = K(\Z, n)$:
 
-% Hatcher, 1.20
-\begin{satz}\label{rational-homology-kzn}
+\begin{satz}[{\cite[Lem 1.20]{hatcher:ss}}]\label{rational-homology-kzn}
   Für $n \geq 1$ gilt
   \vspace{-1em}
   \[
@@ -1511,7 +1522,9 @@ Dies folgt aus dem Fünferlemma.
 
 \section{Beweis des Satzes von Serre}
 
-\begin{proof}[Beweis des Satzes von Serre]
+Der folgende Beweis orientiert sich an Theorem 10.10 und Übungsaufgabe 165 von \cite{davis-kirk:at}.
+
+\begin{proof}[Beweis von Satz~\ref{serre-finiteness}]
   Ist $n$ ungerade, so ist die Abbildung $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$ nach Satz~\ref{rational-homology-kzn} eine Homologieäquivalenz modulo~$\F$.
   Aus Korollar~\ref{homotopy-homology-equivalence-mod-c} folgt, dass~$i$ auch auf allen Homotopiegruppen Isomorphismen modulo~$\F$ induziert.
   Somit sind alle Homotopiegruppen von~$S^n$ im Grad $> n$ endlich.
@@ -1539,12 +1552,14 @@ Dies folgt aus dem Fünferlemma.
 
 \section{Die erste Homotopiegruppe von $S^n$ mit $p$-Torsion}
 
-% TODO: kurze Einleitung
-
 Es sei $G$ eine abelsche Gruppe, $p \in \N$ eine Primzahl.
-Die \emph{$p$-primäre Torsionskomponente} von $G$ ist die Menge aller $g \in G$, deren Ordnung eine $p$-Potenz ist.
-Sei $\Z_{(p)}$ die Lokalisierung von $\Z$ nach dem Primideal $(p)$ oder äquivalent der Unterring von $\Q$ bestehend aus den Brüchen, deren Nenner nicht durch $p$ teilbar ist.
-Wir können die $p$-Torsionsgruppe einer endlich erzeugten abelschen Gruppe $G$ an $G \otimes \Z_{(p)}$ ablesen, denn es gilt:
+Die \emph{$p$-primäre Torsionskomponente} (oder \emph{$p$-Torsionsuntergruppe}) von $G$ ist die Menge aller $g \in G$, deren Ordnung eine $p$-Potenz ist.
+Wir wollen nun die erste Homologiegruppe der Sphäre $S^n$ bestimmen, die eine nichttriviale $p$-Torsionsuntergruppe besitzt.
+Wie beim Beweis des Endlichkeitssatzes von Serre werden wir dazu zunächst die Homologiegruppen von~$K(\Z, n)$s untersuchen.
+Dazu ist es ähnlich wie in Abschnitt~\ref{sec:rational-cohomology} hilfreich, Homologie mit speziellen Koeffizienten zu verwenden, um bestimmte Torsionsgruppen auszublenden.
+
+Sei dazu $\Z_{(p)}$ die Lokalisierung von $\Z$ nach dem Primideal $(p)$ oder äquivalent der Unterring von $\Q$ bestehend aus den Brüchen, deren Nenner nicht durch $p$ teilbar ist.
+Wir können die $p$-Torsionsgruppe einer endlich erzeugten abelschen Gruppe~$G$ an $G \otimes \Z_{(p)}$ ablesen, denn es gilt:
 \begin{itemize}
   \item $\Z \otimes \Z_{(p)} \cong \Z_{(p)}$,
   \item $\Z_{p^n} \otimes \Z_{(p)} \cong \Z_{p^n}$ und
@@ -1559,8 +1574,7 @@ $H^i(X; \Z) \otimes \Z_{(p)} \cong H^i(X; \Z_{(p)})$
 nach \cite[\mbox{} Thm 5.5.10]{spanier:at}.
 Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie bestimmen, indem wir die Homologie- und Kohomologiegruppen mit Koeffizienten mit $\Z_{(p)}$ berechnen.
 
-% 1.29 in Hatcher SS1
-\begin{lem}\label{mod-p-cohomology-kzn}
+\begin{lem}[{\cite[Lem 1.29]{hatcher:ss}}]\label{mod-p-cohomology-kzn}
   Es sei $n \geq 3$ und $p$ prim.
   Dann ist die p-Torsionsuntergruppe von $H^i(K(\Z, n); \Z)$ null für $i < n + 2p - 1$ und isomorph zu $\Z_p$ für $i = n + 2p - 1$.
 \end{lem}
@@ -1570,7 +1584,10 @@ Wir können somit die $p$-Torsion in (ganzzahliger) Homologie und Kohomologie be
   Wir verwenden wieder die Pfadfaserung $K(\Z, n-1) \to P \to K(\Z, n)$ und die dazugehörige Serre-Spektralsequenz, diesmal mit Koeffizienten in $\Z_{(p)}$.
   
   \emph{Falls $n = 3$:} \enspace
-  Wir können die Faser, einen $K(\Z, 2)$-Raum, als unendlich-dimensionalen komplexen projektiven Raum~$\C P^\infty$ realisieren.\footnote{Sei $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre mit der Äquivalenzrelation $a \sim b :\!\iff \exists \, \lambda \in S^1 \subset \C \,:\, a = \lambda \cdot b$. Setze $\C P^\infty \coloneqq S^\infty / {\sim}$. Anhand der langen exakten Sequenz zur Faserung $S^1 \to S^\infty \to \C P^\infty$ erkennt man, dass $\C P^\infty$ ein $K(\Z, 2)$ ist.}
+  Wir können die Faser, einen $K(\Z, 2)$-Raum, als unendlich-dimensionalen komplexen projektiven Raum~$\C P^\infty$ realisieren.\footnote{
+    Sei $S^\infty \subset \C^\infty$ die unendlich-dimensionale Sphäre mit der Äquivalenzrelation $a \sim b :\!\iff \exists \, \lambda \in S^1 \subset \C \,:\, a = \lambda \cdot b$. Setze $\C P^\infty \coloneqq S^\infty / {\sim}$.
+    Anhand der langen exakten Sequenz zur Faserung $S^1 \to S^\infty \to \C P^\infty$ erkennt man, dass $\C P^\infty$ ein $K(\Z, 2)$ ist.
+  }
   Dieser besitzt eine CW-Struktur bestehend aus je einer Zelle in geraden Dimensionen und keiner Zelle in ungeraden Dimensionen (siehe \cite[\mbox{} Bsp 0.6]{hatcher:at}).
   Daher ist $H^{2i}(\C P^\infty) \cong \Z$ und $H^{2i+1}(\C P^\infty) = 0$.
   Genauer gilt $H^*(\C P^\infty; \Z) \cong \Z[a]$ mit Erzeuger $a \in H^2(\C P^\infty; \Z)$ \cite[\mbox{} Thm 3.12]{hatcher:at}.
@@ -1866,8 +1883,10 @@ Mit dem universellen Koeffiziententheorem folgt:
     \ldots
   \]
   folgt, dass $\pi_i(S^n)$ für $i < n + 2p - 3$ keine $p$-Torsion besitzt.
-  Aus dieser Sequenz folgt außerdem, dass die $p$-Torsionsuntergruppe von $\pi_i(S^n)$ für $i = n + 2p - 3$ isomorph ist zu $\Z_p$, sofern $n + 2p - 3 \neq 2n - 1$ gilt\footnote{Im Fall $i = n + 2p - 3 = 2n - 1$ könnte nämlich die exakte Sequenz $\pi_i(\V{2}{n+1}) \to \pi_i(S^n) \to \pi_{i-1}(S^{n-1})$ isomorph zu $\Z \xrightarrow{\cdot p} \Z \to \Z_p$ sein, die $p$-Torsionkomponente von $\pi_i(S^n)$ könnte also auch null sein.}.
-  
+  Aus dieser Sequenz folgt außerdem, dass die $p$-Torsionsuntergruppe von $\pi_i(S^n)$ für $i = n + 2p - 3$ isomorph ist zu $\Z_p$, sofern $n + 2p - 3 \neq 2n - 1$ gilt.\footnote{
+    Im Fall $i = n + 2p - 3 = 2n - 1$ könnte nämlich die exakte Sequenz $\pi_i(\V{2}{n+1}) \to \pi_i(S^n) \to \pi_{i-1}(S^{n-1})$ isomorph zu $\Z \xrightarrow{\cdot p} \Z \to \Z_p$ sein, die $p$-Torsionkomponente von $\pi_i(S^n)$ könnte also auch null sein.
+  }
+
   Für $i = n + 2p - 3 = 2n - 1$ (und allgemeiner $i = n + 2p - 3 < 2n$) geben wir daher ein alternatives Argument an:
   Es sei~$M_i$ der Abbildungzylinder von $i : S^n \to \tau_{\leq n} S^n = K(\Z, n)$.
   Die lange exakte Homologiesequenz des Paars $(M_i, S^n)$ impliziert, dass $H_j(M_i, S^n) \cong H_j(K(\Z, n))$ für $j \neq n$ und dass $H_n(M_i, S^n) = 0$.
@@ -1901,8 +1920,6 @@ Mit dem universellen Koeffiziententheorem folgt:
 \end{landscape}
 
 % TODO:
-% * James F. Davis, Paul Kirk zitieren
-% * Bemerkung über Serresche Quotientenkategorien
 % * Relativen Hurewicz-Homomorphismus definieren
 % * Beweise umformulieren: "man" vermeiden
 % * Irgendwo schreiben, dass der Grund für die triviale Wirkung in der ganzen Arbeit der ist, dass die Fundamentalgruppe schon verschwindet.
@@ -1910,6 +1927,6 @@ Mit dem universellen Koeffiziententheorem folgt:
 % * Switzer/anderen zu Pontryagin-Thom zitieren
 % * Verwendung von Hurewicz- und Serre-Faserungen überprüfen
 % * Schon früher den Beginn des Faserbündels einführen (oder vllt. sogar gar nicht)
-% * $\subset$ ---> $\subseteq$ bei den Filtrierungen
+% * Schreiben, was jetzt genau ich gemacht habe
 
 \end{document}
