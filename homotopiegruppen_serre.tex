@@ -121,9 +121,17 @@
 \input{titelseite.tex}
 
 \tableofcontents
-\newpage
 
-%\section{Einleitung}
+\vspace{12cm}
+
+{
+  \footnotesize
+  Dies ist die Version vom \today{}.
+  Sie enthält Verbesserungen von kleinen Fehlern gegenüber der abgegebenen Version.
+  Der volle Quelltext sowie die Versionshistorie dieser Arbeit sind online einsehbar auf \url{https://github.com/timjb/bachelorarbeit}.
+}
+
+\newpage
 
 \section{Homotopiegruppen der Sphären}
 
@@ -1923,7 +1931,7 @@ Mit dem universellen Koeffiziententheorem folgt:
     \enspace\to\enspace
     \pi_i(S^n)
     \enspace\to\enspace
-    \underbrace{\pi_i(M_i)}_{\mathclap{\cong \pi_j(K(\Z, n))}}
+    \underbrace{\pi_i(M_i)}_{\mathclap{\cong \pi_i(K(\Z, n))}}
     \enspace\to\enspace
     \pi_i(M_i, S^n)
     \enspace\to\enspace
